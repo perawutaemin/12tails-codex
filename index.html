@@ -1980,6 +1980,11 @@ button.gw-opt:hover{border-color:var(--gold);transform:translateY(-2px)}
 .rd3 .rd2-tree .sk-rom{font-size:11px}
 .rd3 .rd2-tree .sk[data-ksn]::after{width:20px;height:20px;font-size:11.5px}
 .rd3 .pin-like,.rd3 .rd2-acts .mk-btn,.rd3 .pin-fav.big{font-size:14.5px;padding:9px 16px}
+/* ---------- board refresh ---------- */
+.brd-refresh{display:inline-flex;align-items:center;gap:7px;height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:var(--panel);color:var(--text);font:600 13.5px var(--font);cursor:pointer;transition:border-color .2s,color .2s}
+.brd-refresh:hover{border-color:var(--gold);color:var(--gold-hi)}
+.brd-refresh.spin svg{animation:brdSpin .8s linear infinite}@keyframes brdSpin{to{transform:rotate(360deg)}}
+@media (max-width:760px){.brd-refresh span{display:none}.brd-refresh{padding:0 12px}}
 </style>
 
 <section class="landing" id="landing" aria-label="หน้าแรก">
@@ -3482,7 +3487,7 @@ const BRD={list:null,loading:false,err:"",tail:"all",tag:"all",sort:"new",q:"",l
 const brdLS=(k,d)=>{try{return JSON.parse(localStorage.getItem(k)||"null")??d}catch(_){return d}};
 const brdLiked=()=>new Set(brdLS("ttc-liked",[]));
 const brdAdmin=()=>{try{return localStorage.getItem("ttc-admin")||""}catch(_){return ""}};
-async function brdLoad(){BRD.loading=true;BRD.err="";try{const r=await fetch(API+"/builds",{cache:"no-store"});BRD.list=await r.json()}catch(_){BRD.err="โหลดกระดานไม่สำเร็จ ลองรีเฟรชหน้า";BRD.list=null}BRD.loading=false;brdRedraw(true);renderSide();if(pendingPost){const id=pendingPost;pendingPost=null;setTimeout(()=>brdRead(id),200)}}
+async function brdLoad(){BRD.loading=true;BRD.err="";document.querySelectorAll("[data-brdrefresh]").forEach(b=>b.classList.add("spin"));try{const r=await fetch(API+"/builds",{cache:"no-store"});BRD.list=await r.json()}catch(_){BRD.err="โหลดกระดานไม่สำเร็จ ลองรีเฟรชหน้า";BRD.list=null}BRD.loading=false;brdRedraw(true);renderSide();if(pendingPost){const id=pendingPost;pendingPost=null;setTimeout(()=>brdRead(id),200)}}
 function ago(ms){const m=Math.max(1,Math.round((Date.now()-ms)/60000));return m<60?`${m} นาทีที่แล้ว`:m<1440?`${Math.round(m/60)} ชม.ที่แล้ว`:m<43200?`${Math.round(m/1440)} วันที่แล้ว`:new Date(ms).toLocaleDateString("th-TH",{day:"numeric",month:"short",year:"2-digit"})}
 function brdTot(p){const e=Object.fromEntries(STATS.map(k=>[k,0]));(p.e||[]).forEach(n=>{const s=I(n).st||{};STATS.forEach(k=>e[k]+=stNum(s[k]))});return Object.fromEntries(STATS.map((k,i)=>[k,(p.s?.[i]|0)+(p.b?(p.b[i]|0):0)+e[k]]))}
 function brdList(){const L=(BRD.list||[]).filter(x=>D.tails[x.build.t]),q=BRD.q.trim().toLowerCase(),now=Date.now();
@@ -3507,7 +3512,7 @@ function brdView(){
     <div class="brd-row2"><div class="brd-tags">${["all",...BTAGS,"fav"].map(g=>`<button type="button" class="${BRD.tag===g?"on":""}${g==="fav"?" fav":""}" data-brdtag="${g}">${g==="all"?"ทุกแท็ก":g==="fav"?`<svg width="16" height="16" viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.8 6.4.9-4.6 4.5 1.1 6.3L12 17.3l-5.7 3 1.1-6.3-4.6-4.5 6.4-.9z"/></svg> Fav <i>${(BRD.list||[]).filter(x=>brdFav().has(x.id)).length}</i>`:esc(g)}</button>`).join("")}</div>
       <select class="sel" data-brdsort aria-label="เรียงลำดับ"><option value="new"${BRD.sort==="new"?" selected":""}>ใหม่ล่าสุด</option><option value="top"${BRD.sort==="top"?" selected":""}>♥ มากที่สุด</option></select>
       <label class="search brd-q"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input type="search" id="brdq" placeholder="ค้นหาชื่อ Build คนโพสต์ หรืออุปกรณ์…" value="${esc(BRD.q)}" autocomplete="off"></label>
-      <button type="button" class="mk-btn pin" data-brdnew>สร้าง Build</button></div></div>`;
+      <button type="button" class="brd-refresh${BRD.loading?" spin":""}" data-brdrefresh title="รีเฟรชกระดาน" aria-label="รีเฟรชกระดาน"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/></svg><span>รีเฟรช</span></button><button type="button" class="mk-btn pin" data-brdnew>สร้าง Build</button></div></div>`;
   if(BRD.loading&&!BRD.list)return bar+`<div class="brd-board"><div class="brd-empty">กำลังโหลดกระดาน…</div></div>`;
   if(BRD.err)return bar+`<div class="brd-board"><div class="brd-empty">${BRD.err}</div></div>`;
   const L=brdList(),shown=L.slice(0,BRD.lim);
@@ -3544,6 +3549,7 @@ document.addEventListener("click",async e=>{
   const fv=e.target.closest("[data-brdfav]");if(fv){e.stopPropagation();const id=fv.dataset.brdfav,s=brdFav(),on=!s.has(id);on?s.add(id):s.delete(id);try{localStorage.setItem("ttc-fav",JSON.stringify([...s]))}catch(_){}
     document.querySelectorAll(`[data-brdfav="${id}"]`).forEach(b=>{b.classList.toggle("on",on);b.setAttribute("aria-pressed",on);b.title=on?"เอาออกจาก Fav":"ติดดาว Fav";const sp=b.querySelector("span");if(sp)sp.textContent=on?"Fav แล้ว":"Fav"});
     toast(on?"ติดดาว Fav แล้ว · ดูได้ที่ตัวกรอง Fav":"เอาออกจาก Fav แล้ว");if(BRD.tag==="fav"||document.querySelector(".brd-tags .fav"))brdRedraw();return}
+  const rf=e.target.closest("[data-brdrefresh]");if(rf){if(BRD.loading)return;const n0=(BRD.list||[]).length;await brdLoad();if(!BRD.err){const d=(BRD.list||[]).length-n0;toast(d>0?`มี Build ใหม่ ${d} โพสต์`:"กระดานเป็นปัจจุบันแล้ว")}else toast(BRD.err);return}
   const tg=e.target.closest("[data-brdtag]");if(tg){BRD.tag=tg.dataset.brdtag;BRD.lim=24;brdRedraw();return}
   if(e.target.closest("[data-brdnew]")){gwChooser(BRD.tail!=="all"?BRD.tail:null);return}
   const op=e.target.closest("[data-brdopen]");if(op){const x=(BRD.list||[]).find(y=>y.id===op.dataset.brdopen);if(!x)return;if(gwFromPack(JSON.parse(JSON.stringify(x.build)),x)){GW.step=1;gwSave();gwOpen();toast("คัดลอกไกด์มาเป็นร่างของคุณแล้ว · แก้แล้วโพสต์เป็นไกด์ใหม่ได้")}return}
