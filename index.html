@@ -1950,6 +1950,36 @@ button.gw-opt:hover{border-color:var(--gold);transform:translateY(-2px)}
 .brd-tags .fav{display:inline-flex;align-items:center;gap:6px}.brd-tags .fav svg{width:14px;height:14px;fill:#5bb8ff}
 .brd-tags .fav i{font-style:normal;font:600 11px var(--mono);opacity:.75}
 .brd-tags .fav.on{background:linear-gradient(135deg,#5bb8ff,#2b7fe0)!important;border-color:#2b7fe0!important;color:#fff!important}.brd-tags .fav.on svg{fill:#fff}
+/* ---------- reader: bigger ---------- */
+.rd3-main{grid-template-columns:320px minmax(0,1fr) 380px!important}
+@media (max-width:1500px){.rd3-main{grid-template-columns:280px minmax(0,1fr) 320px!important}}
+.rd3-h{padding:18px 22px}
+.rd3-cov{width:108px;height:108px}
+.rd3-tt h2{font-size:clamp(24px,2.4vw,34px)}
+.rd3 .rd2-k{font-size:13px}.rd3 .rd2-meta{font-size:14.5px}
+.rd3-gs{gap:8px 18px;padding:12px 16px}.rd3 .rd2-g{grid-template-columns:46px 1fr auto}.rd3 .rd2-g b{font-size:15px}.rd3 .rd2-g em{font-size:15px}.rd3 .rd2-gb{height:10px}
+.rd3-main>section{padding:18px 18px}
+.rd3-main h3{font-size:17px;margin-bottom:12px}.rd3-main h3 small{font-size:13px}
+.rd3 .rd2-tabs button{padding:6px 14px;font-size:14px}
+.rd3 .rd2-gear{gap:10px}
+.rd3 .rd2-slot{grid-template-columns:68px 1fr!important;padding:12px 14px;column-gap:14px;border-radius:16px}
+.rd3 .rd2-si{width:68px!important;height:68px!important;border-radius:14px}
+.rd3 .rd2-si>.ic{width:62px!important;height:62px!important}
+.rd3 .rd2-sl{font-size:12.5px}
+.rd3 .rd2-st b{font-size:16px;white-space:normal;line-height:1.3}
+.rd3 .rd2-st small{font-size:12.5px;white-space:normal}
+.rd3 .rd2-sock{font-size:12px;padding:3px 10px}
+.rd3 .rd2-tl{gap:12px}
+.rd3 .rd2-tl li{grid-template-columns:52px 1fr;padding:12px 14px 12px 16px;gap:14px}
+.rd3 .rd2-tl .ks-ic{width:52px;height:52px}
+.rd3 .rd2-tl b{font-size:15.5px}.rd3 .rd2-tl p{font-size:14px;line-height:1.6}
+.rd3 .rd2-n{width:24px;height:24px;font-size:12.5px}
+.rd3 .rd2-lead{font-size:15.5px;line-height:1.8}
+.rd3 .rd2-ch{padding:14px 16px}.rd3 .rd2-ch h5{font-size:15px}.rd3 .rd2-ch p{font-size:14.5px;line-height:1.75}.rd3 .rd2-chn{font-size:24px}
+.rd3 .rd2-tree .skp-h{font-size:14.5px}
+.rd3 .rd2-tree .sk-rom{font-size:11px}
+.rd3 .rd2-tree .sk[data-ksn]::after{width:20px;height:20px;font-size:11.5px}
+.rd3 .pin-like,.rd3 .rd2-acts .mk-btn,.rd3 .pin-fav.big{font-size:14.5px;padding:9px 16px}
 </style>
 
 <section class="landing" id="landing" aria-label="หน้าแรก">
@@ -3381,11 +3411,11 @@ function ov_cov(){document.querySelectorAll("[data-gwic]").forEach(b=>b.classLis
 function gwNeed(){return !GW.n.trim()&&!GW.tags.length?"ตั้งชื่อ + เลือก PVE/PVP":!GW.n.trim()?"ตั้งชื่อไกด์ก่อน":"เลือก PVE หรือ PVP"}
 function gwNextSync(){const n=$("#gwNext");if(!n||GW.step!==1)return;const blk=!GW.n.trim()||!GW.tags.length;n.disabled=blk;n.querySelector("small").textContent=blk?gwNeed():"ถัดไป"}
 function gwGo(s){if(s<0||s>5||(!GW.t&&s>0))return;if(s>1&&GW.step<=1&&(!GW.n.trim()||!GW.tags.length)){GW.step=1;gwRender();toast(gwNeed());return}GW.step=s;GW.pick=null;gwRender();gwSave()}
-function gwChooser(tail){const d=gwDraft();let ov=$("#gwChoose");if(!ov){ov=document.createElement("div");ov.id="gwChoose";ov.className="lvpop";document.body.appendChild(ov);ov.addEventListener("click",e=>{if(e.target===ov||e.target.closest("[data-gwcclose]"))ov.classList.remove("show")})}
-  ov.innerHTML=`<div class="lvpop-card gw-ch"><div class="lvpop-h"><span class="lvt-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></span><span class="lvt-h"><b>สร้าง Build</b><small>เขียนไกด์ใหม่ หรือนำเข้าไกด์ที่มีอยู่</small></span><button type="button" class="icon-btn" data-gwcclose aria-label="ปิด">${gwX}</button></div>
+function gwChooser(tail){const d=gwDraft();if(!d){gwNew(tail||null);gwSave();gwOpen();return}let ov=$("#gwChoose");if(!ov){ov=document.createElement("div");ov.id="gwChoose";ov.className="lvpop";document.body.appendChild(ov);ov.addEventListener("click",e=>{if(e.target===ov||e.target.closest("[data-gwcclose]"))ov.classList.remove("show")})}
+  ov.innerHTML=`<div class="lvpop-card gw-ch"><div class="lvpop-h"><span class="lvt-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></span><span class="lvt-h"><b>สร้าง Build</b><small>เขียนไกด์ใหม่ หรือเขียนร่างที่ค้างไว้ต่อ</small></span><button type="button" class="icon-btn" data-gwcclose aria-label="ปิด">${gwX}</button></div>
     <div class="gw-opts"><button type="button" class="gw-opt" data-gwstart="${tail||""}"><span class="gw-oi">+</span><b>สร้างไกด์ใหม่</b><small>${tail?`เริ่มเขียนไกด์ ${esc(tail)} · 5 ขั้น ใช้เวลาไม่กี่นาที`:"เลือกหาง แล้วเขียนทีละขั้น · 5 ขั้น ใช้เวลาไม่กี่นาที"}</small></button>
       ${d?`<button type="button" class="gw-opt" data-gwcont><span class="gw-oi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></span><b>เขียนต่อ</b><small>ร่างที่ค้างไว้: ${esc(d.n||d.t||"ไม่มีชื่อ")}${d.t?` · ${esc(d.t)}`:""}</small></button>`:""}
-      <div class="gw-opt imp"><span class="gw-oi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg></span><b>นำเข้าไกด์</b><small>วางลิงก์ไกด์ (#build= หรือ #post=) หรือโค้ดไกด์</small><textarea id="gwImp" rows="2" placeholder="วางลิงก์หรือโค้ดที่นี่"></textarea><button type="button" class="mk-btn gold" data-gwimp>นำเข้า</button></div></div></div>`;
+</div></div></div>`;
   void ov.offsetWidth;ov.classList.add("show")}
 async function gwImport(txt){txt=String(txt||"").trim();let m=txt.match(/#post=([\w-]+)/)||(/^[\w-]{6,12}$/.test(txt)&&!/=/.test(txt)?[0,txt]:null);
   if(m){if(!BRD.list)await brdLoad();const x=(BRD.list||[]).find(y=>y.id===m[1]);if(!x){toast("ไม่พบไกด์นี้บนกระดาน");return false}return gwFromPack(JSON.parse(JSON.stringify(x.build)),x)}
@@ -3525,8 +3555,8 @@ function rdGauges(p){const st=p.g&&p.g.st;if(st&&Object.keys(st).length){const n
   const tot=brdTot(p),top=STATS.map(k=>[k,tot[k]]).filter(([,n])=>n>0).sort((a,b)=>b[1]-a[1]).slice(0,4),mx=top.length?top[0][1]:1;
   return top.map(([k,n])=>`<div class="rd2-g num" style="--c:${STC[k]}"><b>${k.toUpperCase()}</b><span class="rd2-gb"><i style="width:${Math.round(n/mx*100)}%"></i></span><em>${fmt(n)}</em></div>`).join("")}
 function rdGear(){const S=RD.sets,cur=Math.min(RD.set,S.length-1),s=S[cur];if(!S.some(z=>z.i.some(Boolean)))return `<p class="rd2-empty">ไกด์นี้ไม่ได้ระบุอุปกรณ์</p>`;
-  return `${S.length>1?`<div class="rd2-tabs">${S.map((z,i)=>`<button type="button" class="${i===cur?"on":""}" data-rdset="${i}">${esc(z.n)} <i>${z.i.filter(Boolean).length}</i></button>`).join("")}</div>`:""}
-  <div class="rd2-gear">${NS.map(([k,l,ic],i)=>{const n=s.i[i],sk=s.sk&&s.sk[i];return n?`<div class="rd2-slot" style="--rc:${tc(I(n).t)}"><span class="rd2-sl">${l}</span><span class="rd2-si">${icon(n)}</span><span class="rd2-st"><b>${esc(n)}</b><small>${I(n).lv?`Lv ${esc(I(n).lv)}`:""}${gwIst(n)?` · ${gwIst(n)}`:""}</small></span>${sk?`<em class="rd2-sock" style="--c:${STC[sk]}">ยัด ${sk.toUpperCase()}</em>`:""}</div>`:`<div class="rd2-slot none"><span class="rd2-sl">${l}</span><span class="rd2-si"><i>—</i></span><span class="rd2-st"><small>ไม่ระบุ</small></span></div>`}).join("")}</div>`}
+  return `${S.filter(z=>z.i.some(Boolean)).length>1?`<div class="rd2-tabs">${S.map((z,i)=>!z.i.some(Boolean)?"":`<button type="button" class="${i===cur?"on":""}" data-rdset="${i}">${esc(z.n)} <i>${z.i.filter(Boolean).length}</i></button>`).join("")}</div>`:""}
+  <div class="rd2-gear">${NS.map(([k,l,ic],i)=>{const n=s.i[i],sk=s.sk&&s.sk[i];return n?`<div class="rd2-slot" style="--rc:${tc(I(n).t)}"><span class="rd2-sl">${l}</span><span class="rd2-si">${icon(n)}</span><span class="rd2-st"><b>${esc(n)}</b><small>${I(n).lv?`Lv ${esc(I(n).lv)}`:""}${gwIst(n)?` · ${gwIst(n)}`:""}</small></span>${sk?`<em class="rd2-sock" style="--c:${STC[sk]}">ยัด ${sk.toUpperCase()}</em>`:""}</div>`:""}).join("")}</div>`}
 function rdTree(p){const h=p.t;if(!(D.skills||{})[h])return "";const sb=skillBuild[h],sl=skillLevel[h];skillBuild[h]=new Set((p.k||[]).map(Number));skillLevel[h]=p.l||110;let s;
   try{s=skInner(h)}finally{if(sb)skillBuild[h]=sb;else delete skillBuild[h];if(sl===undefined)delete skillLevel[h];else skillLevel[h]=sl}
   s=s.replace(/<h4>[\s\S]*?<\/h4>/,"").replace(/<div class="skbar">[\s\S]*?<\/div>/,"");
@@ -3538,7 +3568,7 @@ function brdRead(id){const x=(BRD.list||[]).find(y=>y.id===id);if(!x)return;cons
   if(!skillImgLoaded)loadSkillImg();
   fetch(API+"/builds/"+id+"/view",{method:"POST"}).then(r=>r.json()).then(j=>{if(typeof j.views==="number"){x.views=j.views;const e=$("#rdViews");if(e)e.textContent=j.views}}).catch(()=>{});
   try{history.replaceState(null,"","#post="+id)}catch(_){}
-  RD={x,set:0,sets:rdSets(p)};
+  RD={x,set:0,sets:rdSets(p)};RD.set=Math.max(0,RD.sets.findIndex(z=>z.i.some(Boolean)));
   let ov=$("#rdPop");if(!ov){ov=document.createElement("div");ov.id="rdPop";ov.setAttribute("role","dialog");ov.setAttribute("aria-modal","true");document.body.appendChild(ov);
     ov.addEventListener("click",e=>{if(e.target===ov||e.target.closest("[data-rdclose]")){ov.classList.remove("show");try{history.replaceState(null,"","#board")}catch(_){}}})}
   ov.className="lvpop rdpop2";
@@ -3559,10 +3589,10 @@ function brdRead(id){const x=(BRD.list||[]).find(y=>y.id===id);if(!x)return;cons
   void ov.offsetWidth;ov.classList.add("show");requestAnimationFrame(rdFit)}
 function rdFit(){const c=$("#rdPop.show .rd3"),tr=$("#rdTree");if(!c||!tr)return;const g=tr.querySelector(".sktree");if(matchMedia("(max-width:1000px),(max-height:600px)").matches){c.style.removeProperty("--sk");g&&g.classList.remove("g2");return}
   const ps=[...tr.querySelectorAll(".skp")];if(!ps.length)return;const rowsOf=q=>q.querySelectorAll(".skp-row").length,colsOf=q=>Math.max(1,...[...q.querySelectorAll(".skp-row")].map(r=>r.querySelectorAll(".sk").length));
-  const R=ps.map(rowsOf),C=Math.max(...ps.map(colsOf)),tw=tr.clientWidth,th=tr.clientHeight,hd=48,gap=6,lk=8;
+  const R=ps.map(rowsOf),C=Math.max(...ps.map(colsOf)),tw=tr.clientWidth,th=tr.clientHeight,hd=52,gap=6,lk=8;
   const fit=(perRow,rowSets)=>{const W=(tw-(perRow-1)*10)/perRow-18-(C-1)*lk;let need=0,heads=0;rowSets.forEach(r=>{need+=r;heads+=1});const H=th-heads*hd-(rowSets.length-1)*10-(need-rowSets.length)*gap;return Math.min(Math.floor(W/C),Math.floor(H/need))};
   const s4=fit(ps.length,[Math.max(...R)]),s2=ps.length>2?fit(2,[Math.max(R[0],R[1]||0),Math.max(R[2]||0,R[3]||0)]):-1,two=s2>s4;
-  g&&g.classList.toggle("g2",two);c.style.setProperty("--sk",Math.max(22,Math.min(56,two?s2:s4))+"px")}
+  g&&g.classList.toggle("g2",two);c.style.setProperty("--sk",Math.max(24,Math.min(64,two?s2:s4))+"px")}
 addEventListener("resize",()=>{clearTimeout(rdFit._t);rdFit._t=setTimeout(rdFit,120)});
 document.addEventListener("click",e=>{if(!$("#rdPop.show")||!RD)return;let x;
   if(x=e.target.closest("[data-rdset]")){RD.set=+x.dataset.rdset;$("#rdGear").innerHTML=rdGear();return}
