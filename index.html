@@ -3325,10 +3325,11 @@ function gwStep3(){const S=GW.sets[GW.cur],cnt=S.i.filter(Boolean).length;
     <div class="gw-setbar">${GW.sets.length>1?`<label>ชื่อเซ็ต <input value="${esc(S.n)}" maxlength="24" data-gwsetname></label>${GW.cur?`<button type="button" class="bx-mini" data-gwsetdel>ลบเซ็ตนี้</button>`:""}`:`<span>ทำได้สูงสุด 3 เซ็ต เช่น เซ็ต PVE / เซ็ต PVP / เซ็ตฟาร์ม</span>`}<b>${cnt}/6 ช่อง</b></div>
     <div class="gw-slots">${tiles}</div>`}
 function gwSugList(){const q=GW.q.trim().toLowerCase(),slot=NS[GW.pick][0],t=GW.t,curN=GW.sets[GW.cur].i[GW.pick];
-  let L=Object.keys(D.items).filter(n=>{const it=I(n);if(!(itemCat(n)==="equip"||it.t==="pet"))return false;if(gwSlot(n)!==slot)return false;const ts=tailsOf(n);if(ts.length&&!ts.includes(t))return false;return !q||n.toLowerCase().includes(q)});
+  const pool=Object.keys(D.items).filter(n=>{const it=I(n);return (itemCat(n)==="equip"||it.t==="pet")&&gwSlot(n)===slot}),own=pool.filter(n=>tailsOf(n).includes(t));
+  let L=(slot==="pet"?pool.filter(n=>{const ts=tailsOf(n);return !ts.length||ts.includes(t)}):own.length?own:pool.filter(n=>!tailsOf(n).length)).filter(n=>!q||n.toLowerCase().includes(q));
   L.sort((a,c)=>(+(I(c).lv||0))-(+(I(a).lv||0))||a.localeCompare(c));const tot=L.length,more=tot>80;L=L.slice(0,80);
   return [L.length?L.map(n=>`<button type="button" class="${n===curN?"on":""}" data-gwput="${esc(n)}" style="--rc:${tc(I(n).t)}">${icon(n)}<span class="gw-sgt"><b>${esc(n)}</b><small>${I(n).lv?`Lv ${esc(I(n).lv)}`:""}${gwIst(n)?` · ${gwIst(n)}`:TYPE[I(n).t]?` · ${esc(TYPE[I(n).t])}`:""}</small></span>${n===curN?"<em>✓</em>":""}</button>`).join("")+(more?`<div class="mk-none">แสดง 80 ชิ้นแรก · พิมพ์ค้นหาเพื่อดูเพิ่ม</div>`:""):`<div class="mk-none">ไม่พบ${NS[GW.pick][1]}ที่ ${esc(t)} ใส่ได้</div>`,tot]}
-function gwSheet(){const [h,n]=gwSugList(),l=NS[GW.pick][1];return `<div class="gw-shh"><div><small>${esc(GW.sets[GW.cur].n)}</small><b>เลือก${l}</b><span id="gwsn">${esc(GW.t)} ใส่ได้ ${n} ชิ้น</span></div><button type="button" class="icon-btn" data-gwslot="-1" aria-label="ปิด">${gwX}</button></div>
+function gwSheet(){const [h,n]=gwSugList(),l=NS[GW.pick][1];return `<div class="gw-shh"><div><small>${esc(GW.sets[GW.cur].n)}</small><b>เลือก${l}</b><span id="gwsn">ของ ${esc(GW.t)} ${n} ชิ้น</span></div><button type="button" class="icon-btn" data-gwslot="-1" aria-label="ปิด">${gwX}</button></div>
   <div class="mk-add gw-shq"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input type="search" id="gwq" autocomplete="off" placeholder="พิมพ์ชื่อ${l}…" value="${esc(GW.q)}"></div>
   <div class="gw-sug" id="gwsug">${h}</div>`}
 function gwKeys(){const t=GW.t,set=skillBuild[t]||new Set(),learned=[...set].sort((a,c)=>a-c),star=new Set(GW.ks.map(x=>x[0]));
@@ -3412,14 +3413,14 @@ document.addEventListener("input",e=>{if(!GW||!$("#gwPop.show"))return;const el=
   if(d.gwsv){el.value=el.value.replace(/[^\d]/g,"");GW.st[d.gwsv].v=el.value;gwSave();return}
   if(d.gwksn!==undefined){GW.ks[+d.gwksn][1]=el.value;gwSave();return}
   if(el.hasAttribute("data-gwsetname")){GW.sets[GW.cur].n=el.value.slice(0,24)||"เซ็ต";const b=document.querySelector(`[data-gwset="${GW.cur}"]`);if(b)b.firstChild.textContent=GW.sets[GW.cur].n+" ";gwSave();return}
-  if(el.id==="gwq"){GW.q=el.value;const [h,n]=gwSugList();$("#gwsug").innerHTML=h;$("#gwsn").textContent=`${GW.t} ใส่ได้ ${n} ชิ้น`}});
+  if(el.id==="gwq"){GW.q=el.value;const [h,n]=gwSugList();$("#gwsug").innerHTML=h;$("#gwsn").textContent=`ของ ${GW.t} ${n} ชิ้น`}});
 document.addEventListener("keydown",e=>{if(!$("#gwPop.show"))return;if(e.key==="Escape"){e.stopPropagation();if(GW.pick!=null){GW.pick=null;gwRender()}else gwClose();return}
   if(e.key==="Enter"&&e.target.matches('[data-gwf="n"],[data-gwf="a"]')){e.preventDefault();const n=$("#gwNext");if(n&&!n.disabled)n.click()}},true);
 const _skRedraw2=skRedraw;skRedraw=function(h){_skRedraw2(h);const k=document.getElementById("gwks");if(k&&GW&&GW.t===h){k.innerHTML=gwKeys();gwSave()}};
 /* ---------- build board ---------- */
 const API="https://12tails-codex-visits.ails-odex.workers.dev";
-const BTAGS=["PVE","PVP","ฟาร์ม","ตีบอส","มือใหม่"];
-const BRD={list:null,loading:false,err:"",tail:"all",tag:"all",sort:"hot",q:"",lim:24};
+const BTAGS=["PVE","PVP"];
+const BRD={list:null,loading:false,err:"",tail:"all",tag:"all",sort:"new",q:"",lim:24};
 const brdLS=(k,d)=>{try{return JSON.parse(localStorage.getItem(k)||"null")??d}catch(_){return d}};
 const brdLiked=()=>new Set(brdLS("ttc-liked",[]));
 const brdAdmin=()=>{try{return localStorage.getItem("ttc-admin")||""}catch(_){return ""}};
@@ -3436,10 +3437,7 @@ function brdCard(x,i){
     <span class="pin-dot" aria-hidden="true"></span>
     ${adm?`<button type="button" class="pin-del" data-brddel="${x.id}" title="ลบ (แอดมิน)">ลบ</button>`:""}
     <div class="pin-top"><span class="pin-art${p.ic?" sk":""}">${coverImg(p,art,1)}</span>
-      <div class="pin-tt"><span class="pin-tail">${esc(p.t)} · ${esc(v.th)}</span><h4>${esc(p.n)}</h4><span class="pin-meta">Lv ${p.l}${x.tags.map(g=>` <i class="pin-tag">${esc(g)}</i>`).join("")}</span></div></div>
-    ${p.g?`${gwFocusHTML(p.g.st)||""}`:`<div class="pin-mid">${bdRadar(tot,acc)}<div class="pin-stats">${top.map(([k,n])=>`<span style="--c:${STC[k]}"><b>${k.toUpperCase()}</b><em>${fmt(n)}</em></span>`).join("")}</div></div>`}
-    ${x.desc?`<p class="pin-desc">${esc(x.desc).replace(/【([^】]{1,30})】/g,"<b>$1:</b> ")}</p>`:""}
-    ${(p.e||[]).length?`<div class="pin-eq">${p.e.slice(0,6).map(n=>`<span title="${esc(n)}">${icon(n)}</span>`).join("")}${p.e.length>6?`<i>+${p.e.length-6}</i>`:""}</div>`:""}
+      <div class="pin-tt"><span class="pin-tail">${esc(p.t)} · ${esc(v.th)}</span><h4>${esc(p.n)}</h4><span class="pin-meta">Lv ${p.l}${x.tags.filter(g=>g==="PVE"||g==="PVP").map(g=>` <i class="pin-tag">${esc(g)}</i>`).join("")}</span></div></div>
     <div class="pin-foot"><button type="button" class="pin-like${liked?" on":""}" data-brdlike="${x.id}" aria-pressed="${liked}"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.8 4.5c2.2 0 3.6 1.2 5.2 3 1.6-1.8 3-3 5.2-3 3.8 0 5.9 3.9 4.4 7.3C19.5 16.4 12 21 12 21z"/></svg>${x.likes}</button>
       <span class="pin-by">โดย <b>${esc(x.author)}</b> · ${ago(x.at)}</span>
       <span class="pin-views" title="ยอดเปิดอ่าน">👁 ${x.views||0}</span><button type="button" class="pin-open" data-brdread="${x.id}">อ่าน Build →</button></div>
@@ -3448,7 +3446,7 @@ function brdView(){
   const tails=Object.keys(D.tails),counts=t=>(BRD.list||[]).filter(x=>t==="all"||x.build.t===t).length;
   const bar=`<div class="brd-bar"><div class="brd-tails"><button type="button" class="${BRD.tail==="all"?"on":""}" data-brdtail="all">ทุกหาง <i>${counts("all")}</i></button>${tails.map(tl=>{const v=D.tails[tl];return `<button type="button" class="${BRD.tail===tl?"on":""}" data-brdtail="${tl}" title="${esc(v.th)}" style="--acc:${ACC[tl]}">${ring(v.ic||v.img,tl,src(v.ic)?"":"cover")}<i>${counts(tl)||""}</i></button>`}).join("")}</div>
     <div class="brd-row2"><div class="brd-tags">${["all",...BTAGS].map(g=>`<button type="button" class="${BRD.tag===g?"on":""}" data-brdtag="${g}">${g==="all"?"ทุกแท็ก":esc(g)}</button>`).join("")}</div>
-      <select class="sel" data-brdsort aria-label="เรียงลำดับ"><option value="hot"${BRD.sort==="hot"?" selected":""}>🔥 ฮอตตอนนี้</option><option value="new"${BRD.sort==="new"?" selected":""}>ใหม่ล่าสุด</option><option value="top"${BRD.sort==="top"?" selected":""}>♥ มากที่สุด</option></select>
+      <select class="sel" data-brdsort aria-label="เรียงลำดับ"><option value="new"${BRD.sort==="new"?" selected":""}>ใหม่ล่าสุด</option><option value="top"${BRD.sort==="top"?" selected":""}>♥ มากที่สุด</option></select>
       <label class="search brd-q"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input type="search" id="brdq" placeholder="ค้นหาชื่อ Build คนโพสต์ หรืออุปกรณ์…" value="${esc(BRD.q)}" autocomplete="off"></label>
       <button type="button" class="mk-btn pin" data-brdnew>สร้าง Build</button></div></div>`;
   if(BRD.loading&&!BRD.list)return bar+`<div class="brd-board"><div class="brd-empty">กำลังโหลดกระดาน…</div></div>`;
