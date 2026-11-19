@@ -842,6 +842,60 @@ button.here:disabled{opacity:1;color:inherit}
 .topic.set{transition:transform .25s cubic-bezier(.3,1.4,.5,1),background .35s,border-image-source .35s,box-shadow .35s}
 .topic.set[aria-current="true"]{transform:translateX(4px);box-shadow:-4px 0 0 0 var(--gold)}
 #view{scroll-behavior:auto}
+/* ---------- build board ---------- */
+.mk-btn.pin{background:linear-gradient(180deg,#e9604f,#b33a2c);border-color:#ff8a7a;color:#fff;font-weight:700}
+.brd-bar{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.brd-tails{display:flex;gap:6px;overflow-x:auto;padding:6px 4px 4px;scrollbar-width:thin}
+.brd-tails button{position:relative;flex:none;display:grid;place-items:center;min-width:46px;height:46px;padding:0 12px;border-radius:999px;border:1px solid var(--line);background:var(--panel);color:var(--text);font:inherit;font-size:13px;cursor:pointer;transition:border-color .2s,transform .2s var(--spring)}
+.brd-tails button .ring{width:38px;height:38px}.brd-tails button:has(.ring){padding:0;width:46px}
+.brd-tails button i{position:absolute;top:-4px;right:-4px;font:700 10px var(--mono);font-style:normal;background:var(--gold);color:#24170b;border-radius:999px;padding:0 5px}
+.brd-tails button:first-child i{position:static;margin-left:6px}
+.brd-tails button.on{border-color:var(--acc,var(--gold));box-shadow:0 0 0 2px var(--acc,var(--gold));transform:translateY(-2px)}
+.brd-row2{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.brd-tags{display:flex;flex-wrap:wrap;gap:6px}
+.brd-tags button{border:1px solid var(--line);background:var(--well);color:var(--muted);border-radius:999px;padding:6px 13px;font:inherit;font-size:13px;cursor:pointer}
+.brd-tags button.on{background:var(--gold);color:#24170b;border-color:var(--gold);font-weight:700}
+.brd-q{flex:1 1 220px;margin:0;max-width:360px}.brd-q input{border-radius:999px}
+.brd-board{position:relative;padding:26px 22px 18px;border-radius:20px;background:repeating-linear-gradient(90deg,rgba(0,0,0,.12) 0 2px,transparent 2px 120px),linear-gradient(180deg,#5a3a1f,#3d2614 60%,#2f1d0f);box-shadow:inset 0 0 0 6px #2a1a0c,inset 0 0 0 8px rgba(242,207,122,.35),inset 0 0 60px rgba(0,0,0,.6),0 20px 40px -24px rgba(0,0,0,.9)}
+.brd-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:26px 20px}
+.pin-card{position:relative;display:flex;flex-direction:column;gap:8px;padding:18px 14px 12px;border-radius:6px;color:#3a2410;background:linear-gradient(160deg,#f4e6c4,#e5cf9d 70%,#d9bf86);box-shadow:0 14px 22px -12px rgba(0,0,0,.85),inset 0 0 30px rgba(140,90,30,.25);transform:rotate(var(--r));transition:transform .3s var(--spring),box-shadow .3s;animation:mkIn .45s cubic-bezier(.2,.8,.2,1) both;animation-delay:var(--d)}
+.pin-card::after{content:"";position:absolute;inset:0;border-radius:6px;border-top:4px solid var(--acc);pointer-events:none}
+.pin-card:hover{transform:rotate(0) translateY(-4px) scale(1.02);box-shadow:0 22px 34px -14px rgba(0,0,0,.95),inset 0 0 30px rgba(140,90,30,.2);z-index:2}
+.pin-dot{position:absolute;top:-9px;left:50%;translate:-50% 0;width:18px;height:18px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ff9c8c,#c0392b 60%,#7a1f15);box-shadow:0 3px 5px rgba(0,0,0,.6)}
+.pin-del{position:absolute;top:6px;right:6px;border:1px solid #b33a2c;background:#fff2ee;color:#b33a2c;border-radius:999px;padding:2px 10px;font:inherit;font-size:11.5px;cursor:pointer}
+.pin-top{display:flex;gap:10px;align-items:center}
+.pin-art{width:58px;height:58px;flex:none;border-radius:12px;overflow:hidden;background:color-mix(in srgb,var(--acc) 35%,#3a2410);box-shadow:inset 0 0 0 2px rgba(58,36,16,.35)}
+.pin-art img{width:100%;height:100%;object-fit:cover;object-position:50% 12%;transform:scale(1.4);transform-origin:50% 15%}
+.pin-tt{min-width:0;display:flex;flex-direction:column}
+.pin-tail{font-size:11px;font-weight:700;letter-spacing:.06em;color:color-mix(in srgb,var(--acc) 70%,#3a2410);text-transform:uppercase}
+.pin-tt h4{margin:0;font-size:17px;line-height:1.2;color:#2a1a0c;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pin-meta{font-size:12px;color:#6b4e2c}.pin-tag{font-style:normal;padding:1px 8px;border-radius:999px;background:rgba(58,36,16,.12);margin-left:3px;font-size:11px;font-weight:700}
+.pin-mid{display:flex;align-items:center;gap:6px}
+.pin-mid .bx-radar{width:120px;flex:none;filter:saturate(1.1)}
+.pin-mid .bx-radar text{display:none}.pin-mid .bx-radar polygon:not(:last-child),.pin-mid .bx-radar line{stroke:rgba(58,36,16,.25)}
+.pin-stats{display:flex;flex-direction:column;gap:4px;flex:1}
+.pin-stats span{display:flex;justify-content:space-between;align-items:baseline;padding:3px 10px;border-radius:8px;background:rgba(58,36,16,.08);border-left:3px solid var(--c)}
+.pin-stats b{font:700 12px var(--mono);color:#3a2410}.pin-stats em{font:700 17px var(--mono);font-style:normal;color:#2a1a0c}
+.pin-desc{margin:0;font-size:13px;line-height:1.45;color:#4a321a;padding:6px 8px;border-radius:6px;background:rgba(255,255,255,.35);border:1px dashed rgba(58,36,16,.25)}
+.pin-eq{display:flex;gap:4px;flex-wrap:wrap;align-items:center}.pin-eq .ic{width:32px;height:32px}.pin-eq i{font-style:normal;font-size:12px;font-weight:700;color:#6b4e2c}
+.pin-foot{display:flex;align-items:center;gap:8px;margin-top:2px;padding-top:8px;border-top:1px dashed rgba(58,36,16,.3)}
+.pin-like{display:inline-flex;align-items:center;gap:5px;border:1px solid rgba(179,58,44,.45);background:rgba(255,255,255,.4);color:#b33a2c;border-radius:999px;padding:4px 10px;font:700 13px var(--mono);cursor:pointer;transition:transform .2s var(--spring)}
+.pin-like svg{fill:none;stroke:currentColor;stroke-width:2}.pin-like.on{background:#c0392b;color:#fff}.pin-like.on svg{fill:currentColor}.pin-like:active{transform:scale(1.2)}
+.pin-by{flex:1;min-width:0;font-size:11.5px;color:#6b4e2c;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.pin-by b{color:#3a2410}
+.pin-open{border:0;background:#3a2410;color:#f3e2b8;border-radius:999px;padding:6px 12px;font:inherit;font-size:12.5px;font-weight:600;cursor:pointer;white-space:nowrap}
+.pin-open:hover{background:#5a3a1f}
+.brd-empty{display:flex;flex-direction:column;align-items:center;gap:8px;padding:40px 16px;text-align:center;color:#f3e2b8}.brd-empty span{color:#d9bf86;font-size:13.5px}
+.brd-more{text-align:center;color:#d9bf86;padding:16px;font-size:13px}
+.brd-admin{text-align:right;margin-top:10px;font-size:11px;color:rgba(243,226,184,.5)}.brd-admin button{border:0;background:none;color:inherit;text-decoration:underline;cursor:pointer;font:inherit}
+.brd-pc{max-width:560px}
+.brd-pv{display:flex;align-items:center;gap:12px;margin:0 16px;padding:10px;border-radius:14px;background:rgba(0,0,0,.25);border:1px solid var(--line-soft)}
+.brd-pv .bx-radar{width:110px}.brd-pv div{display:flex;flex-direction:column}.brd-pv b{font-size:16px;color:var(--gold-hi)}.brd-pv small{color:var(--muted);font-size:12px}
+.brd-form{display:flex;flex-direction:column;gap:10px;padding:12px 16px}
+.brd-form label,.brd-form>div{display:flex;flex-direction:column;gap:4px}.brd-form small{font-size:12px;color:var(--muted)}
+.brd-form input,.brd-form textarea{background:var(--well);border:1px solid var(--line);border-radius:10px;padding:9px 12px;color:var(--text);font:inherit;resize:vertical}
+.brd-form input:focus,.brd-form textarea:focus{outline:none;border-color:var(--gold)}
+.brd-act{display:flex;justify-content:flex-end;gap:8px;padding:0 16px 16px}
+@media (max-width:560px){.brd-board{padding:22px 10px 12px}.brd-grid{grid-template-columns:1fr}.pin-card{transform:none}}
 /* ---------- build creator ---------- */
 .tt-tabs{display:flex;gap:6px;margin:14px 0 4px;padding:5px;border-radius:999px;background:rgba(0,0,0,.28);border:1px solid var(--line);width:max-content;max-width:100%}
 .tt-tabs button{border:0;background:none;color:var(--muted);border-radius:999px;padding:9px 20px;font:inherit;font-size:14px;font-weight:600;cursor:pointer;transition:background .2s,color .2s}
@@ -1634,7 +1688,7 @@ let D=null,IX=null;const IMG={};
 const st={tab:"tails",q:"",f:{},limit:{},stack:[]};
 const mult={};
 const HIDE_TABS=new Set(["monster","craft","wardrobe"]);
-const TABS=[["tails","12 หาง"],["map","แผนที่"],["npc","NPC"],["items","ไอเทม"],["breakdown","ย่อยไอเทม"],["market","ซื้อ-ขาย"],["stage","ด่าน & ดรอป"],["sched","บอส & อารีน่า"],["craft","สูตรคราฟ"],["wardrobe","ห้องแต่งตัว"],["monster","มอนสเตอร์"]];
+const TABS=[["tails","12 หาง"],["board","กระดาน Build"],["map","แผนที่"],["npc","NPC"],["items","ไอเทม"],["breakdown","ย่อยไอเทม"],["market","ซื้อ-ขาย"],["stage","ด่าน & ดรอป"],["sched","บอส & อารีน่า"],["craft","สูตรคราฟ"],["wardrobe","ห้องแต่งตัว"],["monster","มอนสเตอร์"]];
 const TOPIC_IMG={npc:["npc","Razan"],craft:["item","Falchion V"],trade:["npc","Pedo"],stage:["stage","tt101"],breakdown:["item","Frozen Wand"],monster:["mon","Carron"],items:["item","Acacite"],server:["acacia"]};
 const TYPE={weapon:"อาวุธ",armor:"ชุด/หมวก",boot:"รองเท้า",accessory:"เครื่องประดับ",trinket:"เครื่องราง",material:"วัตถุดิบ",food:"อาหาร",field:"ใช้ในด่าน",key:"ไอเทมสำคัญ",coin:"เหรียญ",pet:"สัตว์เลี้ยง",mount:"พาหนะ",recipe:"สูตร",prize:"ของรางวัล",misc:"อื่นๆ"};
 const priceOf=v=>[v.gil!=null?fmt(v.gil)+" Gil":"",v.jil!=null?fmt(v.jil)+" Gil":""].filter(Boolean).join(" · ")||gilTxt(v.s||"");
@@ -1724,17 +1778,17 @@ function bannerArt(id){
   if(id==="market"){l=["Carron Gold"].filter(k=>src(I(k).i));l=l.concat(pick(k=>/ Coin$/.test(k)&&!l.includes(k),3-l.length))}
   const glyph=`<svg class="bn-glyph" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${BN_GLYPH[id]||""}</svg>`;
   if(src("bn:"+id))return `<span class="bn-art scene web"><img src="${src("bn:"+id)}" alt=""></span>${glyph}`;
-  const SC={items:"tt805",sched:"tt5006",tails:"tt6002",npc:"tt603",stage:"tt101",breakdown:"tt1203",market:"tt5033"},sf=D.stages[SC[id]]?.img;
+  const SC={board:"tt802",items:"tt805",sched:"tt5006",tails:"tt6002",npc:"tt603",stage:"tt101",breakdown:"tt1203",market:"tt5033"},sf=D.stages[SC[id]]?.img;
   if(sf&&src(sf))return `<span class="bn-art scene"><img src="${src(sf)}" alt=""></span>${glyph}`;
   return `<span class="bn-art fan">${l.map((n,i)=>`<span class="bn-i" style="--k:${i}"><img src="${src(I(n).i)}" alt=""></span>`).join("")}</span>${glyph}`;
 }
 function withClear(fl){const ks=[...new Set([...fl.matchAll(/data-f(?:sel)?="([^"]+)"/g)].map(m=>m[1]))],qs=[...fl.matchAll(/data-fq="([^"]+)"/g)].map(m=>m[1]);ks.push(...qs.map(q=>"q:"+q));return ks.some(k=>k.startsWith("q:")?!!(st.f[k.slice(2)]||"").trim():F(k)!=="all")?fl+`<button type="button" class="fclear" data-fclear="${esc(ks.join(","))}"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4l8 8M12 4l-8 8"/></svg>ล้างตัวกรอง</button>`:fl}
-function sideOrder(){const all=["tails",...TABS.slice(1).filter(x=>!HIDE_TABS.has(x[0])).map(x=>x[0])];let o=[];try{o=JSON.parse(localStorage.getItem("ttc-order2")||"[]")}catch(_){}o=o.filter(x=>all.includes(x));return [...o,...all.filter(x=>!o.includes(x))]}
+function sideOrder(){const all=["tails",...TABS.slice(1).filter(x=>!HIDE_TABS.has(x[0])).map(x=>x[0])];let o=[];try{o=JSON.parse(localStorage.getItem("ttc-order3")||"[]")}catch(_){}o=o.filter(x=>all.includes(x));return [...o,...all.filter(x=>!o.includes(x))]}
 function renderSide(){
-  const cur=st.q?"":st.tab;IX.count.market=MK.sell.length+MK.buy.length;IX.count.sched=8;IX.count.map=MP.list.length;IX.count.wardrobe=WD.list.length;
+  const cur=st.q?"":st.tab;IX.count.market=MK.sell.length+MK.buy.length;IX.count.sched=8;IX.count.board=(BRD.list||[]).length;IX.count.map=MP.list.length;IX.count.wardrobe=WD.list.length;
   const tails=Object.entries(D.tails);
   let h=`<button class="topic set" type="button" data-tab="tails" aria-current="${cur==="tails"}"><span class="set-head"><span class="tname">12 หาง</span><span class="tcount">ตัวละครที่เล่นได้</span></span><span class="tailrow">${tails.map(([id,v])=>src(v.ic)?ring(v.ic,id):ring(v.img,id,"cover")).join("")}</span>${bannerArt("tails")}<span class="bn-grip" aria-hidden="true" title="ลากเพื่อสลับลำดับ"><i></i></span></button>`;
-  const SUB={npc:"ร้านค้า คราฟ แลกของ",stage:"ภารกิจ บอส ดันเจี้ยน",breakdown:"ย่อยแล้วได้อะไร",market:"รายการขาย · รับซื้อ",sched:"ตารางเวลา · วันนี้มีอะไร",map:"เมืองแสง · แคมป์ · กิลด์ · โคลอสเซียม",wardrobe:"ลองชุดทุกหาง",craft:"สูตรทั้งหมด",monster:"มอนสเตอร์",items:"ค้นหา · มาจากไหน"};
+  const SUB={npc:"ร้านค้า คราฟ แลกของ",stage:"ภารกิจ บอส ดันเจี้ยน",breakdown:"ย่อยแล้วได้อะไร",market:"รายการขาย · รับซื้อ",sched:"ตารางเวลา · วันนี้มีอะไร",board:"Build จากผู้เล่น",map:"เมืองแสง · แคมป์ · กิลด์ · โคลอสเซียม",wardrobe:"ลองชุดทุกหาง",craft:"สูตรทั้งหมด",monster:"มอนสเตอร์",items:"ค้นหา · มาจากไหน"};
   h+=TABS.slice(1).filter(t=>!HIDE_TABS.has(t[0])).map(([id,l])=>`<button class="topic set" type="button" data-tab="${id}" aria-current="${cur===id}"><span class="set-head"><span class="tname">${l}</span><span class="tcount"><span class="tsub">${SUB[id]||""}</span><span class="tnum">&nbsp;· ${fmt(IX.count[id])}</span></span></span><span class="tailrow">${sidePreview(id)}</span>${bannerArt(id)}<span class="bn-grip" aria-hidden="true" title="ลากเพื่อสลับลำดับ"><i></i></span></button>`).join("");
   const tmp=document.createElement("div");tmp.innerHTML=h;const by={};tmp.querySelectorAll(".topic").forEach(el=>{el.draggable=true;by[el.dataset.tab]=el.outerHTML});
   $("#topics").innerHTML=sideOrder().map(k=>by[k]||"").join("");
@@ -1829,6 +1883,7 @@ function renderTab(t){
   if(t==="tails"){title="12 หาง";sub="เลือกหางเพื่อดูค่าพลัง สายสกิล อาวุธ และชุด";html=`<div class="tailwall">${Object.keys(D.tails).map(tailTile).join("")}</div>`}
   if(t==="wardrobe"){title="ห้องแต่งตัว";sub="ดูชุดทุกเซ็ตของแต่ละหาง ทั้งด้านหน้าและด้านหลัง";html=`<div id="wdRoot">${wdView()}</div>`}
   if(t==="map"){title="แผนที่";sub="6 พื้นที่ · กดหมุด NPC เพื่อดูร้าน สูตร และภารกิจ · กดไอคอนหมุดในรายชื่อเพื่อซูมไปหา";html=`<div id="mpRoot">${mpView()}</div>`}
+  if(t==="board"){title="กระดาน Build";sub="Build จากผู้เล่น · กดหัวใจ Build ที่ชอบ · อยากโพสต์ ไปที่หน้าหาง › แท็บสร้าง Build › ปักบนกระดาน";html=`<div id="brdRoot">${brdView()}</div>`;if(!BRD.list&&!BRD.loading)brdLoad()}
   if(t==="sched"){title="ตารางบอส & อารีน่า";sub="เวลาไทย · ตารางของเซิร์ฟ TailsTopia";html=schedView()}
   if(t==="market"){title="ซื้อ-ขาย";sub="จัดรายการขาย / รับซื้อ แล้วบันทึกเป็นรูปไปโพสต์";html=mkView()}
   if(t==="npc"){
@@ -2692,9 +2747,10 @@ function buildView(h){const b=bld(h),saved=bdSaved().map((x,i)=>[x,i]).filter(([
         <button type="button" class="mk-btn gold" data-bdshare="${h}" title="คัดลอกลิงก์ คนที่เปิดลิงก์จะเห็น Build นี้ทั้งหมด"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>คัดลอกลิงก์แชร์</button>
         <button type="button" class="mk-btn" data-bdimg="${h}" title="สร้างรูปสรุป Build ไว้โพสต์">บันทึกเป็นรูป</button>
         <button type="button" class="mk-btn" data-bdsave="${h}" title="เก็บไว้ในเบราว์เซอร์เครื่องนี้ คนอื่นไม่เห็น">เก็บไว้ในเครื่อง</button>
+        <button type="button" class="mk-btn pin" data-bdpost="${h}" title="โพสต์ Build นี้ขึ้นกระดานให้ทุกคนเห็น">📌 ปักบนกระดาน</button>
         ${saved.length?`<select class="sel" data-bdload="${h}" aria-label="Build ที่เก็บไว้"><option value="">Build ที่เก็บไว้ (${saved.length})</option>${saved.map(([x,i])=>`<option value="${i}">${esc(x.n||"ไม่มีชื่อ")} · Lv${x.l}</option>`).join("")}</select>`:""}
       </div></div>
-      <p class="bx-help"><b>แชร์ให้คนอื่น:</b> กด “คัดลอกลิงก์แชร์” แล้วส่งลิงก์ คนที่เปิดจะเห็นเลเวล แต้ม อุปกรณ์ และสกิลชุดเดียวกันทันที · <b>เก็บไว้ในเครื่อง</b> เห็นเฉพาะคุณในเบราว์เซอร์นี้</p></section>
+      <p class="bx-help"><b>แชร์ให้คนอื่น:</b> กด “คัดลอกลิงก์แชร์” แล้วส่งลิงก์ คนที่เปิดจะเห็นเลเวล แต้ม อุปกรณ์ และสกิลชุดเดียวกันทันที · <b>เก็บไว้ในเครื่อง</b> เห็นเฉพาะคุณในเบราว์เซอร์นี้ · <b>ปักบนกระดาน</b> ทุกคนเห็นในเมนูกระดาน Build</p></section>
     <section class="d-sec bx" id="bdsec">${bdStats(h)}</section>${skillTree(h)}`}
 function bdRedraw(h){const s=document.getElementById("bdsec");if(s){const f=document.activeElement&&document.activeElement.id;s.innerHTML=bdStats(h);if(f==="bdq"){const q=$("#bdq");if(q){q.focus();q.setSelectionRange(q.value.length,q.value.length)}}}}
 function bdTabRedraw(){const y=$("#dBody").scrollTop;open(st.stack[st.stack.length-1],false);$("#dBody").scrollTop=y}
@@ -2764,6 +2820,86 @@ document.addEventListener("input",e=>{
   box.innerHTML=all.length?all.map((n,i)=>`<button type="button" class="${i?"":"on"}" data-bdadd="${h}|${esc(n)}">${icon(n)}<span>${esc(n)}<small>${Object.entries(I(n).st).filter(([k])=>STATS.includes(k)).map(([k,v])=>`${k} ${v}`).join(" · ")}</small></span></button>`).join(""):`<div class="mk-none">ไม่พบอุปกรณ์ที่มีค่าพลังของหางนี้</div>`;box.hidden=false});
 document.addEventListener("keydown",e=>{if(e.target.id!=="bdq"||e.key!=="Enter")return;const f=$("#bdsug button");if(f){e.preventDefault();f.click()}});
 
+/* ---------- build board ---------- */
+const API="https://12tails-codex-visits.ails-odex.workers.dev";
+const BTAGS=["PVE","PVP","ฟาร์ม","ตีบอส","มือใหม่"];
+const BRD={list:null,loading:false,err:"",tail:"all",tag:"all",sort:"hot",q:"",lim:24};
+const brdLS=(k,d)=>{try{return JSON.parse(localStorage.getItem(k)||"null")??d}catch(_){return d}};
+const brdLiked=()=>new Set(brdLS("ttc-liked",[]));
+const brdAdmin=()=>{try{return localStorage.getItem("ttc-admin")||""}catch(_){return ""}};
+async function brdLoad(){BRD.loading=true;BRD.err="";try{const r=await fetch(API+"/builds",{cache:"no-store"});BRD.list=await r.json()}catch(_){BRD.err="โหลดกระดานไม่สำเร็จ ลองรีเฟรชหน้า";BRD.list=null}BRD.loading=false;brdRedraw(true);renderSide()}
+function ago(ms){const m=Math.max(1,Math.round((Date.now()-ms)/60000));return m<60?`${m} นาทีที่แล้ว`:m<1440?`${Math.round(m/60)} ชม.ที่แล้ว`:m<43200?`${Math.round(m/1440)} วันที่แล้ว`:new Date(ms).toLocaleDateString("th-TH",{day:"numeric",month:"short",year:"2-digit"})}
+function brdTot(p){const e=Object.fromEntries(STATS.map(k=>[k,0]));(p.e||[]).forEach(n=>{const s=I(n).st||{};STATS.forEach(k=>e[k]+=stNum(s[k]))});return Object.fromEntries(STATS.map((k,i)=>[k,(p.s?.[i]|0)+(p.b?(p.b[i]|0):0)+e[k]]))}
+function brdList(){const L=(BRD.list||[]).filter(x=>D.tails[x.build.t]),q=BRD.q.trim().toLowerCase(),now=Date.now();
+  const f=L.filter(x=>(BRD.tail==="all"||x.build.t===BRD.tail)&&(BRD.tag==="all"||x.tags.includes(BRD.tag))&&(!q||[x.build.n,x.author,x.desc,x.build.t,D.tails[x.build.t].th,...(x.build.e||[])].join(" ").toLowerCase().includes(q)));
+  const hot=x=>(x.likes+1)/Math.pow((now-x.at)/3.6e6+2,1.4);
+  return f.sort(BRD.sort==="new"?(a,b)=>b.at-a.at:BRD.sort==="top"?(a,b)=>b.likes-a.likes||b.at-a.at:(a,b)=>hot(b)-hot(a))}
+function brdCard(x,i){
+  const p=x.build,v=D.tails[p.t],acc=ACC[p.t]||"#d6993f",tot=brdTot(p),top=STATS.map(k=>[k,tot[k]]).sort((a,b)=>b[1]-a[1]).slice(0,3),liked=brdLiked().has(x.id),art=HERO[nf(v.img)]||src(v.img),adm=brdAdmin();
+  return `<article class="pin-card" style="--acc:${acc};--r:${[-1.2,.8,-.4,1.1,-.9,.5][i%6]}deg;--d:${Math.min(i,12)*40}ms">
+    <span class="pin-dot" aria-hidden="true"></span>
+    ${adm?`<button type="button" class="pin-del" data-brddel="${x.id}" title="ลบ (แอดมิน)">ลบ</button>`:""}
+    <div class="pin-top"><span class="pin-art">${art?`<img src="${art}" alt="" loading="lazy">`:""}</span>
+      <div class="pin-tt"><span class="pin-tail">${esc(p.t)} · ${esc(v.th)}</span><h4>${esc(p.n)}</h4><span class="pin-meta">Lv ${p.l}${x.tags.map(g=>` <i class="pin-tag">${esc(g)}</i>`).join("")}</span></div></div>
+    <div class="pin-mid">${bdRadar(tot,acc)}<div class="pin-stats">${top.map(([k,n])=>`<span style="--c:${STC[k]}"><b>${k.toUpperCase()}</b><em>${fmt(n)}</em></span>`).join("")}</div></div>
+    ${x.desc?`<p class="pin-desc">${esc(x.desc)}</p>`:""}
+    ${(p.e||[]).length?`<div class="pin-eq">${p.e.slice(0,6).map(n=>`<span title="${esc(n)}">${icon(n)}</span>`).join("")}${p.e.length>6?`<i>+${p.e.length-6}</i>`:""}</div>`:""}
+    <div class="pin-foot"><button type="button" class="pin-like${liked?" on":""}" data-brdlike="${x.id}" aria-pressed="${liked}"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.8 4.5c2.2 0 3.6 1.2 5.2 3 1.6-1.8 3-3 5.2-3 3.8 0 5.9 3.9 4.4 7.3C19.5 16.4 12 21 12 21z"/></svg>${x.likes}</button>
+      <span class="pin-by">โดย <b>${esc(x.author)}</b> · ${ago(x.at)}</span>
+      <button type="button" class="pin-open" data-brdopen="${x.id}">ดู & นำไปปรับ →</button></div>
+  </article>`}
+function brdView(){
+  const tails=Object.keys(D.tails),counts=t=>(BRD.list||[]).filter(x=>t==="all"||x.build.t===t).length;
+  const bar=`<div class="brd-bar"><div class="brd-tails"><button type="button" class="${BRD.tail==="all"?"on":""}" data-brdtail="all">ทุกหาง <i>${counts("all")}</i></button>${tails.map(tl=>{const v=D.tails[tl];return `<button type="button" class="${BRD.tail===tl?"on":""}" data-brdtail="${tl}" title="${esc(v.th)}" style="--acc:${ACC[tl]}">${ring(v.ic||v.img,tl,src(v.ic)?"":"cover")}<i>${counts(tl)||""}</i></button>`}).join("")}</div>
+    <div class="brd-row2"><div class="brd-tags">${["all",...BTAGS].map(g=>`<button type="button" class="${BRD.tag===g?"on":""}" data-brdtag="${g}">${g==="all"?"ทุกแท็ก":esc(g)}</button>`).join("")}</div>
+      <select class="sel" data-brdsort aria-label="เรียงลำดับ"><option value="hot"${BRD.sort==="hot"?" selected":""}>🔥 ฮอตตอนนี้</option><option value="new"${BRD.sort==="new"?" selected":""}>ใหม่ล่าสุด</option><option value="top"${BRD.sort==="top"?" selected":""}>♥ มากที่สุด</option></select>
+      <label class="search brd-q"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input type="search" id="brdq" placeholder="ค้นหาชื่อ Build คนโพสต์ หรืออุปกรณ์…" value="${esc(BRD.q)}" autocomplete="off"></label>
+      <button type="button" class="mk-btn pin" data-brdnew>📌 ปักประกาศ Build ของฉัน</button></div></div>`;
+  if(BRD.loading&&!BRD.list)return bar+`<div class="brd-board"><div class="brd-empty">กำลังโหลดกระดาน…</div></div>`;
+  if(BRD.err)return bar+`<div class="brd-board"><div class="brd-empty">${BRD.err}</div></div>`;
+  const L=brdList(),shown=L.slice(0,BRD.lim);
+  return bar+`<div class="brd-board">${shown.length?`<div class="brd-grid">${shown.map(brdCard).join("")}</div>${L.length>shown.length?`<div class="brd-more" id="brdMore">กำลังโหลดเพิ่ม… (${L.length-shown.length})</div>`:""}`:`<div class="brd-empty"><b>ยังไม่มี Build บนกระดาน${BRD.tail!=="all"||BRD.tag!=="all"||BRD.q?" ที่ตรงกับตัวกรองนี้":""}</b><span>เป็นคนแรกที่ปักประกาศ! เข้าหน้าหาง › แท็บ ★ สร้าง Build › 📌 ปักบนกระดาน</span><button type="button" class="mk-btn pin" data-brdnew>เริ่มสร้าง Build</button></div>`}
+    <div class="brd-admin">${brdAdmin()?`โหมดแอดมินเปิดอยู่ · <button type="button" data-brdadmin="off">ออก</button>`:`<button type="button" data-brdadmin="on">แอดมิน</button>`}</div></div>`}
+function brdRedraw(all){const r=$("#brdRoot");if(!r)return;const f=document.activeElement&&document.activeElement.id==="brdq";r.innerHTML=brdView();if(f){const q=$("#brdq");q.focus();q.setSelectionRange(q.value.length,q.value.length)}}
+function brdMoreCheck(){const m=$("#brdMore");if(!m)return;const r=m.getBoundingClientRect();if(r.top<innerHeight+300){BRD.lim+=24;brdRedraw()}}
+$("#view").addEventListener("scroll",brdMoreCheck,{passive:true});window.addEventListener("scroll",brdMoreCheck,{passive:true});
+// ---- post dialog ----
+function brdPostDialog(h){
+  const b=bld(h),tot=bdTot(b),acc=ACC[h]||"#d6993f";let ov=$("#brdPost");
+  if(!ov){ov=document.createElement("div");ov.id="brdPost";ov.className="lvpop";ov.setAttribute("role","dialog");ov.setAttribute("aria-modal","true");document.body.appendChild(ov);ov.addEventListener("click",e=>{if(e.target===ov||e.target.closest("[data-brdclose]"))ov.classList.remove("show")})}
+  const tags=new Set();
+  ov.innerHTML=`<div class="lvpop-card brd-pc"><div class="lvpop-h"><span class="lvt-ico">📌</span><span class="lvt-h"><b>ปักประกาศ Build บนกระดาน</b><small>ทุกคนจะเห็นในเมนูกระดาน Build ทันที · ลบเองไม่ได้ ตรวจให้เรียบร้อยก่อนกดส่ง</small></span><button type="button" class="icon-btn" data-brdclose aria-label="ปิด"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></div>
+    <div class="brd-pv" style="--acc:${acc}">${bdRadar(tot,acc)}<div><b>${esc(b.n||h+" Build")}</b><small>${esc(h)} · Lv ${bdLv(h)} · แต้ม ${bdUsed(b)}/${bdPool(h)} · อุปกรณ์ ${b.e.length} ชิ้น · สกิล ${(skillBuild[h]||new Set()).size}</small></div></div>
+    <div class="brd-form">
+      <label><small>ชื่อ Build</small><input type="text" id="brdN" maxlength="40" value="${esc(b.n)}" placeholder="${esc(h)} ตีแรง"></label>
+      <label><small>ชื่อผู้โพสต์ (ชื่อในเกมหรือชื่อเล่น)</small><input type="text" id="brdA" maxlength="24" value="${esc(brdLS("ttc-author",""))}" placeholder="ไม่ใส่ก็ได้"></label>
+      <div><small>แท็ก (เลือกได้ 3)</small><div class="brd-tags" id="brdT">${BTAGS.map(g=>`<button type="button" data-brdpick="${g}">${g}</button>`).join("")}</div></div>
+      <label><small>คำอธิบายสั้น ๆ (ไม่บังคับ)</small><textarea id="brdD" maxlength="200" rows="3" placeholder="เช่น เน้นตีเร็ว ใส่ชุด Hero ฟาร์มด่าน 9 สบาย"></textarea></label>
+    </div>
+    <div class="brd-act"><button type="button" class="mk-btn ghost" data-brdclose>ยกเลิก</button><button type="button" class="mk-btn gold" id="brdSend">📌 ปักประกาศ</button></div></div>`;
+  ov.querySelectorAll("[data-brdpick]").forEach(btn=>btn.addEventListener("click",()=>{const g=btn.dataset.brdpick;if(tags.has(g))tags.delete(g);else if(tags.size<3)tags.add(g);btn.classList.toggle("on",tags.has(g))}));
+  ov.querySelector("#brdSend").addEventListener("click",async e=>{const btn=e.currentTarget;btn.disabled=true;btn.textContent="กำลังส่ง…";
+    b.n=ov.querySelector("#brdN").value.trim();const author=ov.querySelector("#brdA").value.trim();try{localStorage.setItem("ttc-author",JSON.stringify(author))}catch(_){}
+    try{const r=await fetch(API+"/builds",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({build:bdPack(h),author,tags:[...tags],desc:ov.querySelector("#brdD").value})});const j=await r.json();
+      if(!r.ok)throw new Error(j.error||"ส่งไม่สำเร็จ");(BRD.list=BRD.list||[]).unshift(j);ov.classList.remove("show");toast("ปักประกาศแล้ว! ไปดูที่กระดาน Build");BRD.sort="new";BRD.tail="all";BRD.tag="all";closeD();goTab("board");setTimeout(()=>brdRedraw(true),100)}
+    catch(err){toast(err.message||"ส่งไม่สำเร็จ");btn.disabled=false;btn.textContent="📌 ปักประกาศ"}});
+  void ov.offsetWidth;ov.classList.add("show");
+}
+document.addEventListener("click",async e=>{
+  const pst=e.target.closest("[data-bdpost]");if(pst){brdPostDialog(pst.dataset.bdpost);return}
+  const tl=e.target.closest("[data-brdtail]");if(tl){BRD.tail=tl.dataset.brdtail;BRD.lim=24;brdRedraw();return}
+  const tg=e.target.closest("[data-brdtag]");if(tg){BRD.tag=tg.dataset.brdtag;BRD.lim=24;brdRedraw();return}
+  if(e.target.closest("[data-brdnew]")){const t=BRD.tail!=="all"?BRD.tail:(st.stack.length?null:"Wolf")||"Wolf";tailTab[t]="build";open("tail:"+t);toast("ลงแต้มให้เรียบร้อย แล้วกด 📌 ปักบนกระดาน");return}
+  const op=e.target.closest("[data-brdopen]");if(op){const x=(BRD.list||[]).find(y=>y.id===op.dataset.brdopen);if(!x)return;const h=bdUnpack(JSON.parse(JSON.stringify(x.build)));if(h)open("tail:"+h);return}
+  const lk=e.target.closest("[data-brdlike]");if(lk){const id=lk.dataset.brdlike,L=brdLiked();if(L.has(id)){toast("กดหัวใจ Build นี้ไปแล้ว");return}L.add(id);try{localStorage.setItem("ttc-liked",JSON.stringify([...L]))}catch(_){}
+    const x=(BRD.list||[]).find(y=>y.id===id);if(x)x.likes++;brdRedraw();try{const r=await fetch(API+"/builds/"+id+"/like",{method:"POST"});const j=await r.json();if(x&&typeof j.likes==="number"){x.likes=j.likes;brdRedraw()}}catch(_){}return}
+  const ad=e.target.closest("[data-brdadmin]");if(ad){if(ad.dataset.brdadmin==="off"){try{localStorage.removeItem("ttc-admin")}catch(_){}}else{const k=prompt("รหัสแอดมิน");if(k)try{localStorage.setItem("ttc-admin",k.trim())}catch(_){}}brdRedraw();return}
+  const del=e.target.closest("[data-brddel]");if(del){if(del.dataset.armed!=="1"){del.dataset.armed="1";del.textContent="กดอีกครั้งเพื่อลบ";setTimeout(()=>{if(del.isConnected){del.dataset.armed="";del.textContent="ลบ"}},2500);return}
+    try{const r=await fetch(API+"/builds/"+del.dataset.brddel,{method:"DELETE",headers:{"X-Admin":brdAdmin()}});if(!r.ok)throw 0;BRD.list=BRD.list.filter(y=>y.id!==del.dataset.brddel);toast("ลบแล้ว");brdRedraw();renderSide()}catch(_){toast("ลบไม่สำเร็จ · รหัสแอดมินไม่ถูกต้อง?")}return}
+});
+document.addEventListener("change",e=>{const s=e.target.closest("[data-brdsort]");if(s){BRD.sort=s.value;BRD.lim=24;brdRedraw()}});
+document.addEventListener("input",e=>{if(e.target.id!=="brdq")return;BRD.q=e.target.value;BRD.lim=24;clearTimeout(window.__brdT);window.__brdT=setTimeout(()=>brdRedraw(),160)});
+
 /* ---------- events ---------- */
 let bumpId=null;
 function goTab(tab,smooth=true){const wasSearch=!!st.q.trim();st.tab=tab;st.q="";$("#q").value="";closeD();try{history.replaceState(null,"","#"+st.tab)}catch(_){}try{localStorage.setItem("ttc-tab",st.tab)}catch(_){}renderSide();const $t=TABS.find(x=>x[0]===tab);$("#mTitle").textContent=$t?$t[1]:"";if(wasSearch||!document.querySelector(".vsec"))renderView(true);requestAnimationFrame(()=>scrollToSec(tab,smooth))}
@@ -2803,7 +2939,7 @@ $("#homeBtn").onclick=()=>showLanding();$("#mHome").onclick=()=>showLanding();
   box.addEventListener("dragstart",e=>{const t=e.target.closest(".topic");if(!t)return;drag=t;t.classList.add("dragging");e.dataTransfer.effectAllowed="move";try{e.dataTransfer.setData("text/plain",t.dataset.tab)}catch(_){}});
   box.addEventListener("dragover",e=>{if(!drag)return;e.preventDefault();const over=e.target.closest(".topic");if(!over||over===drag)return;const r=over.getBoundingClientRect();box.insertBefore(drag,e.clientY<r.top+r.height/2?over:over.nextSibling)});
   box.addEventListener("drop",e=>e.preventDefault());
-  box.addEventListener("dragend",()=>{if(!drag)return;drag.classList.remove("dragging");drag=null;const o=[...box.querySelectorAll(".topic")].map(x=>x.dataset.tab);try{localStorage.setItem("ttc-order2",JSON.stringify(o))}catch(_){}
+  box.addEventListener("dragend",()=>{if(!drag)return;drag.classList.remove("dragging");drag=null;const o=[...box.querySelectorAll(".topic")].map(x=>x.dataset.tab);try{localStorage.setItem("ttc-order3",JSON.stringify(o))}catch(_){}
     const cur=st.tab;renderSide();if(document.body.classList.contains("allmode")){renderView(true);requestAnimationFrame(()=>scrollToSec(cur,false))}toast("สลับลำดับเมนูแล้ว")});
 })();/* ---------- landing ---------- */
 const HERO={};

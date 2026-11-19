@@ -4,3 +4,4 @@ node_modules/
 *.workers-bak
 *.log
 counter/.wrangler/
+counter/ADMIN_KEY.txt
