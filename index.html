@@ -889,7 +889,12 @@ button.here:disabled{opacity:1;color:inherit}
 .bx-it button{border:0;background:none;color:var(--muted);font-size:18px;cursor:pointer;width:28px;height:28px;border-radius:50%}.bx-it button:hover{color:#ff8a7a;background:rgba(255,138,122,.1)}
 .bx-none{color:var(--muted);font-size:13px;padding:6px}
 .bx-add{max-width:520px}
-.bx-share .bx-sh{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;margin-top:8px}
+.bx-share{margin-top:10px;border:1px solid rgba(242,207,122,.4);border-radius:16px;padding:14px;background:linear-gradient(180deg,rgba(242,207,122,.08),rgba(242,207,122,.02))}
+.bx-share .bx-sh{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end}
+.bx-acts{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.bx-help{margin:8px 0 0;font-size:12px;color:var(--muted)}.bx-help b{color:var(--gold)}
+.bx-shared{display:flex;align-items:center;gap:12px;margin-top:10px;padding:10px 14px;border-radius:14px;border:1px solid #7fd8f0;background:rgba(127,216,240,.1)}
+.bx-shared .bx-si{font-size:22px}.bx-shared>span:nth-child(2){flex:1;display:flex;flex-direction:column}.bx-shared b{color:#bfefff}.bx-shared small{color:var(--muted);font-size:12px}
 .bx-name{display:flex;flex-direction:column;gap:4px;flex:1 1 220px}.bx-name small{font-size:12px;color:var(--muted)}
 .bx-name input{background:var(--well);border:1px solid var(--line);border-radius:10px;padding:9px 12px;color:var(--text);font:inherit}
 @media (max-width:900px){.bx-grid{grid-template-columns:1fr}.bx-row{grid-template-columns:96px minmax(0,1fr) auto}.bx-k small{display:none}.bx-preset{margin-left:0}}
@@ -2679,22 +2684,25 @@ function bdStats(h){
       <div class="bx-eq">${b.e.map((n,i)=>`<span class="bx-it" style="--rc:${tc(I(n).t)}">${icon(n)}<span><b>${esc(n)}</b><small>${Object.entries(I(n).st||{}).filter(([k])=>STATS.includes(k)).map(([k,v])=>`${k} ${v}`).join(" · ")||"ไม่มีค่าพลัง"}</small></span><button type="button" data-bdrm="${h}|${i}" aria-label="เอา ${esc(n)} ออก">×</button></span>`).join("")||`<span class="bx-none">ยังไม่ได้ใส่อุปกรณ์</span>`}</div>
       ${b.e.length<8?`<div class="mk-add bx-add"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input type="search" id="bdq" data-bdq="${h}" autocomplete="off" placeholder="พิมพ์ชื่ออาวุธ ชุด หมวก เครื่องประดับ…" value="${esc(b.q)}"><div class="mk-sug" id="bdsug" hidden></div></div>`:""}</div>`;
 }
-function buildView(h){const b=bld(h);
-  return `<section class="d-sec bx" id="bdsec">${bdStats(h)}</section>${skillTree(h)}
-    <section class="d-sec bx-share"><div class="bx-ch">บันทึก & แชร์</div><div class="bx-sh">
+function buildView(h){const b=bld(h),saved=bdSaved().map((x,i)=>[x,i]).filter(([x])=>x.t===h);
+  const banner=b.shared?`<div class="bx-shared"><span class="bx-si">🔗</span><span><b>คุณกำลังดู Build ที่มีคนแชร์มา${b.n?` · “${esc(b.n)}”`:""}</b><small>ลองปรับแต้ม เปลี่ยนอุปกรณ์ได้ตามใจ ไม่กระทบของคนที่แชร์ · กด “เก็บไว้ในเครื่อง” ถ้าอยากเก็บเป็นของคุณ</small></span><button type="button" class="bx-mini" data-bdunshare="${h}">รับทราบ</button></div>`:"";
+  return `${banner}<section class="d-sec bx-share"><div class="bx-sh">
       <label class="bx-name"><small>ชื่อ Build</small><input type="text" maxlength="40" value="${esc(b.n)}" data-bdname="${h}" placeholder="เช่น ${esc(h)} ตีแรง Lv${bdLv(h)}"></label>
-      <button type="button" class="mk-btn gold" data-bdshare="${h}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>คัดลอกลิงก์แชร์</button>
-      <button type="button" class="mk-btn" data-bdimg="${h}">บันทึกเป็นรูป</button>
-      <button type="button" class="mk-btn" data-bdsave="${h}">เก็บไว้ในเครื่อง</button>
-      ${bdSaved().filter(x=>x.t===h).length?`<select class="sel" data-bdload="${h}" aria-label="Build ที่เก็บไว้"><option value="">Build ที่เก็บไว้ (${bdSaved().filter(x=>x.t===h).length})</option>${bdSaved().map((x,i)=>x.t===h?`<option value="${i}">${esc(x.n||"ไม่มีชื่อ")} · Lv${x.l}</option>`:"").join("")}</select>`:""}
-    </div></section>`}
+      <div class="bx-acts">
+        <button type="button" class="mk-btn gold" data-bdshare="${h}" title="คัดลอกลิงก์ คนที่เปิดลิงก์จะเห็น Build นี้ทั้งหมด"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>คัดลอกลิงก์แชร์</button>
+        <button type="button" class="mk-btn" data-bdimg="${h}" title="สร้างรูปสรุป Build ไว้โพสต์">บันทึกเป็นรูป</button>
+        <button type="button" class="mk-btn" data-bdsave="${h}" title="เก็บไว้ในเบราว์เซอร์เครื่องนี้ คนอื่นไม่เห็น">เก็บไว้ในเครื่อง</button>
+        ${saved.length?`<select class="sel" data-bdload="${h}" aria-label="Build ที่เก็บไว้"><option value="">Build ที่เก็บไว้ (${saved.length})</option>${saved.map(([x,i])=>`<option value="${i}">${esc(x.n||"ไม่มีชื่อ")} · Lv${x.l}</option>`).join("")}</select>`:""}
+      </div></div>
+      <p class="bx-help"><b>แชร์ให้คนอื่น:</b> กด “คัดลอกลิงก์แชร์” แล้วส่งลิงก์ คนที่เปิดจะเห็นเลเวล แต้ม อุปกรณ์ และสกิลชุดเดียวกันทันที · <b>เก็บไว้ในเครื่อง</b> เห็นเฉพาะคุณในเบราว์เซอร์นี้</p></section>
+    <section class="d-sec bx" id="bdsec">${bdStats(h)}</section>${skillTree(h)}`}
 function bdRedraw(h){const s=document.getElementById("bdsec");if(s){const f=document.activeElement&&document.activeElement.id;s.innerHTML=bdStats(h);if(f==="bdq"){const q=$("#bdq");if(q){q.focus();q.setSelectionRange(q.value.length,q.value.length)}}}}
 function bdTabRedraw(){const y=$("#dBody").scrollTop;open(st.stack[st.stack.length-1],false);$("#dBody").scrollTop=y}
 // ---- share link ----
 const b64e=s=>btoa(unescape(encodeURIComponent(s))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
 const b64d=s=>decodeURIComponent(escape(atob(s.replace(/-/g,"+").replace(/_/g,"/"))));
 function bdPack(h){const b=bld(h);return {t:h,l:bdLv(h),s:STATS.map(k=>b.s[k]||0),b:STATS.some(k=>b.b[k])?STATS.map(k=>b.b[k]||0):0,e:b.e,k:[...(skillBuild[h]||[])],n:b.n}}
-function bdUnpack(o){if(!o||!D.tails[o.t])return null;const b=bld(o.t);STATS.forEach((k,i)=>{b.s[k]=Math.max(0,o.s?.[i]|0);b.b[k]=o.b?Math.max(0,o.b[i]|0):0});b.e=(o.e||[]).filter(n=>D.items[n]).slice(0,8);b.n=String(o.n||"").slice(0,40);
+function bdUnpack(o){if(!o||!D.tails[o.t])return null;const b=bld(o.t);STATS.forEach((k,i)=>{b.s[k]=Math.max(0,o.s?.[i]|0);b.b[k]=o.b?Math.max(0,o.b[i]|0):0});b.e=(o.e||[]).filter(n=>D.items[n]).slice(0,8);b.n=String(o.n||"").slice(0,40);b.shared=true;
   skillLevel[o.t]=Math.max(1,Math.min(110,o.l|0||110));skillBuild[o.t]=new Set((o.k||[]).map(Number));tailTab[o.t]="build";return o.t}
 const bdURL=h=>location.origin+location.pathname+"#build="+b64e(JSON.stringify(bdPack(h)));
 function bdSaved(){try{return JSON.parse(localStorage.getItem("ttc-builds")||"[]")}catch(_){return []}}
@@ -2728,6 +2736,7 @@ async function bdImage(h){
 }
 // ---- events ----
 document.addEventListener("click",e=>{
+  const us=e.target.closest("[data-bdunshare]");if(us){bld(us.dataset.bdunshare).shared=false;bdTabRedraw();return}
   const tt=e.target.closest("[data-ttab]");if(tt){const [h,k]=tt.dataset.ttab.split("|");tailTab[h]=k;bdTabRedraw();return}
   const sp=e.target.closest("[data-bdstep]");if(sp){const [h,k,d]=sp.dataset.bdstep.split("|"),b=bld(h),left=bdPool(h)-bdUsed(b),n=(e.shiftKey?10:1)*(+d);b.s[k]=Math.max(0,b.s[k]+(n>0?Math.min(n,left):n));bdRedraw(h);return}
   const rs=e.target.closest("[data-bdreset]");if(rs){const b=bld(rs.dataset.bdreset);STATS.forEach(k=>b.s[k]=0);bdRedraw(rs.dataset.bdreset);return}
@@ -2735,7 +2744,7 @@ document.addEventListener("click",e=>{
   const ad=e.target.closest("[data-bdadd]");if(ad){const [h,...n]=ad.dataset.bdadd.split("|"),b=bld(h),nm=n.join("|");if(!b.e.includes(nm)&&b.e.length<8)b.e.push(nm);b.q="";bdRedraw(h);const q=$("#bdq");q&&q.focus();return}
   const shr=e.target.closest("[data-bdshare]");if(shr){const u=bdURL(shr.dataset.bdshare);(navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(()=>toast("คัดลอกลิงก์ Build แล้ว ส่งให้เพื่อนได้เลย"),()=>{prompt("คัดลอกลิงก์นี้",u)});return}
   const im=e.target.closest("[data-bdimg]");if(im){bdImage(im.dataset.bdimg);return}
-  const sv=e.target.closest("[data-bdsave]");if(sv){const h=sv.dataset.bdsave,L=bdSaved(),pk=bdPack(h),i=L.findIndex(x=>x.t===h&&x.n===pk.n);if(i>=0)L[i]=pk;else L.unshift(pk);try{localStorage.setItem("ttc-builds",JSON.stringify(L.slice(0,40)))}catch(_){}toast("เก็บ Build ไว้ในเครื่องแล้ว");bdTabRedraw();return}
+  const sv=e.target.closest("[data-bdsave]");if(sv){const h=sv.dataset.bdsave,L=bdSaved(),pk=bdPack(h),i=L.findIndex(x=>x.t===h&&x.n===pk.n);bld(h).shared=false;if(i>=0)L[i]=pk;else L.unshift(pk);try{localStorage.setItem("ttc-builds",JSON.stringify(L.slice(0,40)))}catch(_){}toast("เก็บ Build ไว้ในเครื่องแล้ว");bdTabRedraw();return}
   if(!e.target.closest(".bx-add")){const s=$("#bdsug");if(s)s.hidden=true}
 });
 document.addEventListener("change",e=>{
