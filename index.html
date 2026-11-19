@@ -910,48 +910,127 @@ button.here:disabled{opacity:1;color:inherit}
 @media (max-width:900px){.nt-grid,.rd-body,.rd-pc{grid-template-columns:1fr}.rd-h{position:static}}
 /* ---------- guide writer ---------- */
 body:has(.gwpop.show) #bgm,body:has(#rdPop.show) #bgm{display:none}
+.rd-p{white-space:pre-line}
 .gwpop{place-items:stretch;padding:14px}
-.gw{width:min(1180px,100%);max-height:none;height:calc(100vh - 28px);margin:0 auto!important;display:flex;flex-direction:column;overflow:hidden;padding:0}
-.gw-top{display:flex;align-items:center;gap:14px;padding:12px 16px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#2b1d12,#22170e);flex-wrap:wrap}
-.gw-title{color:var(--gold-hi);font-size:16px;white-space:nowrap}
-.gw-steps{display:flex;gap:4px;flex:1;overflow-x:auto;scrollbar-width:none}
-.gw-steps button{display:flex;align-items:center;gap:6px;flex:none;border:1px solid transparent;background:none;color:var(--muted);border-radius:999px;padding:6px 12px 6px 6px;font:inherit;font-size:13px;cursor:pointer}
-.gw-steps button i{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.08);font:700 11px var(--mono);font-style:normal}
-.gw-steps button small{font-size:10px;padding:1px 6px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
-.gw-steps button.done{color:var(--text)}.gw-steps button.done i{background:#7fe0a0;color:#0f2a1a}
-.gw-steps button.on{border-color:var(--gold);color:var(--gold-hi);background:rgba(242,207,122,.08)}.gw-steps button.on i{background:var(--gold);color:#24170b}
+.gw{position:relative;width:min(1240px,100%);max-height:none;height:calc(100vh - 28px);height:calc(100dvh - 28px);margin:0 auto!important;display:flex;flex-direction:column;overflow:hidden;padding:0}
+.gw-top{display:flex;align-items:center;gap:12px;padding:10px 14px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#2b1d12,#22170e)}
+.gw-title{color:var(--gold-hi);font-size:15px;white-space:nowrap}
+.gw-tchip{display:inline-flex;align-items:center;gap:6px;flex:none;padding:3px 12px 3px 3px;border-radius:999px;border:1px solid var(--acc);background:color-mix(in srgb,var(--acc) 16%,transparent);color:var(--text);font:700 13px var(--font);cursor:pointer}
+.gw-tchip img{width:28px;height:28px;border-radius:50%;object-fit:cover;object-position:top;background:rgba(0,0,0,.3)}
+.gw-steps{display:flex;align-items:center;flex:1;justify-content:center;overflow-x:auto;scrollbar-width:none;padding:2px 0}
+.gw-steps button{position:relative;display:flex;align-items:center;gap:7px;flex:none;border:0;background:none;color:var(--muted);padding:6px 10px;font:inherit;font-size:13px;cursor:pointer;border-radius:999px}
+.gw-steps button+button::before{content:"";position:absolute;left:-10px;top:50%;width:14px;height:2px;border-radius:2px;background:var(--line)}
+.gw-steps button.done+button::before{background:#7fe0a0}
+.gw-steps button{margin-left:4px}
+.gw-steps button i{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;border:1.5px solid var(--line);font:700 11px var(--mono);font-style:normal;transition:background .2s,border-color .2s}
+.gw-steps button:hover:not(:disabled){color:var(--text)}
+.gw-steps button.done{color:var(--text)}.gw-steps button.done i{background:#7fe0a0;border-color:#7fe0a0;color:#0f2a1a}
+.gw-steps button.on{color:var(--gold-hi);background:rgba(242,207,122,.1)}.gw-steps button.on i{background:var(--gold);border-color:var(--gold);color:#24170b;box-shadow:0 0 0 4px rgba(242,207,122,.18)}
 .gw-steps button:disabled{opacity:.35;cursor:default}
-.gw-body{flex:1;overflow:auto;padding:18px 20px;scrollbar-width:thin}
-.gw-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px;border-top:1px solid var(--line);background:#1d140d}
-.gw-dots{display:flex;gap:6px}.gw-dots i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.15)}.gw-dots i.on{background:var(--gold);width:22px;border-radius:4px}
-.gw-lead{margin:0 0 14px;color:var(--muted);font-size:14px}.gw-lead b{color:var(--gold-hi)}
+.gw-saved{font-size:12px;color:#7fe0a0;white-space:nowrap;opacity:0;transform:translateY(4px);transition:opacity .3s,transform .3s}.gw-saved.on{opacity:1;transform:none}
+.gw-hero{padding:14px 22px 10px;border-bottom:1px solid rgba(255,255,255,.04)}
+.gw-no{font:700 11px var(--mono);letter-spacing:.08em;color:var(--gold);text-transform:uppercase}
+.gw-hero h3{margin:2px 0 2px;font-size:22px;color:var(--gold-hi);display:flex;align-items:center;gap:8px}
+.gw-hero h3 small{font-size:11px;font-weight:600;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:2px 8px}
+.gw-hero p{margin:0;color:var(--muted);font-size:13.5px}
+.gw-main{flex:1;min-height:0;display:grid;grid-template-columns:1fr}
+.gw-main.has-aside{grid-template-columns:minmax(0,1fr) 340px}
+.gw-body{overflow:auto;padding:18px 22px 28px;scrollbar-width:thin;min-height:0}
+.gw-in{animation:gwIn .32s var(--spring) both}@keyframes gwIn{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
+.gw-aside{overflow:auto;border-left:1px solid var(--line);background:rgba(0,0,0,.18);padding:16px;display:flex;flex-direction:column;gap:12px;scrollbar-width:thin}
+.gw-ah{font-size:12.5px;font-weight:700;color:var(--gold);display:flex;align-items:baseline;gap:8px}.gw-ah small{font-weight:400;color:var(--muted);font-size:11px}
+.gw-prev{pointer-events:none}.gw-prev .pin-card{--r:0deg!important;margin:0;animation:none!important}.gw-prev .pin-del{display:none}
+.gw-mini,.gw-ready{padding:12px;border-radius:14px;border:1px solid var(--line);background:var(--panel);display:flex;flex-direction:column;gap:8px}
+.gw-mh{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:var(--muted)}.gw-mh b{font:700 15px var(--mono);color:var(--gold-hi)}
+.gw-mbar{height:6px;border-radius:6px;background:rgba(255,255,255,.07);overflow:hidden}.gw-mbar i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--gold),#7fe0a0);transition:width .4s var(--spring)}
+.gw-mchk{display:flex;flex-wrap:wrap;gap:5px}.gw-mchk button{border:1px solid var(--line);background:none;color:var(--muted);border-radius:999px;padding:4px 10px;font:inherit;font-size:12px;cursor:pointer;pointer-events:auto}.gw-mchk button.ok{border-color:rgba(127,224,160,.5);color:#7fe0a0}.gw-mchk button:hover{border-color:var(--gold)}
+.gw-foot{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:16px;padding:10px 16px;border-top:1px solid var(--line);background:#1d140d}
+.gw-bar{height:4px;border-radius:4px;background:rgba(255,255,255,.08);overflow:hidden;max-width:420px;justify-self:center;width:100%}.gw-bar i{display:block;height:100%;background:var(--gold);border-radius:4px;transition:width .4s var(--spring)}
+.gw-next{border-radius:14px!important;display:flex;flex-direction:column;align-items:flex-end;line-height:1.15;padding-top:6px;padding-bottom:6px;min-width:150px}.gw-next small{font-size:10.5px;font-weight:600;opacity:.75}
+.gw-next:disabled{opacity:.5;cursor:not-allowed;filter:saturate(.4)}
+.gw-note{margin:14px 0 0;color:var(--muted);font-size:12.5px}
+/* step 0 */
 .gw-tails{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
-.gw-tl{display:flex;flex-direction:column;align-items:center;gap:4px;padding:12px 8px 10px;border-radius:16px;border:1px solid var(--line);background:radial-gradient(80% 70% at 50% 30%,color-mix(in srgb,var(--acc) 22%,transparent),transparent 70%),var(--panel);color:var(--text);font:inherit;cursor:pointer;transition:transform .25s var(--spring),border-color .2s,box-shadow .2s}
+.gw-tl{position:relative;display:flex;flex-direction:column;align-items:center;gap:3px;padding:12px 8px 12px;border-radius:16px;border:1px solid var(--line);background:radial-gradient(80% 70% at 50% 30%,color-mix(in srgb,var(--acc) 22%,transparent),transparent 70%),var(--panel);color:var(--text);font:inherit;cursor:pointer;transition:transform .25s var(--spring),border-color .2s,box-shadow .2s}
 .gw-tl:hover{transform:translateY(-3px);border-color:var(--acc)}.gw-tl.on{border-color:var(--acc);box-shadow:0 0 0 2px var(--acc),0 12px 26px -12px var(--acc)}
-.gw-ta{width:100px;height:110px;display:grid;place-items:end center;overflow:hidden}.gw-ta img{max-width:100%;max-height:120px;object-fit:contain;filter:drop-shadow(0 6px 10px rgba(0,0,0,.6))}
+.gw-tl em{position:absolute;top:8px;right:8px;font-style:normal;font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:999px;background:var(--acc);color:#1a120c}
+.gw-tla{width:100px;height:110px;display:grid;place-items:end center;overflow:hidden}.gw-tla img{max-width:100%;max-height:120px;object-fit:contain;filter:drop-shadow(0 6px 10px rgba(0,0,0,.6))}
 .gw-tl b{font-size:15px}.gw-tl small{font-size:11.5px;color:var(--muted)}
-.gw-form{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:900px}
-.gw-form label,.gw-form>div{display:flex;flex-direction:column;gap:5px;position:relative}.gw-form .wide{grid-column:1/-1}.gw-form small{font-size:12.5px;color:var(--gold)}
-.gw-form input,.gw-form textarea{background:var(--well);border:1px solid var(--line);border-radius:12px;padding:11px 14px;color:var(--text);font:inherit;font-size:15px;line-height:1.55;resize:vertical}
-.gw-form input:focus,.gw-form textarea:focus{outline:none;border-color:var(--gold)}
-.gw-cnt{position:absolute;right:10px;bottom:8px;font-style:normal;font-size:11px;color:var(--muted)}
-.gw-tags{display:flex;gap:8px}.gw-tags button{border:1px solid var(--line);background:var(--well);color:var(--muted);border-radius:12px;padding:10px 26px;font:700 15px var(--font);cursor:pointer}.gw-tags button.on{background:var(--gold);color:#24170b;border-color:var(--gold)}
-.gw-st{display:flex;flex-direction:column;gap:8px;max-width:820px}
-.gw-sr{display:grid;grid-template-columns:170px auto 1fr;gap:12px;align-items:center;padding:8px 12px;border-radius:12px;background:rgba(0,0,0,.22);border-left:3px solid var(--c)}
-.gw-seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
-.gw-seg button{border:0;background:none;color:var(--muted);padding:7px 14px;font:inherit;font-size:13px;cursor:pointer}.gw-seg button+button{border-left:1px solid var(--line)}
-.gw-seg button.on{background:var(--c);color:#1a120c;font-weight:700}.gw-seg button:first-child.on{background:rgba(255,255,255,.15);color:var(--text)}
-.gw-sr input{width:110px;background:var(--well);border:1px solid var(--c);border-radius:10px;padding:7px 10px;color:var(--text);font:700 15px var(--mono)}
-.gw-slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
-.gw-slot{display:flex;flex-direction:column;gap:6px;padding:6px;border-radius:14px;background:rgba(0,0,0,.15)}.gw-slot .gs{width:100%}
-.gw-sock{display:flex;align-items:center;gap:8px;padding:0 6px 2px}.gw-sock small{font-size:12px;color:var(--gold)}
-.gw-sock select{flex:1;background:var(--well);border:1px solid var(--line);border-radius:8px;padding:5px 8px;color:var(--gold-hi);font:700 13px var(--mono)}
+/* step 1 */
+.gw-form{display:grid;grid-template-columns:1fr 1fr;gap:18px 16px;max-width:860px}
+.gw-fld{display:flex;flex-direction:column;gap:6px;position:relative;min-width:0}.gw-fld.wide{grid-column:1/-1}
+.gw-fld>span{font-size:13px;font-weight:700;color:var(--gold)}.gw-fld>span em{color:#ff8a7a;font-style:normal}.gw-fld>span small{font-weight:400;color:var(--muted);margin-left:6px}
+.gw-hint{font-style:normal;font-size:11.5px;color:var(--muted)}
+.gw-fld input,.gw-txt textarea{background:var(--well);border:1px solid var(--line);border-radius:12px;padding:11px 14px;color:var(--text);font:inherit;font-size:15px;line-height:1.6;resize:vertical;transition:border-color .2s,box-shadow .2s;width:100%;box-sizing:border-box}
+.gw-fld input.gw-big{font-size:19px;font-weight:700;padding:13px 16px}
+.gw-fld input:focus,.gw-txt textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(242,207,122,.15)}
+.gw-txt{position:relative}.gw-cnt{position:absolute;right:12px;bottom:10px;font-style:normal;font-size:11px;color:var(--muted);pointer-events:none}
+.gw-mode{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.gw-mode button{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;column-gap:10px;align-items:center;text-align:left;border:1px solid var(--line);background:var(--well);color:var(--text);border-radius:12px;padding:8px 12px;font:inherit;cursor:pointer;transition:border-color .2s,background .2s}
+.gw-mode button span{grid-row:1/3;font-size:22px}.gw-mode button b{font-size:15px}.gw-mode button small{font-size:11px;color:var(--muted)}
+.gw-mode button.on{border-color:var(--gold);background:rgba(242,207,122,.12);box-shadow:inset 0 0 0 1px var(--gold)}.gw-mode button.on b{color:var(--gold-hi)}
+.gw-snip{display:flex;flex-wrap:wrap;gap:6px}.gw-snip button{border:1px dashed var(--line);background:none;color:var(--muted);border-radius:999px;padding:4px 12px;font:inherit;font-size:12.5px;cursor:pointer}.gw-snip button:hover{border-color:var(--gold);color:var(--gold-hi);border-style:solid}
+/* step 2 */
+.gw-pre{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:14px}.gw-pre>span{font-size:12.5px;color:var(--muted);margin-right:4px}
+.gw-pre button{border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:999px;padding:6px 14px;font:inherit;font-size:13px;cursor:pointer}.gw-pre button:hover{border-color:var(--gold)}
+.gw-pre button.on{border-color:var(--gold);background:rgba(242,207,122,.14);color:var(--gold-hi)}.gw-pre button.clr{border-style:dashed;color:var(--muted)}
+.gw-st{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:10px;max-width:980px;align-items:start}
+.gw-sc{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:10px 12px;border-radius:14px;background:var(--panel);border:1px solid var(--line);border-left:4px solid color-mix(in srgb,var(--c) 45%,transparent);transition:border-color .2s,background .2s}
+.gw-sc.on{border-color:color-mix(in srgb,var(--c) 70%,transparent);border-left-color:var(--c);background:linear-gradient(90deg,color-mix(in srgb,var(--c) 12%,transparent),transparent 70%),var(--panel)}
+.gw-sch{display:flex;flex-direction:column;min-width:86px;flex:1}.gw-sch b{font:700 15px var(--mono);color:var(--c)}.gw-sch small{font-size:11px;color:var(--muted)}
+.gw-seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:rgba(0,0,0,.2)}
+.gw-seg button{border:0;background:none;color:var(--muted);padding:7px 13px;font:inherit;font-size:13px;cursor:pointer;min-width:40px}.gw-seg button+button{border-left:1px solid var(--line)}
+.gw-seg button:hover{color:var(--text)}.gw-seg button.on{background:var(--c);color:#1a120c;font-weight:700}.gw-seg button:first-child.on{background:rgba(255,255,255,.12);color:var(--text)}
+.gw-sc input{width:100%;background:var(--well);border:1px solid var(--c);border-radius:10px;padding:7px 12px;color:var(--text);font:700 15px var(--mono)}
+/* step 3 */
+.gw-sets{display:flex;flex-wrap:wrap;gap:6px}
+.gw-sets button{border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:12px 12px 4px 4px;padding:8px 14px;font:inherit;font-size:13.5px;font-weight:700;cursor:pointer}
+.gw-sets button i{font:600 11px var(--mono);font-style:normal;opacity:.7;margin-left:2px}
+.gw-sets button.on{background:var(--gold);border-color:var(--gold);color:#24170b}.gw-sets button.add{border-style:dashed;font-weight:400}
+.gw-setbar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:8px 12px;margin:6px 0 14px;border-radius:10px;background:rgba(0,0,0,.2);font-size:12.5px;color:var(--muted)}
+.gw-setbar b{margin-left:auto;font:700 12.5px var(--mono);color:var(--gold-hi)}
+.gw-setbar label{display:flex;align-items:center;gap:8px}.gw-setbar input{background:var(--well);border:1px solid var(--line);border-radius:8px;padding:5px 10px;color:var(--text);font:inherit;font-size:13px}
+.gw-slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.gw-slot{position:relative;display:flex;flex-direction:column;border-radius:16px;border:1px dashed var(--line);background:rgba(0,0,0,.14);transition:border-color .2s,transform .2s var(--spring)}
+.gw-slot.has{border-style:solid;border-color:color-mix(in srgb,var(--rc) 55%,var(--line));background:linear-gradient(135deg,color-mix(in srgb,var(--rc) 14%,transparent),transparent 60%),var(--panel)}
+.gw-slot:hover{border-color:var(--gold)}.gw-slot.pick{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold)}
+.gw-sb{display:flex;align-items:center;gap:12px;padding:12px;border:0;background:none;color:var(--text);font:inherit;text-align:left;cursor:pointer;width:100%;min-width:0}
+.gw-si{flex:none;width:52px;height:52px;border-radius:12px;display:grid;place-items:center;background:rgba(0,0,0,.3);border:1px solid var(--line)}.gw-si img{width:44px;height:44px;object-fit:contain}
+.gw-se{font-size:24px;opacity:.55}
+.gw-st2{display:flex;flex-direction:column;min-width:0;gap:1px}.gw-st2 small{font-size:11.5px;color:var(--gold)}.gw-st2 b{font-size:14.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gw-slot:not(.has) .gw-st2 b{color:var(--muted);font-weight:600}.gw-st2 i{font-style:normal;font-size:11px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gw-sx{position:absolute;top:8px;right:8px;width:24px;height:24px;border-radius:50%;border:1px solid var(--line);background:rgba(0,0,0,.4);color:var(--muted);cursor:pointer;font-size:15px;line-height:1}.gw-sx:hover{color:#ff8a7a;border-color:#ff8a7a}
+.gw-sock{display:flex;flex-wrap:wrap;align-items:center;gap:4px;padding:8px 12px 12px;border-top:1px solid rgba(255,255,255,.05)}
+.gw-sock small{font-size:11.5px;color:var(--gold);margin-right:2px}
+.gw-sock button{border:1px solid color-mix(in srgb,var(--c) 40%,transparent);background:none;color:color-mix(in srgb,var(--c) 80%,#fff);border-radius:6px;padding:3px 6px;font:700 10.5px var(--mono);cursor:pointer}
+.gw-sock button.on{background:var(--c);color:#1a120c;border-color:var(--c)}
+.gw-shade{position:absolute;inset:0;background:rgba(8,5,3,.55);opacity:0;pointer-events:none;transition:opacity .25s;z-index:5}.gw-shade.show{opacity:1;pointer-events:auto}
+.gw-sheet{position:absolute;top:0;right:0;bottom:0;width:min(460px,100%);z-index:6;display:none;flex-direction:column;background:#22170f;border-left:1px solid var(--gold);box-shadow:-20px 0 50px -20px rgba(0,0,0,.8)}
+.gw-sheet.show{display:flex;animation:gwSheet .3s var(--spring) both}@keyframes gwSheet{from{transform:translateX(40px);opacity:0}to{transform:none;opacity:1}}
+.gw-shh{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;padding:16px 16px 10px}
+.gw-shh div{display:flex;flex-direction:column}.gw-shh small{font-size:11.5px;color:var(--gold)}.gw-shh b{font-size:19px;color:var(--gold-hi)}.gw-shh span{font-size:12px;color:var(--muted)}
+.gw-shq{margin:0 16px 10px}
+.gw-sug{flex:1;overflow:auto;padding:0 10px 16px;display:flex;flex-direction:column;gap:4px;scrollbar-width:thin}
+.gw-sug button{display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:12px;border:1px solid transparent;background:rgba(255,255,255,.03);color:var(--text);font:inherit;text-align:left;cursor:pointer}
+.gw-sug button:hover{border-color:var(--rc);background:color-mix(in srgb,var(--rc) 10%,transparent)}.gw-sug button.on{border-color:var(--gold)}
+.gw-sug button>:first-child{flex:none}.gw-sug .gw-sgt{display:flex;flex-direction:column;min-width:0;flex:1}.gw-sug b{font-size:14px}.gw-sug small{font-size:11.5px;color:var(--muted)}.gw-sug em{font-style:normal;color:var(--gold)}
+/* step 4 */
+.gw-kcard{margin-top:14px}
+/* step 5 */
+.gw-fgrid{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:22px;align-items:start;max-width:1120px}
+.gw-fl{display:flex;flex-direction:column;gap:12px}
+.gw-fr{position:sticky;top:0;display:flex;flex-direction:column;gap:10px}
+.gw-sum{padding:16px;border-radius:18px;border:1px solid var(--gold);background:var(--weave),var(--panel);display:flex;flex-direction:column;gap:10px}
+.gw-sh{display:flex;gap:14px;align-items:center}.gw-sh h3{margin:2px 0;font-size:22px;color:var(--gold-hi)}.gw-sh small{color:var(--muted)}.gw-sh .rd-art{width:72px;height:72px}
+.gw-ready.all{border-color:#7fe0a0}
+.gw-post{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;column-gap:14px;align-items:center;text-align:left;padding:14px 20px;border:0;border-radius:16px;background:linear-gradient(135deg,#e2553f,#c2382a);color:#fff;font:inherit;cursor:pointer;box-shadow:0 14px 30px -14px #e2553f;transition:transform .2s var(--spring),filter .2s}
+.gw-post:hover:not(:disabled){transform:translateY(-2px);filter:brightness(1.08)}.gw-post span{grid-row:1/3;font-size:26px}.gw-post b{font-size:18px}.gw-post small{font-size:12px;opacity:.85}
+.gw-post:disabled{opacity:.45;cursor:not-allowed;filter:saturate(.3)}
+.gw-fin{display:flex;flex-wrap:wrap;gap:10px}
 .gw-focus{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}.gw-focus span{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:999px;border:1px solid var(--c);background:rgba(0,0,0,.25)}.gw-focus b{font:700 13px var(--mono);color:var(--c)}.gw-focus i{font-style:normal;font-weight:700;color:var(--text);font-size:13px}
 .sock{font-style:normal;color:#7fd8f0}
-.gw-sum{max-width:900px;padding:16px;border-radius:18px;border:1px solid var(--gold);background:var(--weave),var(--panel);display:flex;flex-direction:column;gap:10px}
-.gw-sh{display:flex;gap:14px;align-items:center}.gw-sh h3{margin:2px 0;font-size:22px;color:var(--gold-hi)}.gw-sh small{color:var(--muted)}.gw-sh .rd-art{width:72px;height:72px}
-.gw-chk{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding-top:8px;border-top:1px dashed var(--line)}.gw-chk button{border:1px solid var(--line);background:none;color:var(--muted);border-radius:999px;padding:5px 12px;font:inherit;font-size:12.5px;cursor:pointer}.gw-chk button.ok{border-color:#7fe0a0;color:#7fe0a0}.gw-chk b{margin-left:auto;font:700 15px var(--mono);color:var(--gold-hi)}
-.gw-fin{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}.gw-fin .mk-btn:disabled{opacity:.45;cursor:default}
+.pin-card .gw-focus{margin:6px 0 2px}.pin-card .gw-focus span{background:rgba(255,255,255,.55);border-color:color-mix(in srgb,var(--c) 70%,#000);padding:3px 10px}.pin-card .gw-focus b{color:color-mix(in srgb,var(--c) 55%,#000)}.pin-card .gw-focus i{color:#3a2614}
+/* chooser + cta */
 .gw-ch{max-width:620px}.gw-opts{display:flex;flex-direction:column;gap:10px;padding:0 16px 16px}
 .gw-opt{display:grid;grid-template-columns:42px 1fr;grid-template-rows:auto auto;column-gap:12px;align-items:center;text-align:left;padding:14px;border-radius:14px;border:1px solid var(--line);background:var(--weave),var(--panel);color:var(--text);font:inherit;cursor:pointer;transition:border-color .2s,transform .2s var(--spring)}
 button.gw-opt:hover{border-color:var(--gold);transform:translateY(-2px)}
@@ -961,7 +1040,15 @@ button.gw-opt:hover{border-color:var(--gold);transform:translateY(-2px)}
 .gw-opt.imp button{justify-self:end}
 .gw-cta{display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:14px;padding:30px 20px;border-radius:18px;border:1px dashed var(--gold);background:rgba(242,207,122,.05);text-align:center}
 .gw-cta b{font-size:18px;color:var(--gold-hi)}.gw-cta p{margin:0;color:var(--muted);font-size:14px;max-width:560px}.gw-cta div{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
-@media (max-width:760px){.gw-form{grid-template-columns:1fr}.gw-sr{grid-template-columns:1fr;gap:6px}.gw-title{display:none}.gw{height:calc(100vh - 16px)}.gwpop{padding:8px}}
+@media (max-width:1100px){.gw-main.has-aside{grid-template-columns:1fr}.gw-aside{display:none}.gw-fgrid{grid-template-columns:minmax(0,1fr)}.gw-fgrid>*,.gw-fl>*{min-width:0;box-sizing:border-box}.gw-fr{position:static}.gw-steps button:not(.on) span{display:none}}
+@media (max-width:760px){.gwpop{padding:0}.gw{height:100vh;height:100dvh;border-radius:0}
+  .gw-title,.gw-saved{display:none}.gw-top{gap:8px;padding:8px 10px}.gw-tchip span{display:none}.gw-tchip{padding:3px}
+  .gw-steps{justify-content:flex-start}.gw-steps button{padding:5px 6px}.gw-steps button+button::before{width:8px;left:-7px}
+  .gw-hero{padding:10px 14px 8px}.gw-hero h3{font-size:18px}.gw-hero p{font-size:12.5px}.gw-body{padding:14px 14px 24px}
+  .gw-form{grid-template-columns:1fr}.gw-st{grid-template-columns:1fr}.gw-slots{grid-template-columns:1fr}.gw-tails{grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:8px}.gw-tla{width:76px;height:84px}
+  .gw-sheet{top:12%;width:100%;border-left:0;border-top:1px solid var(--gold);border-radius:18px 18px 0 0}@keyframes gwSheet{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+  .gw-foot{gap:10px;padding:8px 10px}.gw-next{min-width:0}.gw-foot .ghost{padding-left:12px;padding-right:12px}}
+@media (prefers-reduced-motion:reduce){.gw-in,.gw-sheet.show{animation:none}}
 /* ---------- build board ---------- */
 .mk-btn.pin{background:linear-gradient(180deg,#e9604f,#b33a2c);border-color:#ff8a7a;color:#fff;font-weight:700}
 .brd-bar{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
@@ -3029,12 +3116,17 @@ function gwCTA(h){return `<div class="gw-cta"><b>✍ สร้าง Build / เ
 document.addEventListener("click",e=>{const c=e.target.closest("[data-gwchoose]");if(c){gwChooser(c.dataset.gwchoose||null);return}const b=e.target.closest("[data-gwtab]");if(b){closeD();goTab(b.dataset.gwtab)}});
 /* ---------- guide writer (wizard) ---------- */
 const NS=[["weapon","อาวุธ","⚔"],["armor","ชุด","👘"],["hat","หมวก","⛑"],["boot","รองเท้า","👢"],["acc","เครื่องประดับ","💍"],["pet","สัตว์เลี้ยง","🐾"]];
-const GW_STEPS=["เลือกหาง","ข้อมูลไกด์","สเตตัส","เซ็ตอุปกรณ์","สกิล & โน้ต","บันทึก & โพสต์"];
+const GW_STEPS=[["เลือกหาง","เลือกสัตว์หางที่จะเขียนไกด์ เปลี่ยนทีหลังได้"],["ข้อมูลไกด์","ตั้งชื่อ บอกว่าเหมาะกับ PVE หรือ PVP แล้วเล่าวิธีเล่นสั้นๆ"],["สเตตัส","เลือกว่าเน้นค่าไหน ตัน = อัปสุด · ตาม = อัปตามต้องใช้ · หรือใส่ตัวเลขเป้าหมาย"],["เซ็ตอุปกรณ์","กดช่องเพื่อเลือกของที่หางนี้ใส่ได้ · อาวุธ ชุด หมวก เลือกได้ว่ายัด Status อะไร"],["สกิล & โน้ต","อัปสกิลตามที่แนะนำ แล้วติดดาวสกิลสำคัญพร้อมเหตุผลว่าทำไมอัป"],["ตรวจ & โพสต์","ดูภาพรวมก่อนโพสต์ขึ้นกระดาน Build"]];
+const GW_OPT=new Set([2,3,4]);
+const GW_PRE=[["⚔","สายตีกายภาพ",{Atk:"max",Agi:"follow"}],["🔮","สายเวท",{Int:"max",Tal:"follow"}],["🛡","สายถึก",{Vit:"max",Def:"follow"}],["🍀","สายโชค",{Lck:"max",Atk:"follow"}]];
+const GW_SNIP=["จุดเด่น","จุดอ่อน","วิธีเล่น","คอมโบสกิล","เหมาะกับ"];
 const gwSlot=n=>{if(I(n).t==="pet")return "pet";const s=slotOf(n);return s==="trinket"?"acc":s};
 const gwSet=n=>({n,i:["","","","","",""],sk:["","",""]});
+const gwIst=n=>Object.entries(I(n).st||{}).filter(([k])=>STATS.includes(k)).map(([k,v])=>`${k} ${v}`).join(" · ");
+const gwX=`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg>`;
 let GW=null;
 function gwNew(t){GW={step:t?1:0,t:t||null,n:"",a:(brdLS("ttc-author","")||""),tags:[],d:"",st:{},sets:[gwSet("เซ็ตหลัก")],cur:0,pick:null,q:"",ks:[]};if(t){skillBuild[t]=new Set();skillLevel[t]=110}}
-let _gwT=0;function gwSave(){clearTimeout(_gwT);_gwT=setTimeout(()=>{if(!GW)return;try{localStorage.setItem("ttc-guide",JSON.stringify({...GW,pick:null,q:"",k:GW.t?[...(skillBuild[GW.t]||[])]:[],l:GW.t?(skillLevel[GW.t]??110):110}))}catch(_){}},300)}
+let _gwT=0;function gwSave(){clearTimeout(_gwT);_gwT=setTimeout(()=>{if(!GW)return;try{localStorage.setItem("ttc-guide",JSON.stringify({...GW,pick:null,q:"",k:GW.t?[...(skillBuild[GW.t]||[])]:[],l:GW.t?(skillLevel[GW.t]??110):110}));const s=$("#gwSaved");if(s){s.classList.add("on");clearTimeout(s._t);s._t=setTimeout(()=>s.classList.remove("on"),1800)}}catch(_){}gwPrev()},300)}
 function gwDraft(){try{const d=JSON.parse(localStorage.getItem("ttc-guide")||"null");return d&&(d.t||d.n)?d:null}catch(_){return null}}
 function gwLoadDraft(d){GW={...d,pick:null,q:""};if(GW.t){skillBuild[GW.t]=new Set(d.k||[]);skillLevel[GW.t]=d.l||110}}
 function gwFromPack(o,meta){if(!o||!D.tails[o.t])return false;const g=o.g||{};
@@ -3045,54 +3137,78 @@ function gwFromPack(o,meta){if(!o||!D.tails[o.t])return false;const g=o.g||{};
 function gwPack(){const t=GW.t,s0=GW.sets[0];return {t,l:skillLevel[t]??110,s:[0,0,0,0,0,0,0,0],b:0,e:s0.i.filter(Boolean),k:[...(skillBuild[t]||[])],n:GW.n.trim()||t+" Build",
   q:GW.sets.map(s=>({n:s.n,i:s.i})),p:[],ks:GW.ks,w:{play:"",pro:"",con:""},g:{d:GW.d,st:GW.st,sk:GW.sets.map(s=>s.sk)}}}
 function gwChecks(){const set=GW.t?skillBuild[GW.t]||new Set():new Set();return [[!!GW.t,"เลือกหาง",0],[!!GW.n.trim(),"ชื่อไกด์",1],[GW.d.trim().length>=20,"คำอธิบาย",1],[Object.keys(GW.st).length>0,"สเตตัส",2],[GW.sets.some(s=>s.i.some(Boolean)),"เซ็ตอุปกรณ์",3],[set.size>0,"สกิล",4]]}
-// ---- views ----
-function gwStep0(){return `<p class="gw-lead">เลือกสัตว์หางที่จะเขียนไกด์</p><div class="gw-tails">${Object.keys(D.tails).map(tl=>{const v=D.tails[tl],art=HERO[nf(v.img)]||src(v.img);return `<button type="button" class="gw-tl${GW.t===tl?" on":""}" data-gwtail="${tl}" style="--acc:${ACC[tl]}"><span class="gw-ta">${art?`<img src="${art}" alt="" loading="lazy">`:""}</span><b>${esc(tl)}</b><small>${esc(v.th)} · ${esc(tailClass(v)||"")}</small></button>`}).join("")}</div>`}
+// ---- live preview ----
+function gwPrev(){if(!GW||!GW.t)return;const el=$("#gwPrev");if(el)el.innerHTML=brdCard({id:"_prev",at:Date.now(),likes:0,views:0,author:GW.a||"ไม่ระบุชื่อ",desc:GW.d.slice(0,200),tags:GW.tags,build:gwPack()},0);const m=$("#gwMini");if(m)m.innerHTML=gwMini()}
+function gwMini(){const C=gwChecks(),ok=C.filter(x=>x[0]).length;return `<div class="gw-mh"><span>ความครบของไกด์</span><b>${ok}/6</b></div><div class="gw-mbar"><i style="width:${ok/6*100}%"></i></div><div class="gw-mchk">${C.map(([o,l,s])=>`<button type="button" class="${o?"ok":""}" data-gwgo="${s}">${o?"✓":"○"} ${l}</button>`).join("")}</div>`}
+function gwAside(){return `<aside class="gw-aside"><div class="gw-ah">ตัวอย่างบนกระดาน <small>อัปเดตตามที่กรอก</small></div><div class="gw-prev" id="gwPrev"></div><div class="gw-mini" id="gwMini"></div></aside>`}
+// ---- steps ----
+function gwStep0(){return `<div class="gw-tails">${Object.keys(D.tails).map(tl=>{const v=D.tails[tl],art=HERO[nf(v.img)]||src(v.img);return `<button type="button" class="gw-tl${GW.t===tl?" on":""}" data-gwtail="${tl}" style="--acc:${ACC[tl]}"><span class="gw-tla">${art?`<img src="${art}" alt="" loading="lazy">`:""}</span><b>${esc(tl)}</b><small>${esc(v.th)} · ${esc(tailClass(v)||"")}</small>${GW.t===tl?`<em>✓ เลือกอยู่</em>`:""}</button>`}).join("")}</div>
+  ${GW.t?`<p class="gw-note">เปลี่ยนหางแล้วเซ็ตอุปกรณ์และสกิลจะเริ่มใหม่ ส่วนชื่อ คำอธิบาย และสเตตัสยังอยู่</p>`:""}`}
 function gwStep1(){return `<div class="gw-form">
-  <label><small>ชื่อไกด์ *</small><input type="text" maxlength="40" value="${esc(GW.n)}" data-gwf="n" placeholder="เช่น ${esc(GW.t)} สาย ตีแรง ฟาร์มเร็ว"></label>
-  <label><small>ผู้เขียน</small><input type="text" maxlength="24" value="${esc(GW.a)}" data-gwf="a" placeholder="ชื่อในเกมหรือชื่อเล่น"></label>
-  <div><small>ไกด์นี้สำหรับ</small><div class="gw-tags">${["PVE","PVP"].map(g=>`<button type="button" class="${GW.tags.includes(g)?"on":""}" data-gwtag="${g}">${g}</button>`).join("")}</div></div>
-  <label class="wide"><small>คำอธิบาย</small><textarea maxlength="1500" rows="9" data-gwf="d" placeholder="Build นี้เหมาะกับอะไร เล่นยังไง เปิดด้วยสกิลอะไร ยืนตำแหน่งไหน จุดเด่น จุดอ่อน…">${esc(GW.d)}</textarea><i class="gw-cnt">${GW.d.length}/1500</i></label></div>`}
-function gwStep2(){return `<p class="gw-lead">เลือกว่าเน้นสเตตัสไหน · <b>ตัน</b> = อัปให้สุด · <b>ตาม</b> = อัปตามสบาย/ตามต้องใช้ · หรือ <b>ใส่ตัวเลข</b> เป้าหมาย</p>
-  <div class="gw-st">${STATS.map(k=>{const v=GW.st[k],m=v?.m||"";return `<div class="gw-sr" style="--c:${STC[k]}"><span class="bx-k"><b>${k.toUpperCase()}</b><small>${STH[k]}</small></span>
-    <div class="gw-seg">${[["","ไม่เน้น"],["max","ตัน"],["follow","ตาม"],["num","ใส่ค่า"]].map(([mm,l])=>`<button type="button" class="${m===mm?"on":""}" data-gwst="${k}|${mm}">${l}</button>`).join("")}</div>
-    ${m==="num"?`<input type="text" inputmode="numeric" maxlength="8" value="${esc(v.v||"")}" data-gwsv="${k}" placeholder="เช่น 160">`:`<span class="gw-sp"></span>`}</div>`}).join("")}</div>`}
-function gwStep3(){const S=GW.sets[GW.cur];
-  const tabs=GW.sets.map((s,i)=>`<button type="button" class="${i===GW.cur?"on":""}" data-gwset="${i}">${esc(s.n)}${s.i.filter(Boolean).length?` <i>${s.i.filter(Boolean).length}</i>`:""}</button>`).join("")+(GW.sets.length<3?`<button type="button" class="add" data-gwsetadd>+ เพิ่มเซ็ต</button>`:"");
-  const tiles=NS.map(([k,l,ic],si)=>{const n=S.i[si];return `<div class="gw-slot${n?" has":""}${GW.pick===si?" pick":""}"><button type="button" class="gs${n?" has":""}${GW.pick===si?" pick":""}" data-gwslot="${si}" style="--rc:${n?tc(I(n).t):"var(--line)"}">${n?icon(n):`<span class="gs-e">${ic}</span>`}<span class="gs-t"><small>${l}</small><b>${n?esc(n):"เลือก"+l}</b>${n&&I(n).lv?`<i>Lv ${esc(I(n).lv)}</i>`:""}</span>${n?`<span class="gs-x" data-gwclr="${si}" title="เอาออก">×</span>`:""}</button>
-    ${si<3?`<label class="gw-sock"><small>ยัด Status</small><select data-gwsock="${si}"><option value="">—</option>${STATS.map(x=>`<option value="${x}"${S.sk[si]===x?" selected":""}>${x.toUpperCase()}</option>`).join("")}</select></label>`:""}</div>`}).join("");
-  const pk=GW.pick!=null?`<div class="gs-pick"><span>เลือก<b>${NS[GW.pick][1]}</b>ที่ ${esc(GW.t)} ใส่ได้ ให้${esc(S.n)}</span><div class="mk-add"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input type="search" id="gwq" autocomplete="off" placeholder="พิมพ์ชื่อ${NS[GW.pick][1]}…" value="${esc(GW.q)}"></div><div class="gs-sug" id="gwsug">${gwSug()}</div><button type="button" class="bx-mini" data-gwslot="-1">ปิด</button></div>`:"";
-  return `<p class="gw-lead">จัดเซ็ตอุปกรณ์ ทำได้ 3 เซ็ต (เช่น PVE / PVP / ฟาร์ม) · อาวุธ ชุด หมวก เลือกได้ว่ายัด Status อะไร</p>
-    <div class="gs-tabs">${tabs}${GW.sets.length>1?`<input class="gs-name" value="${esc(S.n)}" maxlength="24" data-gwsetname aria-label="ชื่อเซ็ต">${GW.cur?`<button type="button" class="bx-mini" data-gwsetdel>ลบเซ็ตนี้</button>`:""}`:""}</div>
-    <div class="gw-slots">${tiles}</div>${pk}`}
-function gwSug(){const q=GW.q.trim().toLowerCase(),slot=NS[GW.pick][0],t=GW.t;
+  <label class="gw-fld wide"><span>ชื่อไกด์ <em>*</em></span><input class="gw-big" type="text" maxlength="40" value="${esc(GW.n)}" data-gwf="n" placeholder="เช่น ${esc(GW.t)} ตีแรง ฟาร์มด่าน 9"><i class="gw-hint">ตั้งให้รู้เลยว่าเป็นสายไหน คนจะกดเข้ามาอ่านง่ายขึ้น</i></label>
+  <label class="gw-fld"><span>ผู้เขียน</span><input type="text" maxlength="24" value="${esc(GW.a)}" data-gwf="a" placeholder="ชื่อในเกมหรือชื่อเล่น"><i class="gw-hint">เว้นว่างได้ จะขึ้นว่า “ไม่ระบุชื่อ”</i></label>
+  <div class="gw-fld"><span>เหมาะกับ <small>เลือกได้ทั้งคู่</small></span><div class="gw-mode">${[["PVE","🐉","ฟาร์มด่าน · ตีบอส"],["PVP","⚔","อารีน่า · สู้ผู้เล่น"]].map(([g,ic,s])=>`<button type="button" class="${GW.tags.includes(g)?"on":""}" data-gwtag="${g}" aria-pressed="${GW.tags.includes(g)}"><span>${ic}</span><b>${g}</b><small>${s}</small></button>`).join("")}</div></div>
+  <div class="gw-fld wide"><span>คำอธิบาย <small>กดหัวข้อเพื่อแทรกลงในข้อความ</small></span><div class="gw-snip">${GW_SNIP.map(s=>`<button type="button" data-gwsnip="${s}">+ ${s}</button>`).join("")}</div>
+    <div class="gw-txt"><textarea maxlength="1500" rows="9" data-gwf="d" placeholder="Build นี้เหมาะกับอะไร เล่นยังไง เปิดด้วยสกิลอะไร จุดเด่น จุดอ่อน…">${esc(GW.d)}</textarea><i class="gw-cnt">${GW.d.length}/1500</i></div></div></div>`}
+function gwStep2(){const cur=JSON.stringify(Object.fromEntries(Object.entries(GW.st).map(([k,v])=>[k,v.m])));
+  return `<div class="gw-pre"><span>เริ่มจากแบบสำเร็จ</span>${GW_PRE.map(([ic,l,o],i)=>`<button type="button" class="${JSON.stringify(o)===cur?"on":""}" data-gwpre="${i}">${ic} ${l}</button>`).join("")}${Object.keys(GW.st).length?`<button type="button" class="clr" data-gwpre="-1">ล้างทั้งหมด</button>`:""}</div>
+  <div class="gw-st">${STATS.map(k=>{const v=GW.st[k],m=v?.m||"";return `<div class="gw-sc${m?" on":""}" style="--c:${STC[k]}"><div class="gw-sch"><b>${k.toUpperCase()}</b><small>${STH[k]}</small></div>
+    <div class="gw-seg">${[["","–"],["max","ตัน"],["follow","ตาม"],["num","ใส่ค่า"]].map(([mm,l])=>`<button type="button" class="${m===mm?"on":""}" data-gwst="${k}|${mm}" ${mm?"":`title="ไม่เน้น"`}>${l}</button>`).join("")}</div>
+    ${m==="num"?`<input type="text" inputmode="numeric" maxlength="8" value="${esc(v.v||"")}" data-gwsv="${k}" placeholder="เช่น 160" aria-label="${k} เป้าหมาย">`:""}</div>`}).join("")}</div>`}
+function gwStep3(){const S=GW.sets[GW.cur],cnt=S.i.filter(Boolean).length;
+  const tabs=GW.sets.map((s,i)=>`<button type="button" class="${i===GW.cur?"on":""}" data-gwset="${i}">${esc(s.n)} <i>${s.i.filter(Boolean).length}/6</i></button>`).join("")+(GW.sets.length<3?`<button type="button" class="add" data-gwsetadd>+ เพิ่มเซ็ต</button>`:"");
+  const tiles=NS.map(([k,l,ic],si)=>{const n=S.i[si];return `<div class="gw-slot${n?" has":""}${GW.pick===si?" pick":""}" style="--rc:${n?tc(I(n).t):"var(--line)"}">
+    <button type="button" class="gw-sb" data-gwslot="${si}"><span class="gw-si">${n?icon(n):`<span class="gw-se">${ic}</span>`}</span><span class="gw-st2"><small>${l}</small><b>${n?esc(n):`+ เลือก${l}`}</b>${n?`<i>${I(n).lv?`Lv ${esc(I(n).lv)}`:""}${gwIst(n)?` · ${gwIst(n)}`:""}</i>`:`<i>กดเพื่อเลือก</i>`}</span></button>
+    ${n?`<button type="button" class="gw-sx" data-gwclr="${si}" title="เอาออก" aria-label="เอาออก">×</button>`:""}
+    ${si<3?`<div class="gw-sock"><small>ยัด</small>${STATS.map(x=>`<button type="button" class="${S.sk[si]===x?"on":""}" style="--c:${STC[x]}" data-gwsock="${si}|${x}">${x.toUpperCase()}</button>`).join("")}</div>`:""}</div>`}).join("");
+  return `<div class="gw-sets">${tabs}</div>
+    <div class="gw-setbar">${GW.sets.length>1?`<label>ชื่อเซ็ต <input value="${esc(S.n)}" maxlength="24" data-gwsetname></label>${GW.cur?`<button type="button" class="bx-mini" data-gwsetdel>ลบเซ็ตนี้</button>`:""}`:`<span>ทำได้สูงสุด 3 เซ็ต เช่น เซ็ต PVE / เซ็ต PVP / เซ็ตฟาร์ม</span>`}<b>${cnt}/6 ช่อง</b></div>
+    <div class="gw-slots">${tiles}</div>`}
+function gwSugList(){const q=GW.q.trim().toLowerCase(),slot=NS[GW.pick][0],t=GW.t,curN=GW.sets[GW.cur].i[GW.pick];
   let L=Object.keys(D.items).filter(n=>{const it=I(n);if(!(itemCat(n)==="equip"||it.t==="pet"))return false;if(gwSlot(n)!==slot)return false;const ts=tailsOf(n);if(ts.length&&!ts.includes(t))return false;return !q||n.toLowerCase().includes(q)});
-  L.sort((a,c)=>(+(I(c).lv||0))-(+(I(a).lv||0))||a.localeCompare(c));const more=L.length>60;L=L.slice(0,60);
-  return L.length?L.map(n=>`<button type="button" data-gwput="${esc(n)}" style="--rc:${tc(I(n).t)}">${icon(n)}<span><b>${esc(n)}</b><small>${I(n).lv?`Lv ${esc(I(n).lv)} · `:""}${Object.entries(I(n).st||{}).filter(([k])=>STATS.includes(k)).map(([k,v])=>`${k} ${v}`).join(" · ")||esc(TYPE[I(n).t]||"")}</small></span></button>`).join("")+(more?`<div class="mk-none">พิมพ์ค้นหาเพื่อดูเพิ่ม</div>`:""):`<div class="mk-none">ไม่พบ${NS[GW.pick][1]}ที่ ${esc(t)} ใส่ได้</div>`}
+  L.sort((a,c)=>(+(I(c).lv||0))-(+(I(a).lv||0))||a.localeCompare(c));const tot=L.length,more=tot>80;L=L.slice(0,80);
+  return [L.length?L.map(n=>`<button type="button" class="${n===curN?"on":""}" data-gwput="${esc(n)}" style="--rc:${tc(I(n).t)}">${icon(n)}<span class="gw-sgt"><b>${esc(n)}</b><small>${I(n).lv?`Lv ${esc(I(n).lv)}`:""}${gwIst(n)?` · ${gwIst(n)}`:TYPE[I(n).t]?` · ${esc(TYPE[I(n).t])}`:""}</small></span>${n===curN?"<em>✓</em>":""}</button>`).join("")+(more?`<div class="mk-none">แสดง 80 ชิ้นแรก · พิมพ์ค้นหาเพื่อดูเพิ่ม</div>`:""):`<div class="mk-none">ไม่พบ${NS[GW.pick][1]}ที่ ${esc(t)} ใส่ได้</div>`,tot]}
+function gwSheet(){const [h,n]=gwSugList(),l=NS[GW.pick][1];return `<div class="gw-shh"><div><small>${esc(GW.sets[GW.cur].n)}</small><b>เลือก${l}</b><span id="gwsn">${esc(GW.t)} ใส่ได้ ${n} ชิ้น</span></div><button type="button" class="icon-btn" data-gwslot="-1" aria-label="ปิด">${gwX}</button></div>
+  <div class="mk-add gw-shq"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input type="search" id="gwq" autocomplete="off" placeholder="พิมพ์ชื่อ${l}…" value="${esc(GW.q)}"></div>
+  <div class="gw-sug" id="gwsug">${h}</div>`}
 function gwKeys(){const t=GW.t,set=skillBuild[t]||new Set(),learned=[...set].sort((a,c)=>a-c),star=new Set(GW.ks.map(x=>x[0]));
   return `${GW.ks.length?`<div class="ks-list">${GW.ks.map(([c,note],i)=>`<div class="ks-it"><b class="ks-n">${i+1}</b><span class="ks-ic">${skIcon(t,c)}</span><span class="ks-t"><b>${esc(skName(t,c))}</b>${set.has(c)?"":`<small class="neg">ยังไม่ได้อัปในสายสกิล</small>`}<input value="${esc(note)}" maxlength="120" placeholder="ทำไมอัปสกิลนี้…" data-gwksn="${i}"></span><button type="button" data-gwksmv="${i}|-1" ${i?"":"disabled"}>▲</button><button type="button" data-gwksmv="${i}|1" ${i<GW.ks.length-1?"":"disabled"}>▼</button><button type="button" data-gwksrm="${i}">×</button></div>`).join("")}</div>`:""}
     ${learned.length?`<div class="ks-pool">${learned.map(c=>`<button type="button" class="${star.has(c)?"on":""}" data-gwks="${c}" title="${esc(skName(t,c))}">${skIcon(t,c)}${star.has(c)?"<em>★</em>":""}</button>`).join("")}</div>`:`<span class="bx-none">อัปสกิลในสายด้านบนก่อน แล้วสกิลที่อัปจะมาโผล่ที่นี่ให้ติดดาว</span>`}`}
-function gwStep4(){return `<p class="gw-lead">อัปสกิลตามที่แนะนำ · ไม่บังคับ: ติดดาวสกิลสำคัญแล้วเขียนโน้ตว่าทำไมอัปอันนี้</p>${skillTree(GW.t)}<section class="d-sec bx-card"><div class="bx-ch">สกิลสำคัญ & โน้ต <small>ไม่บังคับ · กดไอคอนเพื่อติดดาว (สูงสุด 10)</small></div><div id="gwks">${gwKeys()}</div></section>`}
+function gwStep4(){return `${skillTree(GW.t)}<section class="d-sec bx-card gw-kcard"><div class="bx-ch">⭐ สกิลสำคัญ & โน้ต <small>ไม่บังคับ · กดไอคอนสกิลที่อัปแล้วเพื่อติดดาว (สูงสุด 10)</small></div><div id="gwks">${gwKeys()}</div></section>`}
 function gwFocusHTML(st){const L=STATS.filter(k=>st&&st[k]);return L.length?`<div class="gw-focus">${L.map(k=>{const v=st[k];return `<span style="--c:${STC[k]}"><b>${k.toUpperCase()}</b><i>${v.m==="max"?"ตัน":v.m==="follow"?"ตาม":esc(v.v||"?")}</i></span>`}).join("")}</div>`:""}
 function gwSetsHTML(sets){return sets.filter(s=>s.i.some(Boolean)).map(s=>`<div class="rd-set"><small>${esc(s.n)}</small><div>${NS.map(([k,l],i)=>s.i[i]?`<button type="button" class="rd-gi" data-open="${ref("item",s.i[i])}">${icon(s.i[i])}<span><small>${l}${s.sk&&s.sk[i]?` · <em class="sock">ยัด ${s.sk[i].toUpperCase()}</em>`:""}</small><b>${esc(s.i[i])}</b></span></button>`:"").join("")}</div></div>`).join("")}
-function gwStep5(){const C=gwChecks(),ok=C.filter(x=>x[0]).length,t=GW.t,v=D.tails[t],acc=ACC[t]||"#d6993f",art=HERO[nf(v.img)]||src(v.img);
-  return `<div class="gw-sum" style="--acc:${acc}"><div class="gw-sh"><span class="rd-art">${art?`<img src="${art}" alt="">`:""}</span><div><span class="pin-tail">${esc(t)} · ${esc(v.th)}</span><h3>${esc(GW.n||"(ยังไม่ได้ตั้งชื่อ)")}</h3><small>โดย ${esc(GW.a||"ไม่ระบุชื่อ")} ${GW.tags.map(g=>`<i class="pin-tag">${g}</i>`).join(" ")}</small></div></div>
-    ${GW.d?`<p class="rd-p">${esc(GW.d.length>300?GW.d.slice(0,300)+"…":GW.d)}</p>`:""}${gwFocusHTML(GW.st)}${gwSetsHTML(GW.sets)}
-    <div class="gw-chk">${C.map(([o,l,s])=>`<button type="button" class="${o?"ok":""}" data-gwgo="${s}">${o?"✓":"○"} ${l}</button>`).join("")}<b>${ok}/6</b></div></div>
-  <div class="gw-fin"><button type="button" class="mk-btn pin" data-gwpost ${GW.t&&GW.n.trim()?"":"disabled"}>📌 บันทึก & โพสต์ไกด์</button><button type="button" class="mk-btn" data-gwcode>คัดลอกโค้ด/ลิงก์ไกด์</button><button type="button" class="bx-mini" data-gwreset>ลบร่าง เริ่มใหม่</button></div>
-  <p class="bx-help">${GW.t&&GW.n.trim()?"โพสต์แล้วทุกคนเห็นในเมนูกระดาน Build ทันที · ลบเองไม่ได้ ตรวจให้เรียบร้อยก่อน":"ต้องเลือกหางและตั้งชื่อไกด์ก่อนถึงจะโพสต์ได้"} · ร่างบันทึกอัตโนมัติ</p>`}
-function gwRender(){const ov=$("#gwPop");if(!ov||!GW)return;const st=GW.step,canNext=st===0?!!GW.t:st<5;
-  ov.innerHTML=`<div class="lvpop-card gw"><div class="gw-top"><b class="gw-title">✍ เขียนไกด์ Build${GW.t?` · ${esc(GW.t)}`:""}</b><nav class="gw-steps">${GW_STEPS.map((l,i)=>`<button type="button" class="${i===st?"on":""}${i<st?" done":""}" data-gwgo="${i}" ${!GW.t&&i>0?"disabled":""}><i>${i}</i>${l}</button>`).join("")}</nav><button type="button" class="icon-btn" data-gwclose aria-label="ปิด"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></div>
-    <div class="gw-body" id="gwBody">${[gwStep0,gwStep1,gwStep2,gwStep3,gwStep4,gwStep5][st]()}</div>
-    <div class="gw-foot"><button type="button" class="mk-btn ghost" data-gwgo="${st-1}" ${st?"":"disabled"}>← ย้อนกลับ</button><span class="gw-dots">${GW_STEPS.map((_,i)=>`<i class="${i===st?"on":""}"></i>`).join("")}</span>${st<5?`<button type="button" class="mk-btn gold" data-gwgo="${st+1}" ${canNext?"":"disabled"}>ถัดไป →</button>`:`<span></span>`}</div></div>`;
-  ov.querySelector(".gw-steps .on")?.scrollIntoView({inline:"center",block:"nearest"});
+function gwStep5(){const C=gwChecks(),ok=C.filter(x=>x[0]).length,t=GW.t,v=D.tails[t],acc=ACC[t]||"#d6993f",art=HERO[nf(v.img)]||src(v.img),can=!!(GW.t&&GW.n.trim()),miss=C.filter(x=>!x[0]);
+  return `<div class="gw-fgrid"><div class="gw-fl">
+    <div class="gw-sum" style="--acc:${acc}"><div class="gw-sh"><span class="rd-art">${art?`<img src="${art}" alt="">`:""}</span><div><span class="pin-tail">${esc(t)} · ${esc(v.th)}</span><h3>${esc(GW.n||"(ยังไม่ได้ตั้งชื่อ)")}</h3><small>โดย ${esc(GW.a||"ไม่ระบุชื่อ")} ${GW.tags.map(g=>`<i class="pin-tag">${g}</i>`).join(" ")}</small></div></div>
+      ${GW.d?`<p class="rd-p">${esc(GW.d.length>400?GW.d.slice(0,400)+"…":GW.d)}</p>`:""}${gwFocusHTML(GW.st)}${gwSetsHTML(GW.sets)}</div>
+    <div class="gw-ready${ok===6?" all":""}"><div class="gw-mh"><span>${ok===6?"🎉 ไกด์ครบทุกส่วนแล้ว":miss.length?`ยังขาด: ${miss.map(x=>x[1]).join(", ")}`:""}</span><b>${ok}/6</b></div><div class="gw-mbar"><i style="width:${ok/6*100}%"></i></div>
+      <div class="gw-mchk">${C.map(([o,l,s])=>`<button type="button" class="${o?"ok":""}" data-gwgo="${s}">${o?"✓":"○"} ${l}</button>`).join("")}</div></div>
+    <button type="button" class="gw-post" data-gwpost ${can?"":"disabled"}><span>📌</span><b>บันทึก & โพสต์ไกด์</b><small>${can?"ขึ้นกระดาน Build ทันที ทุกคนเห็น":"ต้องเลือกหางและตั้งชื่อไกด์ก่อน"}</small></button>
+    <div class="gw-fin"><button type="button" class="mk-btn" data-gwcode>🔗 คัดลอกลิงก์ไกด์</button><button type="button" class="bx-mini" data-gwreset>ลบร่าง เริ่มใหม่</button></div>
+    <p class="bx-help">โพสต์แล้วลบเองไม่ได้ ตรวจให้เรียบร้อยก่อน · ร่างบันทึกอัตโนมัติในเครื่องนี้</p></div>
+  <div class="gw-fr"><div class="gw-ah">ตัวอย่างบนกระดาน</div><div class="gw-prev" id="gwPrev"></div></div></div>`}
+function gwRender(){const ov=$("#gwPop");if(!ov||!GW)return;const st=GW.step,[title,sub]=GW_STEPS[st],aside=st>=1&&st<=3&&!!GW.t;
+  const pb=$("#gwBody"),keep=pb&&pb.dataset.step===String(st)?pb.scrollTop:-1,nx=GW_STEPS[st+1],block=st===0?!GW.t:st===1&&!GW.n.trim();
+  const tv=GW.t&&D.tails[GW.t],tart=tv?(HERO[nf(tv.img)]||src(tv.img)):"";
+  ov.innerHTML=`<div class="lvpop-card gw">
+    <div class="gw-top"><b class="gw-title">✍ เขียนไกด์</b>${GW.t?`<button type="button" class="gw-tchip" data-gwgo="0" style="--acc:${ACC[GW.t]}" title="เปลี่ยนหาง">${tart?`<img src="${tart}" alt="">`:""}<span>${esc(GW.t)}</span></button>`:""}
+      <nav class="gw-steps" aria-label="ขั้นตอน">${GW_STEPS.map(([l],i)=>`<button type="button" class="${i===st?"on":""}${i<st?" done":""}" data-gwgo="${i}" ${!GW.t&&i>0?"disabled":""} ${i===st?`aria-current="step"`:""}><i>${i<st?"✓":i}</i><span>${l}</span></button>`).join("")}</nav>
+      <span class="gw-saved" id="gwSaved">✓ บันทึกร่างแล้ว</span><button type="button" class="icon-btn" data-gwclose aria-label="ปิด">${gwX}</button></div>
+    <div class="gw-hero"><span class="gw-no">${st?`ขั้นที่ ${st} จาก 5`:"เริ่มต้น"}</span><h3>${title}${GW_OPT.has(st)?` <small>ไม่บังคับ</small>`:""}</h3><p>${sub}</p></div>
+    <div class="gw-main${aside?" has-aside":""}"><div class="gw-body${keep<0?" gw-in":""}" id="gwBody" data-step="${st}">${[gwStep0,gwStep1,gwStep2,gwStep3,gwStep4,gwStep5][st]()}</div>${aside?gwAside():""}</div>
+    <div class="gw-foot"><button type="button" class="mk-btn ghost" data-gwgo="${st-1}" ${st?"":"disabled"}>← ย้อนกลับ</button><span class="gw-bar"><i style="width:${st/5*100}%"></i></span>${st<5?`<button type="button" class="mk-btn gold gw-next" id="gwNext" data-gwgo="${st+1}" ${block?"disabled":""}><small>${block?(st?"ตั้งชื่อไกด์ก่อน":"เลือกหางก่อน"):"ถัดไป"}</small>${nx[0]} →</button>`:`<span></span>`}</div>
+    ${st===3?`<div class="gw-shade${GW.pick!=null?" show":""}" data-gwslot="-1"></div><div class="gw-sheet${GW.pick!=null?" show":""}" id="gwSheet" role="dialog" aria-label="เลือกอุปกรณ์">${GW.pick!=null?gwSheet():""}</div>`:""}</div>`;
+  if(keep>0)$("#gwBody").scrollTop=keep;
+  gwPrev();ov.querySelector(".gw-steps .on")?.scrollIntoView({inline:"center",block:"nearest"});
   if(st===4&&!skillImgLoaded)loadSkillImg()}
 function gwOpen(){let ov=$("#gwPop");if(!ov){ov=document.createElement("div");ov.id="gwPop";ov.className="lvpop gwpop";ov.setAttribute("role","dialog");ov.setAttribute("aria-modal","true");document.body.appendChild(ov)}
   gwRender();void ov.offsetWidth;ov.classList.add("show");document.documentElement.style.overflow="hidden";try{history.replaceState(null,"","#write")}catch(_){}}
 function gwClose(){const ov=$("#gwPop");if(ov)ov.classList.remove("show");document.documentElement.style.overflow="";gwSave();try{history.replaceState(null,"","#"+(st.tab||"board"))}catch(_){}}
+function gwGo(s){if(s<0||s>5||(!GW.t&&s>0))return;GW.step=s;GW.pick=null;gwRender();gwSave()}
 function gwChooser(tail){const d=gwDraft();let ov=$("#gwChoose");if(!ov){ov=document.createElement("div");ov.id="gwChoose";ov.className="lvpop";document.body.appendChild(ov);ov.addEventListener("click",e=>{if(e.target===ov||e.target.closest("[data-gwcclose]"))ov.classList.remove("show")})}
-  ov.innerHTML=`<div class="lvpop-card gw-ch"><div class="lvpop-h"><span class="lvt-ico">✍</span><span class="lvt-h"><b>สร้าง Build</b><small>เขียนไกด์ใหม่ หรือนำเข้าไกด์ที่มีอยู่</small></span><button type="button" class="icon-btn" data-gwcclose aria-label="ปิด"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></div>
-    <div class="gw-opts"><button type="button" class="gw-opt" data-gwstart="${tail||""}"><span>✨</span><b>สร้างไกด์ใหม่</b><small>${tail?`เริ่มเขียนไกด์ ${esc(tail)}`:"เลือกหาง แล้วเขียนทีละขั้น"}</small></button>
-      ${d?`<button type="button" class="gw-opt" data-gwcont><span>📝</span><b>เขียนต่อ</b><small>ร่างที่ค้างไว้: ${esc(d.n||d.t||"ไม่มีชื่อ")}</small></button>`:""}
+  ov.innerHTML=`<div class="lvpop-card gw-ch"><div class="lvpop-h"><span class="lvt-ico">✍</span><span class="lvt-h"><b>สร้าง Build</b><small>เขียนไกด์ใหม่ หรือนำเข้าไกด์ที่มีอยู่</small></span><button type="button" class="icon-btn" data-gwcclose aria-label="ปิด">${gwX}</button></div>
+    <div class="gw-opts"><button type="button" class="gw-opt" data-gwstart="${tail||""}"><span>✨</span><b>สร้างไกด์ใหม่</b><small>${tail?`เริ่มเขียนไกด์ ${esc(tail)} · 5 ขั้น ใช้เวลาไม่กี่นาที`:"เลือกหาง แล้วเขียนทีละขั้น · 5 ขั้น ใช้เวลาไม่กี่นาที"}</small></button>
+      ${d?`<button type="button" class="gw-opt" data-gwcont><span>📝</span><b>เขียนต่อ</b><small>ร่างที่ค้างไว้: ${esc(d.n||d.t||"ไม่มีชื่อ")}${d.t?` · ${esc(d.t)}`:""}</small></button>`:""}
       <div class="gw-opt imp"><span>📥</span><b>นำเข้าไกด์</b><small>วางลิงก์ไกด์ (#build= หรือ #post=) หรือโค้ดไกด์</small><textarea id="gwImp" rows="2" placeholder="วางลิงก์หรือโค้ดที่นี่"></textarea><button type="button" class="mk-btn gold" data-gwimp>นำเข้า</button></div></div></div>`;
   void ov.offsetWidth;ov.classList.add("show")}
 async function gwImport(txt){txt=String(txt||"").trim();let m=txt.match(/#post=([\w-]+)/)||(/^[\w-]{6,12}$/.test(txt)&&!/=/.test(txt)?[0,txt]:null);
@@ -3105,12 +3221,15 @@ document.addEventListener("click",async e=>{const g=a=>e.target.closest("["+a+"]
   if(x=g("data-gwimp")){if(await gwImport($("#gwImp").value)){$("#gwChoose").classList.remove("show");gwSave();gwOpen();toast("นำเข้าไกด์แล้ว ตรวจและแก้ได้ทุกขั้น")}return}
   if(!$("#gwPop.show"))return;
   if(x=g("data-gwclose")){gwClose();return}
-  if(x=g("data-gwgo")){const s=+x.dataset.gwgo;if(s<0||s>5||(!GW.t&&s>0))return;GW.step=s;gwRender();$("#gwBody").scrollTop=0;gwSave();return}
-  if(x=g("data-gwtail")){const tl=x.dataset.gwtail;if(GW.t!==tl){GW.t=tl;GW.sets=[gwSet("เซ็ตหลัก")];GW.cur=0;GW.ks=[];skillBuild[tl]=skillBuild[tl]||new Set();skillLevel[tl]=skillLevel[tl]??110}GW.step=1;gwRender();gwSave();return}
-  if(x=g("data-gwtag")){const v=x.dataset.gwtag,i=GW.tags.indexOf(v);if(i>=0)GW.tags.splice(i,1);else GW.tags.push(v);x.classList.toggle("on");gwSave();return}
+  if(x=g("data-gwgo")){gwGo(+x.dataset.gwgo);return}
+  if(x=g("data-gwtail")){const tl=x.dataset.gwtail;if(GW.t!==tl){GW.t=tl;GW.sets=[gwSet("เซ็ตหลัก")];GW.cur=0;GW.ks=[];skillBuild[tl]=skillBuild[tl]||new Set();skillLevel[tl]=skillLevel[tl]??110}gwGo(1);return}
+  if(x=g("data-gwtag")){const v=x.dataset.gwtag,i=GW.tags.indexOf(v);if(i>=0)GW.tags.splice(i,1);else GW.tags.push(v);x.classList.toggle("on",i<0);x.setAttribute("aria-pressed",i<0);gwSave();return}
+  if(x=g("data-gwsnip")){const ta=$('[data-gwf="d"]');if(!ta)return;const s=ta.selectionStart??ta.value.length,pre=ta.value.slice(0,s),ins=(pre&&!pre.endsWith("\n")?"\n":"")+"【"+x.dataset.gwsnip+"】 ";ta.value=(pre+ins+ta.value.slice(ta.selectionEnd??s)).slice(0,1500);ta.focus();ta.selectionStart=ta.selectionEnd=Math.min(1500,pre.length+ins.length);ta.dispatchEvent(new Event("input",{bubbles:true}));return}
+  if(x=g("data-gwpre")){const i=+x.dataset.gwpre;GW.st={};if(i>=0)Object.entries(GW_PRE[i][2]).forEach(([k,m])=>GW.st[k]={m,v:""});gwRender();gwSave();return}
   if(x=g("data-gwst")){const [k,m]=x.dataset.gwst.split("|");if(!m)delete GW.st[k];else GW.st[k]={m,v:GW.st[k]?.v||""};gwRender();gwSave();if(m==="num")setTimeout(()=>$(`[data-gwsv="${k}"]`)?.focus(),0);return}
-  if(x=g("data-gwclr")){e.stopPropagation();GW.sets[GW.cur].i[+x.dataset.gwclr]="";gwRender();gwSave();return}
-  if(x=g("data-gwslot")){const v=+x.dataset.gwslot;GW.pick=v<0||GW.pick===v?null:v;GW.q="";gwRender();setTimeout(()=>$("#gwq")?.focus(),0);return}
+  if(x=g("data-gwclr")){GW.sets[GW.cur].i[+x.dataset.gwclr]="";gwRender();gwSave();return}
+  if(x=g("data-gwsock")){const [i,v]=x.dataset.gwsock.split("|"),S=GW.sets[GW.cur];S.sk[+i]=S.sk[+i]===v?"":v;gwRender();gwSave();return}
+  if(x=g("data-gwslot")){const v=+x.dataset.gwslot;GW.pick=v<0||GW.pick===v?null:v;GW.q="";gwRender();if(GW.pick!=null&&matchMedia("(min-width:761px)").matches)setTimeout(()=>$("#gwq")?.focus(),60);return}
   if(x=g("data-gwput")){GW.sets[GW.cur].i[GW.pick]=x.dataset.gwput;GW.pick=null;GW.q="";gwRender();gwSave();return}
   if(x=g("data-gwset")){GW.cur=+x.dataset.gwset;GW.pick=null;gwRender();return}
   if(x=g("data-gwsetadd")){if(GW.sets.length<3){GW.sets.push(gwSet(GW.sets.length===1?"เซ็ต PVP":"เซ็ตที่ 3"));GW.cur=GW.sets.length-1}gwRender();gwSave();return}
@@ -3119,20 +3238,21 @@ document.addEventListener("click",async e=>{const g=a=>e.target.closest("["+a+"]
   if(x=g("data-gwksrm")){GW.ks.splice(+x.dataset.gwksrm,1);$("#gwks").innerHTML=gwKeys();gwSave();return}
   if(x=g("data-gwksmv")){const [i,d]=x.dataset.gwksmv.split("|"),a=+i,c=a+ +d;[GW.ks[a],GW.ks[c]]=[GW.ks[c],GW.ks[a]];$("#gwks").innerHTML=gwKeys();gwSave();return}
   if(x=g("data-gwreset")){if(x.dataset.armed!=="1"){x.dataset.armed="1";x.textContent="กดอีกครั้งเพื่อลบร่าง";return}try{localStorage.removeItem("ttc-guide")}catch(_){}gwNew(null);gwRender();toast("ลบร่างแล้ว");return}
-  if(x=g("data-gwcode")){const u=location.origin+location.pathname+"#build="+b64e(JSON.stringify(gwPack()));(navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(()=>toast("คัดลอกลิงก์ไกด์แล้ว เอาไปวางที่ 'นำเข้าไกด์' หรือส่งให้เพื่อนได้"),()=>prompt("คัดลอกลิงก์นี้",u));return}
-  if(x=g("data-gwpost")){if(!GW.t||!GW.n.trim())return;x.disabled=true;x.textContent="กำลังโพสต์…";try{localStorage.setItem("ttc-author",JSON.stringify(GW.a))}catch(_){}
+  if(x=g("data-gwcode")){const u=location.origin+location.pathname+"#build="+b64e(JSON.stringify(gwPack()));(navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(()=>toast("คัดลอกลิงก์ไกด์แล้ว ส่งให้เพื่อน หรือวางที่ 'นำเข้าไกด์' ได้"),()=>prompt("คัดลอกลิงก์นี้",u));return}
+  if(x=g("data-gwpost")){if(!GW.t||!GW.n.trim())return;x.disabled=true;x.querySelector("b").textContent="กำลังโพสต์…";try{localStorage.setItem("ttc-author",JSON.stringify(GW.a))}catch(_){}
     try{const r=await fetch(API+"/builds",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({build:gwPack(),author:GW.a,tags:GW.tags,desc:GW.d.slice(0,200)})});const j=await r.json();if(!r.ok)throw new Error(j.error||"โพสต์ไม่สำเร็จ");
       (BRD.list=BRD.list||[]).unshift(j);try{localStorage.removeItem("ttc-guide")}catch(_){}gwClose();toast("โพสต์ไกด์แล้ว!");BRD.sort="new";BRD.tail="all";BRD.tag="all";closeD();goTab("board");setTimeout(()=>{brdRedraw(true);brdRead(j.id)},250)}
-    catch(err){toast(err.message||"โพสต์ไม่สำเร็จ");x.disabled=false;x.textContent="📌 บันทึก & โพสต์ไกด์"}return}
+    catch(err){toast(err.message||"โพสต์ไม่สำเร็จ");x.disabled=false;x.querySelector("b").textContent="บันทึก & โพสต์ไกด์"}return}
 },true);
 document.addEventListener("input",e=>{if(!GW||!$("#gwPop.show"))return;const el=e.target,d=el.dataset;
-  if(d.gwf){GW[d.gwf]=el.value;if(d.gwf==="d"){const c=el.parentElement.querySelector(".gw-cnt");if(c)c.textContent=el.value.length+"/1500"}gwSave();return}
-  if(d.gwsv){GW.st[d.gwsv].v=el.value.replace(/[^\d]/g,"");gwSave();return}
+  if(d.gwf){GW[d.gwf]=el.value;if(d.gwf==="d"){const c=el.parentElement.querySelector(".gw-cnt");if(c)c.textContent=el.value.length+"/1500"}
+    if(d.gwf==="n"){const n=$("#gwNext");if(n){const blk=!el.value.trim();n.disabled=blk;n.querySelector("small").textContent=blk?"ตั้งชื่อไกด์ก่อน":"ถัดไป"}}gwSave();return}
+  if(d.gwsv){el.value=el.value.replace(/[^\d]/g,"");GW.st[d.gwsv].v=el.value;gwSave();return}
   if(d.gwksn!==undefined){GW.ks[+d.gwksn][1]=el.value;gwSave();return}
-  if(el.hasAttribute("data-gwsetname")){GW.sets[GW.cur].n=el.value.slice(0,24)||"เซ็ต";const b=document.querySelector(`[data-gwset="${GW.cur}"]`);if(b)b.firstChild.textContent=GW.sets[GW.cur].n;gwSave();return}
-  if(el.id==="gwq"){GW.q=el.value;$("#gwsug").innerHTML=gwSug()}});
-document.addEventListener("change",e=>{const s=e.target.closest("[data-gwsock]");if(s&&GW){GW.sets[GW.cur].sk[+s.dataset.gwsock]=s.value;gwSave()}});
-document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("#gwPop.show")){gwClose()}});
+  if(el.hasAttribute("data-gwsetname")){GW.sets[GW.cur].n=el.value.slice(0,24)||"เซ็ต";const b=document.querySelector(`[data-gwset="${GW.cur}"]`);if(b)b.firstChild.textContent=GW.sets[GW.cur].n+" ";gwSave();return}
+  if(el.id==="gwq"){GW.q=el.value;const [h,n]=gwSugList();$("#gwsug").innerHTML=h;$("#gwsn").textContent=`${GW.t} ใส่ได้ ${n} ชิ้น`}});
+document.addEventListener("keydown",e=>{if(!$("#gwPop.show"))return;if(e.key==="Escape"){e.stopPropagation();if(GW.pick!=null){GW.pick=null;gwRender()}else gwClose();return}
+  if(e.key==="Enter"&&e.target.matches('[data-gwf="n"],[data-gwf="a"]')){e.preventDefault();const n=$("#gwNext");if(n&&!n.disabled)n.click()}},true);
 const _skRedraw2=skRedraw;skRedraw=function(h){_skRedraw2(h);const k=document.getElementById("gwks");if(k&&GW&&GW.t===h){k.innerHTML=gwKeys();gwSave()}};
 /* ---------- build board ---------- */
 const API="https://12tails-codex-visits.ails-odex.workers.dev";
