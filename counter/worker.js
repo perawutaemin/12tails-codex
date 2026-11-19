@@ -1,7 +1,7 @@
 // 12 Tails Codex API (Cloudflare Worker + KV TTC_VISITS)
 //   GET/POST /            visit counter
 //   GET      /builds      list board builds
-//   POST     /builds      post a build (rate limited per IP)
+//   POST     /builds      post a build
 //   POST     /builds/:id/like   like once per IP
 //   DELETE   /builds/:id  admin only (header X-Admin = env.ADMIN_KEY)
 const ORIGINS = ["https://perawutaemin.github.io", "https://claude.ai"];
@@ -44,8 +44,6 @@ export default {
     }
 
     if (path === "/builds" && req.method === "POST") {
-      const rk = "rl:" + ip, used = +(await kv.get(rk)) || 0;
-      if (used >= POST_LIMIT) return J({ error: "โพสต์ได้ชั่วโมงละ " + POST_LIMIT + " Build ลองใหม่ภายหลังนะ" }, 429);
       let body; try { body = await req.json(); } catch { return J({ error: "ข้อมูลไม่ถูกต้อง" }, 400); }
       const p = body.build || {};
       if (!TAILS.includes(p.t)) return J({ error: "ไม่รู้จักหางนี้" }, 400);
@@ -70,7 +68,6 @@ export default {
       if (!b.build.n) b.build.n = b.build.t + " Build";
       const list = await readBuilds(kv); list.unshift(b);
       await kv.put("builds", JSON.stringify(list.slice(0, 2000)));
-      await kv.put(rk, String(used + 1), { expirationTtl: 3600 });
       const { ip: _, ...out } = b; return J(out, 201);
     }
 
