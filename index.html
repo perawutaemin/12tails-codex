@@ -842,6 +842,57 @@ button.here:disabled{opacity:1;color:inherit}
 .topic.set{transition:transform .25s cubic-bezier(.3,1.4,.5,1),background .35s,border-image-source .35s,box-shadow .35s}
 .topic.set[aria-current="true"]{transform:translateX(4px);box-shadow:-4px 0 0 0 var(--gold)}
 #view{scroll-behavior:auto}
+/* ---------- build creator ---------- */
+.tt-tabs{display:flex;gap:6px;margin:14px 0 4px;padding:5px;border-radius:999px;background:rgba(0,0,0,.28);border:1px solid var(--line);width:max-content;max-width:100%}
+.tt-tabs button{border:0;background:none;color:var(--muted);border-radius:999px;padding:9px 20px;font:inherit;font-size:14px;font-weight:600;cursor:pointer;transition:background .2s,color .2s}
+.tt-tabs button.on{background:linear-gradient(180deg,#f6d98c,#d9a543);color:#24170b}
+.tt-tabs button:not(.on):hover{color:var(--gold-hi)}
+.bx{display:flex;flex-direction:column;gap:12px}
+.bx-top{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.bx-lv{display:flex;align-items:center;gap:8px;font-weight:700;color:var(--gold-hi)}
+.bx-lv input{width:70px;background:var(--well);border:1px solid var(--gold);border-radius:10px;padding:7px 8px;color:var(--gold-hi);font:700 16px var(--mono);text-align:center}
+.bx-lv small{color:var(--muted);font-weight:400}
+.bx-pill{display:flex;align-items:baseline;gap:6px;padding:6px 14px;border-radius:999px;background:rgba(0,0,0,.25);border:1px solid var(--line-soft)}
+.bx-pill small{font-size:11.5px;color:var(--muted)}.bx-pill b{font:700 18px var(--mono);color:#7fe0a0}.bx-pill i{font-style:normal;font-size:12px;color:var(--muted)}
+.bx-pill.neg b{color:#ff8a7a}
+.bx-preset{display:flex;gap:6px;margin-left:auto}
+.bx-preset select{background:var(--well);border:1px solid var(--line);border-radius:999px;padding:7px 12px;color:var(--text);font:inherit;font-size:13px}
+.bx-mini{border:1px solid var(--line);background:none;color:var(--muted);border-radius:999px;padding:7px 12px;font:inherit;font-size:13px;cursor:pointer}
+.bx-mini:disabled{opacity:.4;cursor:default}
+.bx-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:12px}
+.bx-card{padding:14px;border-radius:16px;border:1px solid var(--line);background:var(--weave),var(--panel);display:flex;flex-direction:column;gap:8px;min-width:0}
+.bx-ch{font-weight:700;color:var(--gold-hi);font-size:15px}.bx-ch small{font-weight:400;color:var(--muted);font-size:12px;margin-left:6px}
+.bx-row{display:grid;grid-template-columns:150px minmax(0,1fr) auto;gap:10px;align-items:center;padding:4px 0}
+.bx-k{display:flex;flex-direction:column;line-height:1.1}.bx-k b{color:var(--c);font:700 14px var(--mono)}.bx-k small{font-size:11px;color:var(--muted)}
+.bx-bar{height:10px;border-radius:6px;background:rgba(255,255,255,.07);overflow:hidden}.bx-bar i{display:block;height:100%;background:var(--c);border-radius:6px;transition:width .3s cubic-bezier(.2,.8,.2,1)}
+.bx-ctl{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;background:var(--well);overflow:hidden}
+.bx-ctl button{border:0;background:none;color:var(--text);width:32px;height:32px;font-size:17px;cursor:pointer}
+.bx-ctl button:hover:not(:disabled){background:rgba(242,207,122,.12);color:var(--gold-hi)}.bx-ctl button:disabled{opacity:.3;cursor:default}
+.bx-ctl input{width:52px;border:0;background:none;color:var(--gold-hi);text-align:center;font:700 15px var(--mono);-moz-appearance:textfield;appearance:textfield}
+.bx-ctl input::-webkit-inner-spin-button{-webkit-appearance:none}
+.bx-base summary{cursor:pointer;font-size:13px;color:var(--gold);margin-top:4px}.bx-base summary small{color:var(--muted)}
+.bx-bgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
+.bx-bgrid label{display:flex;flex-direction:column;gap:3px;font:700 11px var(--mono)}
+.bx-bgrid input{width:100%;background:var(--well);border:1px solid var(--line);border-radius:8px;padding:6px 8px;color:var(--text);font:600 14px var(--mono)}
+.bx-sum{align-items:center}
+.bx-radar{width:min(260px,100%);height:auto}
+.bx-tot{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;width:100%}
+.bx-tot span{display:flex;flex-direction:column;align-items:center;padding:6px 4px;border-radius:10px;background:rgba(0,0,0,.25);border:1px solid var(--line-soft);border-top:2px solid var(--c)}
+.bx-tot b{font:700 11px var(--mono);color:var(--c)}.bx-tot em{font:700 18px var(--mono);font-style:normal;color:var(--text)}.bx-tot small{font-size:10px;color:var(--muted);text-align:center}
+.bx-der{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;width:100%}
+.bx-der span{display:flex;flex-direction:column;padding:6px 10px;border-radius:10px;background:rgba(242,207,122,.06);border:1px solid var(--line-soft)}
+.bx-der small{font-size:11px;color:var(--muted)}.bx-der b{font:700 16px var(--mono);color:var(--gold-hi)}.bx-der i{font-style:normal;font-size:10.5px;color:var(--muted)}
+.bx-eq{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px}
+.bx-it{display:flex;align-items:center;gap:10px;padding:6px 8px;border-radius:12px;border:1px solid var(--line-soft);background:rgba(0,0,0,.22)}
+.bx-it .ic{width:40px;height:40px;flex:none}.bx-it>span{flex:1;min-width:0;display:flex;flex-direction:column}
+.bx-it b{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.bx-it small{font-size:11px;color:var(--muted)}
+.bx-it button{border:0;background:none;color:var(--muted);font-size:18px;cursor:pointer;width:28px;height:28px;border-radius:50%}.bx-it button:hover{color:#ff8a7a;background:rgba(255,138,122,.1)}
+.bx-none{color:var(--muted);font-size:13px;padding:6px}
+.bx-add{max-width:520px}
+.bx-share .bx-sh{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;margin-top:8px}
+.bx-name{display:flex;flex-direction:column;gap:4px;flex:1 1 220px}.bx-name small{font-size:12px;color:var(--muted)}
+.bx-name input{background:var(--well);border:1px solid var(--line);border-radius:10px;padding:9px 12px;color:var(--text);font:inherit}
+@media (max-width:900px){.bx-grid{grid-template-columns:1fr}.bx-row{grid-template-columns:96px minmax(0,1fr) auto}.bx-k small{display:none}.bx-preset{margin-left:0}}
 /* ---------- maps ---------- */
 .mp{display:flex;flex-direction:column;gap:14px}
 .mp-tabs{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
@@ -2142,7 +2193,9 @@ function open(r,push=true,dir){
       <div class="th-info"><span class="th-kick">${esc(tailClass(v)||"12 Tails")}</span><h2>${esc(id)}</h2><div class="th-th">${esc(v.th)}</div>
       ${stars?`<div class="th-stats">${stars}</div>`:""}
       ${v.sk?.length?`<div class="tagrow">${v.sk.map(s=>`<span class="tag">${esc(s)}</span>`).join("")}</div>`:""}</div></div>`;
-    h+=skillTree(id);
+    const tb=tailTab[id]||"info";
+    h+=`<div class="tt-tabs" role="tablist"><button type="button" role="tab" class="${tb==="info"?"on":""}" data-ttab="${id}|info" aria-selected="${tb==="info"}">ข้อมูล & สายสกิล</button><button type="button" role="tab" class="${tb==="build"?"on":""}" data-ttab="${id}|build" aria-selected="${tb==="build"}">★ สร้าง Build</button></div>`;
+    h+=tb==="build"?buildView(id):skillTree(id);
 
     
   }
@@ -2588,6 +2641,120 @@ document.addEventListener("wheel",e=>{const s=e.target.closest("#mpStage");if(!s
   document.addEventListener("pointermove",e=>{if(!drag)return;drag.s.scrollLeft=drag.l-(e.clientX-drag.x);drag.s.scrollTop=drag.t-(e.clientY-drag.y)});
   document.addEventListener("pointerup",()=>{if(drag){drag.s.classList.remove("drag");drag=null}})})();
 
+/* ---------- build creator ---------- */
+const STATS=["Atk","Def","Agi","Vit","Int","Cha","Tal","Lck"],STH={Atk:"พลังโจมตี",Def:"พลังป้องกัน",Agi:"ความเร็ว · ลดคูลดาวน์",Vit:"พลังชีวิต",Int:"เวทมนตร์ · MP",Cha:"ระยะเวลาสถานะ",Tal:"พลังสกิล",Lck:"โชค · โอกาสติดสถานะ"};
+const STC={Atk:"#ff8a7a",Def:"#8fa8ff",Agi:"#7fe0a0",Vit:"#f2cf7a",Int:"#ff9ce8",Cha:"#c9a0ff",Tal:"#7fd8f0",Lck:"#ffd37a"};
+const tailTab={},BLD={};
+function bld(h){return BLD[h]||(BLD[h]={s:Object.fromEntries(STATS.map(k=>[k,0])),b:Object.fromEntries(STATS.map(k=>[k,0])),e:[],n:"",q:""})}
+const bdLv=h=>skillLevel[h]??110,bdPool=h=>Math.max(0,(bdLv(h)-1)*2),bdUsed=b=>STATS.reduce((a,k)=>a+(b.s[k]||0),0);
+const stNum=v=>{const n=parseFloat(String(v??"").replace(/[^\d.\-]/g,""));return isNaN(n)?0:n};
+function bdEq(b){const o=Object.fromEntries(STATS.map(k=>[k,0]));b.e.forEach(n=>{const st=I(n).st||{};STATS.forEach(k=>{o[k]+=stNum(st[k])})});return o}
+function bdTot(b){const e=bdEq(b);return Object.fromEntries(STATS.map(k=>[k,(b.b[k]||0)+(b.s[k]||0)+e[k]]))}
+function bdRadar(tot,acc){const mx=Math.max(20,...Object.values(tot)),R=92,c=110,pt=(i,r)=>[c+r*Math.sin(i/8*2*Math.PI),c-r*Math.cos(i/8*2*Math.PI)];
+  const grid=[.25,.5,.75,1].map(f=>`<polygon points="${STATS.map((_,i)=>pt(i,R*f).join(",")).join(" ")}" fill="none" stroke="rgba(242,207,122,.18)"/>`).join("");
+  const axes=STATS.map((k,i)=>{const [x,y]=pt(i,R),[lx,ly]=pt(i,R+15);return `<line x1="${c}" y1="${c}" x2="${x}" y2="${y}" stroke="rgba(242,207,122,.15)"/><text x="${lx}" y="${ly+4}" text-anchor="middle" font-size="10" font-weight="700" fill="${STC[k]}">${k.toUpperCase()}</text>`}).join("");
+  const poly=STATS.map((k,i)=>pt(i,R*Math.max(0,tot[k])/mx).join(",")).join(" ");
+  return `<svg viewBox="-24 -6 268 232" class="bx-radar" role="img" aria-label="เรดาร์สเตตัส">${grid}${axes}<polygon points="${poly}" fill="color-mix(in srgb,${acc} 35%,transparent)" stroke="${acc}" stroke-width="2"/></svg>`}
+function bdStats(h){
+  const b=bld(h),pool=bdPool(h),used=bdUsed(b),left=pool-used,tot=bdTot(b),eq=bdEq(b),acc=ACC[h]||"#d6993f",sk=skPts(bdLv(h),skillBuild[h]||new Set());
+  const mx=Math.max(10,...STATS.map(k=>b.s[k]));
+  const rows=STATS.map(k=>`<div class="bx-row" style="--c:${STC[k]}"><span class="bx-k"><b>${k.toUpperCase()}</b><small>${STH[k]}</small></span>
+      <span class="bx-bar"><i style="width:${b.s[k]/mx*100}%"></i></span>
+      <span class="bx-ctl"><button type="button" data-bdstep="${h}|${k}|-1" aria-label="ลด ${k}" ${b.s[k]?"":"disabled"}>−</button><input type="number" min="0" inputmode="numeric" value="${b.s[k]}" data-bdn="${h}|${k}" aria-label="แต้ม ${k}"><button type="button" data-bdstep="${h}|${k}|1" aria-label="เพิ่ม ${k}" ${left>0?"":"disabled"}>+</button></span></div>`).join("");
+  const derived=[["HP",`+${fmt(tot.Vit*10)}`,"จาก VIT ×10"],["MP",`+${fmt(tot.Int*3)}`,"จาก INT ×3"],["ความเร็ววิ่ง",`+${(tot.Agi*.5).toFixed(1)}%`,"จาก AGI ×0.5%"],["พลังสกิล",`+${fmt(tot.Tal*2)}%`,"จาก TAL ×2%"]];
+  return `<div class="bx-top"><label class="bx-lv">เลเวล <input type="number" min="1" max="110" value="${bdLv(h)}" data-sklv="${h}" inputmode="numeric"><small>/ 110</small></label>
+      <span class="bx-pill ${left<0?"neg":""}"><small>แต้มโบนัสเหลือ</small><b>${left}</b><i>/ ${pool}</i></span>
+      <span class="bx-pill"><small>แต้มสกิลเหลือ</small><b>${sk.nl}</b><i>/ ${sk.nt}</i></span>
+      <span class="bx-pill"><small>แต้ม C เหลือ</small><b>${sk.cl}</b><i>/ ${sk.ct}</i></span>
+      <div class="bx-preset"><select data-bdpreset="${h}" aria-label="ลงแต้มแบบสำเร็จรูป"><option value="">ลงแต้มสำเร็จรูป…</option><option value="Atk">เน้นตี (ATK)</option><option value="Int">เน้นเวท (INT/TAL)</option><option value="Vit">เน้นถึก (VIT/DEF)</option><option value="Agi">เน้นไว (AGI)</option><option value="even">เฉลี่ยทุกค่า</option></select><button type="button" class="bx-mini" data-bdreset="${h}" ${used?"":"disabled"}>รีเซ็ตแต้ม</button></div></div>
+    <div class="bx-grid">
+      <div class="bx-card"><div class="bx-ch">ลงแต้มโบนัส <small>เลเวลละ 2 แต้ม · กด Shift ค้างเพื่อทีละ 10</small></div>${rows}
+        <details class="bx-base"${STATS.some(k=>b.b[k])?" open":""}><summary>ค่าพลังพื้นฐานจากในเกม <small>(ไม่บังคับ · ดูจากหน้า Status ก่อนลงแต้ม)</small></summary>
+        <div class="bx-bgrid">${STATS.map(k=>`<label><span style="color:${STC[k]}">${k.toUpperCase()}</span><input type="number" min="0" inputmode="numeric" value="${b.b[k]||""}" placeholder="0" data-bdbase="${h}|${k}"></label>`).join("")}</div></details></div>
+      <div class="bx-card bx-sum" style="--acc:${acc}"><div class="bx-ch">สรุป Build</div>${bdRadar(tot,acc)}
+        <div class="bx-tot">${STATS.map(k=>`<span style="--c:${STC[k]}"><b>${k.toUpperCase()}</b><em>${fmt(tot[k])}</em><small>${[b.b[k]?`พื้น ${b.b[k]}`:"",b.s[k]?`+${b.s[k]}`:"",eq[k]?`ชุด ${eq[k]>0?"+":""}${eq[k]}`:""].filter(Boolean).join(" ")||"–"}</small></span>`).join("")}</div>
+        <div class="bx-der">${derived.map(([a,v,s])=>`<span><small>${a}</small><b>${v}</b><i>${s}</i></span>`).join("")}</div></div>
+    </div>
+    <div class="bx-card"><div class="bx-ch">อุปกรณ์ <small>ค่าพลังจากอุปกรณ์บวกเข้าสรุปอัตโนมัติ · ใส่ได้ 8 ชิ้น</small></div>
+      <div class="bx-eq">${b.e.map((n,i)=>`<span class="bx-it" style="--rc:${tc(I(n).t)}">${icon(n)}<span><b>${esc(n)}</b><small>${Object.entries(I(n).st||{}).filter(([k])=>STATS.includes(k)).map(([k,v])=>`${k} ${v}`).join(" · ")||"ไม่มีค่าพลัง"}</small></span><button type="button" data-bdrm="${h}|${i}" aria-label="เอา ${esc(n)} ออก">×</button></span>`).join("")||`<span class="bx-none">ยังไม่ได้ใส่อุปกรณ์</span>`}</div>
+      ${b.e.length<8?`<div class="mk-add bx-add"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input type="search" id="bdq" data-bdq="${h}" autocomplete="off" placeholder="พิมพ์ชื่ออาวุธ ชุด หมวก เครื่องประดับ…" value="${esc(b.q)}"><div class="mk-sug" id="bdsug" hidden></div></div>`:""}</div>`;
+}
+function buildView(h){const b=bld(h);
+  return `<section class="d-sec bx" id="bdsec">${bdStats(h)}</section>${skillTree(h)}
+    <section class="d-sec bx-share"><div class="bx-ch">บันทึก & แชร์</div><div class="bx-sh">
+      <label class="bx-name"><small>ชื่อ Build</small><input type="text" maxlength="40" value="${esc(b.n)}" data-bdname="${h}" placeholder="เช่น ${esc(h)} ตีแรง Lv${bdLv(h)}"></label>
+      <button type="button" class="mk-btn gold" data-bdshare="${h}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>คัดลอกลิงก์แชร์</button>
+      <button type="button" class="mk-btn" data-bdimg="${h}">บันทึกเป็นรูป</button>
+      <button type="button" class="mk-btn" data-bdsave="${h}">เก็บไว้ในเครื่อง</button>
+      ${bdSaved().filter(x=>x.t===h).length?`<select class="sel" data-bdload="${h}" aria-label="Build ที่เก็บไว้"><option value="">Build ที่เก็บไว้ (${bdSaved().filter(x=>x.t===h).length})</option>${bdSaved().map((x,i)=>x.t===h?`<option value="${i}">${esc(x.n||"ไม่มีชื่อ")} · Lv${x.l}</option>`:"").join("")}</select>`:""}
+    </div></section>`}
+function bdRedraw(h){const s=document.getElementById("bdsec");if(s){const f=document.activeElement&&document.activeElement.id;s.innerHTML=bdStats(h);if(f==="bdq"){const q=$("#bdq");if(q){q.focus();q.setSelectionRange(q.value.length,q.value.length)}}}}
+function bdTabRedraw(){const y=$("#dBody").scrollTop;open(st.stack[st.stack.length-1],false);$("#dBody").scrollTop=y}
+// ---- share link ----
+const b64e=s=>btoa(unescape(encodeURIComponent(s))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
+const b64d=s=>decodeURIComponent(escape(atob(s.replace(/-/g,"+").replace(/_/g,"/"))));
+function bdPack(h){const b=bld(h);return {t:h,l:bdLv(h),s:STATS.map(k=>b.s[k]||0),b:STATS.some(k=>b.b[k])?STATS.map(k=>b.b[k]||0):0,e:b.e,k:[...(skillBuild[h]||[])],n:b.n}}
+function bdUnpack(o){if(!o||!D.tails[o.t])return null;const b=bld(o.t);STATS.forEach((k,i)=>{b.s[k]=Math.max(0,o.s?.[i]|0);b.b[k]=o.b?Math.max(0,o.b[i]|0):0});b.e=(o.e||[]).filter(n=>D.items[n]).slice(0,8);b.n=String(o.n||"").slice(0,40);
+  skillLevel[o.t]=Math.max(1,Math.min(110,o.l|0||110));skillBuild[o.t]=new Set((o.k||[]).map(Number));tailTab[o.t]="build";return o.t}
+const bdURL=h=>location.origin+location.pathname+"#build="+b64e(JSON.stringify(bdPack(h)));
+function bdSaved(){try{return JSON.parse(localStorage.getItem("ttc-builds")||"[]")}catch(_){return []}}
+function bdOpenFromHash(){const m=(location.hash||"").match(/^#build=([A-Za-z0-9_-]+)/);if(!m)return false;try{const h=bdUnpack(JSON.parse(b64d(m[1])));if(!h)return false;$("#landing").hidden=true;$("#srv").hidden=true;enterApp("tails",true);setTimeout(()=>open("tail:"+h),150);return true}catch(_){toast("ลิงก์ Build ไม่ถูกต้อง");return false}}
+// ---- image ----
+async function bdImage(h){
+  const b=bld(h),tot=bdTot(b),acc=ACC[h]||"#d6993f",v=D.tails[h],set=skillBuild[h]||new Set(),L=(D.skills||{})[h]||[];
+  toast("กำลังสร้างรูป…");try{await Promise.all(["700 30px Prompt","600 18px Prompt"].map(f=>document.fonts.load(f)))}catch(_){}
+  const art=await loadImg(HERO[nf(v.img)]||src(v.img)),logo=await loadImg("logo.webp"),ims={};await Promise.all(b.e.map(async n=>{ims[n]=await loadImg(src(I(n).i))}));
+  const W=1200,H=760,S=2,cv=document.createElement("canvas");cv.width=W*S;cv.height=H*S;const c=cv.getContext("2d");c.scale(S,S);
+  const g=c.createLinearGradient(0,0,W,H);g.addColorStop(0,"#24180f");g.addColorStop(1,"#110b07");c.fillStyle=g;c.fillRect(0,0,W,H);
+  const gl=c.createRadialGradient(250,330,10,250,330,380);gl.addColorStop(0,acc+"55");gl.addColorStop(1,acc+"00");c.fillStyle=gl;c.fillRect(0,0,W,H);
+  c.strokeStyle="rgba(242,207,122,.55)";c.lineWidth=1.5;rr(c,14,14,W-28,H-28,14);c.stroke();
+  if(art){const s=Math.min(440/art.width,620/art.height);c.drawImage(art,250-art.width*s/2,90+(620-art.height*s),art.width*s,art.height*s)}
+  if(logo){const lh=46;c.drawImage(logo,W-40-logo.width*lh/logo.height,34,logo.width*lh/logo.height,lh)}
+  c.fillStyle=acc;c.font="700 14px Prompt, sans-serif";c.fillText((tailClass(v)||"12 Tails").toUpperCase(),500,60);
+  c.fillStyle="#f6e7c4";c.font="700 34px Prompt, sans-serif";c.fillText(fit(c,b.n||`${h} Build`,520),500,100);
+  c.fillStyle="#bfa98a";c.font="400 16px Prompt, sans-serif";c.fillText(`${h} · ${v.th} · เลเวล ${bdLv(h)} · แต้มโบนัส ${bdUsed(b)}/${bdPool(h)}`,500,128);
+  const mx=Math.max(20,...STATS.map(k=>tot[k]));
+  STATS.forEach((k,i)=>{const y=168+i*44;c.fillStyle=STC[k];c.font="700 16px Prompt, sans-serif";c.fillText(k.toUpperCase(),500,y+18);
+    c.fillStyle="rgba(255,255,255,.08)";rr(c,570,y+4,420,18,9);c.fill();c.fillStyle=STC[k];rr(c,570,y+4,Math.max(6,420*Math.max(0,tot[k])/mx),18,9);c.fill();
+    c.fillStyle="#f6e7c4";c.font="700 18px Prompt, sans-serif";c.textAlign="right";c.fillText(fmt(tot[k]),1060,y+20);c.font="400 12px Prompt, sans-serif";c.fillStyle="#a89276";c.fillText(b.s[k]?`+${b.s[k]} แต้ม`:"",1140,y+20);c.textAlign="left"});
+  let y=540;c.fillStyle="#f2cf7a";c.font="700 15px Prompt, sans-serif";c.fillText("อุปกรณ์",500,y);
+  b.e.forEach((n,i)=>{const x=500+i*76;c.fillStyle="#2c2017";rr(c,x,y+10,62,62,10);c.fill();c.strokeStyle="rgba(242,207,122,.6)";c.stroke();if(ims[n])c.drawImage(ims[n],x+6,y+16,50,50)});
+  if(!b.e.length){c.fillStyle="#7d6a52";c.font="400 14px Prompt, sans-serif";c.fillText("—",500,y+40)}
+  y=650;const got=[1,2,3,4].map(tr=>[["Basic","A","B","C"][tr-1],L.filter(s=>s.t===tr&&set.has(s.c)).length,L.filter(s=>s.t===tr).length]);
+  c.fillStyle="#f2cf7a";c.font="700 15px Prompt, sans-serif";c.fillText("สายสกิล",500,y);c.font="600 15px Prompt, sans-serif";c.fillStyle="#f6e7c4";c.fillText(got.map(([a,n,m])=>`${a} ${n}/${m}`).join("     "),500,y+28);
+  c.fillStyle="#8f7a5f";c.font="400 13px Prompt, sans-serif";c.textAlign="right";c.fillText("perawutaemin.github.io/12tails-codex",W-40,H-34);c.textAlign="left";
+  const url=cv.toDataURL("image/png");let ov=$("#mkPrev");if(!ov){ov=document.createElement("div");ov.id="mkPrev";ov.className="mk-prev";document.body.appendChild(ov);ov.addEventListener("click",e=>{if(e.target===ov||e.target.closest("[data-mkclose]"))ov.classList.remove("show")})}
+  ov.innerHTML=`<div class="mk-pcard"><img src="${url}" alt="รูป Build"><div class="mk-pacts"><a class="mk-btn gold" href="${url}" download="${esc(h)}-build.png">ดาวน์โหลดรูป</a><button type="button" class="mk-btn ghost" data-mkclose>ปิด</button></div><small>บนมือถือ กดค้างที่รูปเพื่อบันทึก</small></div>`;void ov.offsetWidth;ov.classList.add("show");
+}
+// ---- events ----
+document.addEventListener("click",e=>{
+  const tt=e.target.closest("[data-ttab]");if(tt){const [h,k]=tt.dataset.ttab.split("|");tailTab[h]=k;bdTabRedraw();return}
+  const sp=e.target.closest("[data-bdstep]");if(sp){const [h,k,d]=sp.dataset.bdstep.split("|"),b=bld(h),left=bdPool(h)-bdUsed(b),n=(e.shiftKey?10:1)*(+d);b.s[k]=Math.max(0,b.s[k]+(n>0?Math.min(n,left):n));bdRedraw(h);return}
+  const rs=e.target.closest("[data-bdreset]");if(rs){const b=bld(rs.dataset.bdreset);STATS.forEach(k=>b.s[k]=0);bdRedraw(rs.dataset.bdreset);return}
+  const rm=e.target.closest("[data-bdrm]");if(rm){const [h,i]=rm.dataset.bdrm.split("|");bld(h).e.splice(+i,1);bdRedraw(h);return}
+  const ad=e.target.closest("[data-bdadd]");if(ad){const [h,...n]=ad.dataset.bdadd.split("|"),b=bld(h),nm=n.join("|");if(!b.e.includes(nm)&&b.e.length<8)b.e.push(nm);b.q="";bdRedraw(h);const q=$("#bdq");q&&q.focus();return}
+  const shr=e.target.closest("[data-bdshare]");if(shr){const u=bdURL(shr.dataset.bdshare);(navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(()=>toast("คัดลอกลิงก์ Build แล้ว ส่งให้เพื่อนได้เลย"),()=>{prompt("คัดลอกลิงก์นี้",u)});return}
+  const im=e.target.closest("[data-bdimg]");if(im){bdImage(im.dataset.bdimg);return}
+  const sv=e.target.closest("[data-bdsave]");if(sv){const h=sv.dataset.bdsave,L=bdSaved(),pk=bdPack(h),i=L.findIndex(x=>x.t===h&&x.n===pk.n);if(i>=0)L[i]=pk;else L.unshift(pk);try{localStorage.setItem("ttc-builds",JSON.stringify(L.slice(0,40)))}catch(_){}toast("เก็บ Build ไว้ในเครื่องแล้ว");bdTabRedraw();return}
+  if(!e.target.closest(".bx-add")){const s=$("#bdsug");if(s)s.hidden=true}
+});
+document.addEventListener("change",e=>{
+  const n=e.target.closest("[data-bdn]");if(n){const [h,k]=n.dataset.bdn.split("|"),b=bld(h);b.s[k]=0;b.s[k]=Math.max(0,Math.min(parseInt(n.value)||0,bdPool(h)-bdUsed(b)));bdRedraw(h);return}
+  const bs=e.target.closest("[data-bdbase]");if(bs){const [h,k]=bs.dataset.bdbase.split("|");bld(h).b[k]=Math.max(0,parseInt(bs.value)||0);bdRedraw(h);return}
+  const pr=e.target.closest("[data-bdpreset]");if(pr){const h=pr.dataset.bdpreset,b=bld(h),P=bdPool(h),w={Atk:{Atk:.6,Vit:.25,Agi:.15},Int:{Int:.45,Tal:.4,Vit:.15},Vit:{Vit:.55,Def:.45},Agi:{Agi:.5,Atk:.3,Vit:.2},even:Object.fromEntries(STATS.map(k=>[k,1/8]))}[pr.value];if(!w)return;
+    STATS.forEach(k=>b.s[k]=Math.floor(P*(w[k]||0)));let r=P-bdUsed(b);const top=Object.keys(w).sort((a,c)=>w[c]-w[a])[0];b.s[top]+=r;bdRedraw(h);return}
+  const ld=e.target.closest("[data-bdload]");if(ld&&ld.value!==""){bdUnpack(bdSaved()[+ld.value]);bdTabRedraw();toast("โหลด Build แล้ว");return}
+  const sl=e.target.closest("[data-sklv]");if(sl&&document.getElementById("bdsec")){setTimeout(()=>{const h=sl.dataset.sklv,b=bld(h);let over=bdUsed(b)-bdPool(h);for(const k of [...STATS].reverse()){if(over<=0)break;const d=Math.min(over,b.s[k]);b.s[k]-=d;over-=d}bdRedraw(h)},0)}
+});
+document.addEventListener("input",e=>{
+  const nm=e.target.closest("[data-bdname]");if(nm){bld(nm.dataset.bdname).n=nm.value;return}
+  const q=e.target.closest("[data-bdq]");if(!q)return;const h=q.dataset.bdq,b=bld(h);b.q=q.value;const box=$("#bdsug"),s=q.value.trim().toLowerCase();if(!box)return;
+  if(!s){box.hidden=true;return}
+  const ok=n=>{const st=I(n).st;if(!st||!STATS.some(k=>st[k]))return false;const ts=tailsOf(n);return !ts.length||ts.includes(h)};
+  const all=Object.keys(D.items).filter(n=>n.toLowerCase().includes(s)&&ok(n)&&!b.e.includes(n)).sort((a,c)=>(a.toLowerCase().startsWith(s)?0:1)-(c.toLowerCase().startsWith(s)?0:1)).slice(0,8);
+  box.innerHTML=all.length?all.map((n,i)=>`<button type="button" class="${i?"":"on"}" data-bdadd="${h}|${esc(n)}">${icon(n)}<span>${esc(n)}<small>${Object.entries(I(n).st).filter(([k])=>STATS.includes(k)).map(([k,v])=>`${k} ${v}`).join(" · ")}</small></span></button>`).join(""):`<div class="mk-none">ไม่พบอุปกรณ์ที่มีค่าพลังของหางนี้</div>`;box.hidden=false});
+document.addEventListener("keydown",e=>{if(e.target.id!=="bdq"||e.key!=="Enter")return;const f=$("#bdsug button");if(f){e.preventDefault();f.click()}});
+
 /* ---------- events ---------- */
 let bumpId=null;
 function goTab(tab,smooth=true){const wasSearch=!!st.q.trim();st.tab=tab;st.q="";$("#q").value="";closeD();try{history.replaceState(null,"","#"+st.tab)}catch(_){}try{localStorage.setItem("ttc-tab",st.tab)}catch(_){}renderSide();const $t=TABS.find(x=>x[0]===tab);$("#mTitle").textContent=$t?$t[1]:"";if(wasSearch||!document.querySelector(".vsec"))renderView(true);requestAnimationFrame(()=>scrollToSec(tab,smooth))}
@@ -2702,7 +2869,7 @@ document.addEventListener("keydown",e=>{
   if((e.key==="Enter"||e.key===" ")&&e.target.matches?.('[role="button"][data-open]')){e.preventDefault();open(e.target.dataset.open)}
 });
 
-window.addEventListener("popstate",()=>{const h=(location.hash||"").slice(1)||"home";
+window.addEventListener("popstate",()=>{const h=(location.hash||"").slice(1)||"home";if(h.startsWith("build=")){bdOpenFromHash();return}
   if(h==="home"){showLanding(true);return}
   if(h==="server"){$("#landing").hidden=true;showServers(true);return}
   if(TABS.some(t=>t[0]===h)){if(!$("#srv").hidden)hideServers();const L=$("#landing");if(!L.hidden){L.classList.add("out");cancelAnimationFrame(lnRaf);setTimeout(()=>{L.hidden=true},450)}if(D)goTab(h)}});
@@ -2711,7 +2878,7 @@ window.addEventListener("popstate",()=>{const h=(location.hash||"").slice(1)||"h
   visits();
   const h=(location.hash||"").slice(1);
   const deep=TABS.some(t=>t[0]===h);
-  if(deep||h==="server"){$("#landing").hidden=true}
+  if(deep||h==="server"||h.startsWith("build=")){$("#landing").hidden=true}
   const heroP=fetch("img-hero.json").then(r=>r.json()).then(m=>Object.assign(HERO,m)).catch(()=>{});
   try{D=await (await fetch("data.json")).json()}catch(err){$("#mTitle").textContent="โหลดข้อมูลไม่สำเร็จ ลองรีเฟรชหน้าอีกครั้ง";return}
   IX=build();
@@ -2721,7 +2888,7 @@ window.addEventListener("popstate",()=>{const h=(location.hash||"").slice(1)||"h
   if(deep)st.tab=h;else if(TABS.some(t=>t[0]===sv))st.tab=sv;
   renderSide();renderView(deep);if(st.tab!=="tails")requestAnimationFrame(()=>scrollToSec(st.tab,false));
   await heroP;refresh();if(st.tab!=="tails")requestAnimationFrame(()=>scrollToSec(st.tab,false));
-  if(h==="server"){$("#landing").hidden=true;showServers(true)}else if(!deep){showLanding(true);setHash("home",false)}
+  if(bdOpenFromHash()){}else if(h==="server"){$("#landing").hidden=true;showServers(true)}else if(!deep){showLanding(true);setHash("home",false)}
   let done=0;const parts=["art","mon","icon"];
   $("#imgStatus").textContent="กำลังโหลดรูปภาพ…";
   for(const p of parts){try{Object.assign(IMG,await (await fetch("img-"+p+".json")).json());done++;refresh();if(!$("#landing").hidden)landingStrip()}catch(_){}}
