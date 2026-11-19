@@ -842,6 +842,47 @@ button.here:disabled{opacity:1;color:inherit}
 .topic.set{transition:transform .25s cubic-bezier(.3,1.4,.5,1),background .35s,border-image-source .35s,box-shadow .35s}
 .topic.set[aria-current="true"]{transform:translateX(4px);box-shadow:-4px 0 0 0 var(--gold)}
 #view{scroll-behavior:auto}
+/* ---------- maps ---------- */
+.mp{display:flex;flex-direction:column;gap:12px}
+.mp-tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}
+.mp-tab{flex:none;display:flex;align-items:center;gap:10px;padding:6px 14px 6px 6px;border-radius:14px;border:1px solid var(--line);background:var(--panel);color:var(--text);font:inherit;cursor:pointer;text-align:left;transition:border-color .2s,transform .2s var(--spring),box-shadow .2s}
+.mp-tab:hover{transform:translateY(-2px);border-color:var(--gold)}
+.mp-tab.on{border-color:var(--gold);background:linear-gradient(180deg,rgba(242,207,122,.14),rgba(242,207,122,.04));box-shadow:0 0 18px -6px rgba(242,207,122,.55)}
+.mp-tt{width:54px;height:40px;border-radius:9px;background-size:cover;background-position:center;border:1px solid var(--line-soft)}
+.mp-tab span:last-child{display:flex;flex-direction:column;line-height:1.15}.mp-tab b{font-size:14px}.mp-tab small{font-size:11px;color:var(--muted)}
+.mp-body{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:12px;align-items:start}
+.mp-stage{position:relative;height:clamp(420px,72vh,820px);overflow:auto;border-radius:18px;border:1px solid rgba(242,207,122,.4);background:radial-gradient(circle at 50% 40%,#2a1d12,#120b07);box-shadow:inset 0 0 60px rgba(0,0,0,.7);scrollbar-width:thin;cursor:grab}
+.mp-stage.drag{cursor:grabbing}
+.mp-canvas{position:relative;margin:4px auto}
+.mp-canvas img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;user-select:none;filter:saturate(1.08) contrast(1.04)}
+.mp-pin{position:absolute;translate:-50% -100%;z-index:2;display:flex;flex-direction:column;align-items:center;gap:2px;border:0;background:none;padding:0;color:var(--text);font:inherit;cursor:pointer}
+.mp-pin.npc .ring{width:32px;height:32px;border:2px solid var(--acc);box-shadow:0 0 0 3px rgba(0,0,0,.45),0 6px 14px rgba(0,0,0,.7);transition:transform .25s var(--spring)}
+.mp-pin.npc::after{content:"";width:0;height:0;border:6px solid transparent;border-top-color:var(--acc);margin-top:-3px;order:1}
+.mp-pin .mp-lb{order:2;padding:0 6px;font-size:10px!important;border-radius:999px;background:rgba(10,7,5,.85);border:1px solid rgba(242,207,122,.35);font-size:11px;font-weight:600;white-space:nowrap}
+.mp-pin.npc:hover .ring,.mp-pin.npc.hl .ring{transform:scale(1.25)}
+.mp-pin.npc.hl{z-index:5}.mp-pin.npc.hl .mp-lb{background:var(--gold);color:#24170b}
+.mp-pin.poi{translate:-50% -50%;cursor:default;z-index:1}
+.mp-pin.poi i{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:rgba(10,7,5,.8);border:1px solid rgba(242,207,122,.55);font-style:normal;font-size:12px;color:var(--gold-hi)}
+.mp-pin.poi .mp-lb{opacity:0;transition:opacity .2s;position:absolute;top:28px}
+.mp-pin.poi:hover .mp-lb{opacity:1}
+.mp-pin.poi.other i{width:10px;height:10px;font-size:0;background:#c9b48a;border-color:rgba(0,0,0,.5)}
+.mp-pin.poi.exit i{background:#2d5f3a;color:#bff5cf;border-color:#7fe0a0}
+.mp-wrap{position:relative}
+.mp-zoom{position:absolute;top:12px;right:12px;z-index:6;display:flex;flex-direction:column;gap:4px}
+.mp-zoom button{width:34px;height:34px;border-radius:10px;border:1px solid rgba(242,207,122,.5);background:rgba(10,7,5,.8);color:var(--gold-hi);font-size:18px;cursor:pointer}
+.mp-compass{position:absolute;top:12px;left:12px;z-index:6;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:rgba(10,7,5,.8);border:1px solid rgba(242,207,122,.5);color:var(--gold-hi);font-weight:800;font-size:13px}
+.mp-side{display:flex;flex-direction:column;gap:8px;padding:12px;border-radius:16px;border:1px solid var(--line);background:var(--weave),var(--panel);max-height:clamp(420px,72vh,820px);overflow:auto;scrollbar-width:thin}
+.mp-sh{font-size:12.5px;font-weight:700;color:var(--gold)}.mp-sh b{color:var(--gold-hi)}
+.mp-list{display:flex;flex-direction:column;gap:6px}
+.mp-li{display:flex;align-items:center;gap:10px;padding:6px 8px;border-radius:12px;border:1px solid var(--line-soft);background:rgba(0,0,0,.22);color:var(--text);font:inherit;text-align:left;cursor:pointer;transition:border-color .2s,transform .2s var(--spring)}
+.mp-li:hover{border-color:var(--acc);transform:translateX(3px)}
+.mp-li .ring{width:38px;height:38px;flex:none;border-color:var(--acc)}
+.mp-li span{display:flex;flex-direction:column;min-width:0}.mp-li b{font-size:14px}.mp-li b small{font-weight:400;color:var(--muted)}.mp-li>span>small{font-size:11.5px;color:var(--muted)}
+.mp-poi{display:flex;flex-wrap:wrap;gap:6px}
+.mp-pt{display:inline-flex;align-items:center;gap:6px;padding:3px 10px 3px 4px;border-radius:999px;background:rgba(0,0,0,.25);border:1px solid var(--line-soft);font-size:12px}
+.mp-pt i{display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:rgba(10,7,5,.8);border:1px solid rgba(242,207,122,.5);font-style:normal;font-size:10px;color:var(--gold-hi)}
+.mp-note{margin:0;font-size:11.5px;color:var(--muted)}
+@media (max-width:980px){.mp-body{grid-template-columns:1fr}.mp-side{max-height:none}.mp-stage{height:62vh}}
 /* ---------- wardrobe ---------- */
 .wd{display:flex;flex-direction:column;gap:14px}
 .wd-tails{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 8px;scrollbar-width:thin}
@@ -1498,7 +1539,7 @@ let D=null,IX=null;const IMG={};
 const st={tab:"tails",q:"",f:{},limit:{},stack:[]};
 const mult={};
 const HIDE_TABS=new Set(["monster","craft","wardrobe"]);
-const TABS=[["tails","12 หาง"],["npc","NPC"],["craft","สูตรคราฟ"],["stage","ด่าน & ดรอป"],["sched","บอส & อารีน่า"],["wardrobe","ห้องแต่งตัว"],["breakdown","ย่อยไอเทม"],["market","ซื้อ-ขาย"],["monster","มอนสเตอร์"],["items","ไอเทม"]];
+const TABS=[["tails","12 หาง"],["npc","NPC"],["craft","สูตรคราฟ"],["stage","ด่าน & ดรอป"],["sched","บอส & อารีน่า"],["map","แผนที่"],["wardrobe","ห้องแต่งตัว"],["breakdown","ย่อยไอเทม"],["market","ซื้อ-ขาย"],["monster","มอนสเตอร์"],["items","ไอเทม"]];
 const TOPIC_IMG={npc:["npc","Razan"],craft:["item","Falchion V"],trade:["npc","Pedo"],stage:["stage","tt101"],breakdown:["item","Frozen Wand"],monster:["mon","Carron"],items:["item","Acacite"],server:["acacia"]};
 const TYPE={weapon:"อาวุธ",armor:"ชุด/หมวก",boot:"รองเท้า",accessory:"เครื่องประดับ",trinket:"เครื่องราง",material:"วัตถุดิบ",food:"อาหาร",field:"ใช้ในด่าน",key:"ไอเทมสำคัญ",coin:"เหรียญ",pet:"สัตว์เลี้ยง",mount:"พาหนะ",recipe:"สูตร",prize:"ของรางวัล",misc:"อื่นๆ"};
 const priceOf=v=>[v.gil!=null?fmt(v.gil)+" Gil":"",v.jil!=null?fmt(v.jil)+" Gil":""].filter(Boolean).join(" · ")||gilTxt(v.s||"");
@@ -1595,10 +1636,10 @@ function bannerArt(id){
 function withClear(fl){const ks=[...new Set([...fl.matchAll(/data-f(?:sel)?="([^"]+)"/g)].map(m=>m[1]))],qs=[...fl.matchAll(/data-fq="([^"]+)"/g)].map(m=>m[1]);ks.push(...qs.map(q=>"q:"+q));return ks.some(k=>k.startsWith("q:")?!!(st.f[k.slice(2)]||"").trim():F(k)!=="all")?fl+`<button type="button" class="fclear" data-fclear="${esc(ks.join(","))}"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4l8 8M12 4l-8 8"/></svg>ล้างตัวกรอง</button>`:fl}
 function sideOrder(){const all=["tails",...TABS.slice(1).filter(x=>!HIDE_TABS.has(x[0])).map(x=>x[0])];let o=[];try{o=JSON.parse(localStorage.getItem("ttc-order")||"[]")}catch(_){}o=o.filter(x=>all.includes(x));return [...o,...all.filter(x=>!o.includes(x))]}
 function renderSide(){
-  const cur=st.q?"":st.tab;IX.count.market=MK.sell.length+MK.buy.length;IX.count.sched=8;IX.count.wardrobe=WD.list.length;
+  const cur=st.q?"":st.tab;IX.count.market=MK.sell.length+MK.buy.length;IX.count.sched=8;IX.count.map=MP.list.length;IX.count.wardrobe=WD.list.length;
   const tails=Object.entries(D.tails);
   let h=`<button class="topic set" type="button" data-tab="tails" aria-current="${cur==="tails"}"><span class="set-head"><span class="tname">12 หาง</span><span class="tcount">ตัวละครที่เล่นได้</span></span><span class="tailrow">${tails.map(([id,v])=>src(v.ic)?ring(v.ic,id):ring(v.img,id,"cover")).join("")}</span>${bannerArt("tails")}<span class="bn-grip" aria-hidden="true" title="ลากเพื่อสลับลำดับ"><i></i></span></button>`;
-  const SUB={npc:"ร้านค้า คราฟ แลกของ",stage:"ภารกิจ บอส ดันเจี้ยน",breakdown:"ย่อยแล้วได้อะไร",market:"รายการขาย · รับซื้อ",sched:"ตารางเวลา · วันนี้มีอะไร",wardrobe:"ลองชุดทุกหาง",craft:"สูตรทั้งหมด",monster:"มอนสเตอร์",items:"ค้นหา · มาจากไหน"};
+  const SUB={npc:"ร้านค้า คราฟ แลกของ",stage:"ภารกิจ บอส ดันเจี้ยน",breakdown:"ย่อยแล้วได้อะไร",market:"รายการขาย · รับซื้อ",sched:"ตารางเวลา · วันนี้มีอะไร",map:"เมืองแสง · แคมป์มือใหม่",wardrobe:"ลองชุดทุกหาง",craft:"สูตรทั้งหมด",monster:"มอนสเตอร์",items:"ค้นหา · มาจากไหน"};
   h+=TABS.slice(1).filter(t=>!HIDE_TABS.has(t[0])).map(([id,l])=>`<button class="topic set" type="button" data-tab="${id}" aria-current="${cur===id}"><span class="set-head"><span class="tname">${l}</span><span class="tcount"><span class="tsub">${SUB[id]||""}</span><span class="tnum">&nbsp;· ${fmt(IX.count[id])}</span></span></span><span class="tailrow">${sidePreview(id)}</span>${bannerArt(id)}<span class="bn-grip" aria-hidden="true" title="ลากเพื่อสลับลำดับ"><i></i></span></button>`).join("");
   const tmp=document.createElement("div");tmp.innerHTML=h;const by={};tmp.querySelectorAll(".topic").forEach(el=>{el.draggable=true;by[el.dataset.tab]=el.outerHTML});
   $("#topics").innerHTML=sideOrder().map(k=>by[k]||"").join("");
@@ -1683,6 +1724,7 @@ function renderView(anim){
   const before=anim==="more"?$("#view").querySelectorAll(".tile,.card,.stage,.items-grid>.item").length:0;
   _render();
   const main=document.querySelector("main");
+  mpFit();
   if(document.body.classList.contains("allmode")){reveal();return}
   if(anim===true){main.classList.remove("enter");void main.offsetWidth;main.classList.add("enter");animateView(0)}
   else if(anim==="more")animateView(before);
@@ -1691,6 +1733,7 @@ function renderTab(t){
   let title="",sub="",fl="",html="";
   if(t==="tails"){title="12 หาง";sub="เลือกหางเพื่อดูค่าพลัง สายสกิล อาวุธ และชุด";html=`<div class="tailwall">${Object.keys(D.tails).map(tailTile).join("")}</div>`}
   if(t==="wardrobe"){title="ห้องแต่งตัว";sub="ดูชุดทุกเซ็ตของแต่ละหาง ทั้งด้านหน้าและด้านหลัง";html=`<div id="wdRoot">${wdView()}</div>`}
+  if(t==="map"){title="แผนที่";sub="เมืองแสงและแคมป์มือใหม่ · กดที่ NPC เพื่อดูร้าน สูตร และภารกิจ";html=`<div id="mpRoot">${mpView()}</div>`}
   if(t==="sched"){title="ตารางบอส & อารีน่า";sub="เวลาไทย · ตารางของเซิร์ฟ TailsTopia";html=schedView()}
   if(t==="market"){title="ซื้อ-ขาย";sub="จัดรายการขาย / รับซื้อ แล้วบันทึกเป็นรูปไปโพสต์";html=mkView()}
   if(t==="npc"){
@@ -2456,6 +2499,39 @@ document.addEventListener("click",e=>{
 document.addEventListener("input",e=>{if(e.target.id!=="wdq")return;WD.q=e.target.value;const g=$("#wdGrid");if(g)g.innerHTML=wdGrid()});
 document.addEventListener("keydown",e=>{if(!$("#wdRoot")||e.target.closest?.("input,textarea,select")||$("#sheet.show,#sheet[aria-hidden=false]"))return;const r=$("#wdStageBox")?.getBoundingClientRect();if(!r||r.bottom<0||r.top>innerHeight)return;if(e.key==="ArrowRight"||e.key==="ArrowLeft"){const b=$(`[data-wdnav="${e.key==="ArrowRight"?1:-1}"]`);b&&b.click()}});
 
+/* ---------- maps ---------- */
+const MP={list:[],cur:"mainstreet",zoom:1,hl:null};
+const MP_IC={altar:"✚",board:"📜",box:"📦",mail:"✉",warp:"✦",exit:"➜",other:"•"};
+function mpZone(){return MP.list.find(z=>z.id===MP.cur)||MP.list[0]}
+function mpPins(z){return z.marks.map((m,i)=>{
+  if(m.k==="npc"){const v=D.npcs[m.n]||{};return `<button type="button" class="mp-pin npc${MP.hl===m.n?" hl":""}" style="left:${m.x}%;top:${m.y}%;--acc:${NACC[m.n]||"#d6993f"}" ${D.npcs[m.n]?`data-open="${ref("npc",m.n)}"`:""} data-mpn="${esc(m.n)}" title="${esc(m.n)}">${ring(v.img,m.n)}<span class="mp-lb">${esc(m.n)}${m.sure?"":" ?"}</span></button>`}
+  return `<span class="mp-pin poi ${m.k}" style="left:${m.x}%;top:${m.y}%" title="${esc(m.n)}"><i>${MP_IC[m.k]||"•"}</i><span class="mp-lb">${esc(m.n)}</span></span>`}).join("")}
+function mpStage(){const z=mpZone();if(!z)return "";
+  return `<div class="mp-wrap"><div class="mp-stage" id="mpStage"><div class="mp-canvas" data-w="${z.w}" data-h="${z.h}"><img src="${esc(z.img)}" alt="แผนที่ ${esc(z.th)}" draggable="false">${mpPins(z)}</div></div>
+    <div class="mp-zoom"><button type="button" data-mpzoom="1" aria-label="ขยาย">+</button><button type="button" data-mpzoom="-1" aria-label="ย่อ">−</button><button type="button" data-mpzoom="0" aria-label="พอดีจอ">⤢</button></div>
+    <div class="mp-compass" aria-hidden="true">N</div></div>`}
+function mpSide(){const z=mpZone();if(!z)return "";const npcs=z.marks.filter(m=>m.k==="npc"),poi=z.marks.filter(m=>m.k!=="npc"&&m.k!=="other");
+  const uniq=(a,f)=>a.filter((m,i)=>a.findIndex(x=>f(x)===f(m))===i);
+  return `<div class="mp-sh">NPC ในโซนนี้ <b>${uniq(npcs,m=>m.n).length}</b></div>
+    ${npcs.length?`<div class="mp-list">${uniq(npcs,m=>m.n).map(m=>{const v=D.npcs[m.n]||{};return `<button type="button" class="mp-li" ${D.npcs[m.n]?`data-open="${ref("npc",m.n)}"`:""} data-mphl="${esc(m.n)}" style="--acc:${NACC[m.n]||"#d6993f"}">${ring(v.img,m.n)}<span><b>${esc(m.n)}${m.sure?"":" <small>(คาดว่า)</small>"}</b><small>${(v.ro||[]).map(r=>ROLE[r]).join(" · ")||"NPC"}</small></span></button>`}).join("")}</div>`:`<div class="wd-none">ไม่มี NPC หลักในโซนนี้</div>`}
+    ${poi.length?`<div class="mp-sh">จุดสำคัญ</div><div class="mp-poi">${uniq(poi,m=>m.n).map(m=>`<span class="mp-pt ${m.k}"><i>${MP_IC[m.k]}</i>${esc(m.n)}</span>`).join("")}</div>`:""}`}
+function mpView(){
+  if(!MP.list.length)return `<div class="wd-empty">กำลังโหลดแผนที่…</div>`;
+  const tabs=MP.list.map(z=>`<button type="button" class="mp-tab${z.id===MP.cur?" on":""}" data-mpz="${z.id}"><span class="mp-tt" style="background-image:url('${esc(z.img)}')"></span><span><b>${esc(z.th)}</b><small>${esc(z.en)}</small></span></button>`).join("");
+  return `<div class="mp"><div class="mp-tabs">${tabs}</div><div class="mp-body"><div id="mpStageBox">${mpStage()}</div><aside class="mp-side" id="mpSide">${mpSide()}</aside></div>
+    <p class="mp-note">แผนที่วาดจากไฟล์ฉากของเกม 12 Tails Together (เวอร์ชันเก่า) ตำแหน่ง NPC ในเซิร์ฟ TailsTopia อาจต่างไปบ้าง · ชื่อที่มี "?" คือคาดว่าเป็น NPC ตัวนั้น</p></div>`}
+function mpFit(){const s=$("#mpStage"),c=s&&s.querySelector(".mp-canvas");if(!c)return;const w=+c.dataset.w,h=+c.dataset.h,f=Math.min((s.clientWidth-8)/w,(s.clientHeight-8)/h)*MP.zoom;c.style.width=Math.round(w*f)+"px";c.style.height=Math.round(h*f)+"px"}
+window.addEventListener("resize",()=>mpFit());
+function mpRedraw(all){if(all){const r=$("#mpRoot");if(r)r.innerHTML=mpView();mpFit();return}const s=$("#mpStageBox");if(s)s.innerHTML=mpStage();const d=$("#mpSide");if(d)d.innerHTML=mpSide();mpFit()}
+document.addEventListener("click",e=>{
+  const z=e.target.closest("[data-mpz]");if(z){MP.cur=z.dataset.mpz;MP.zoom=1;MP.hl=null;mpRedraw(true);return}
+  const zm=e.target.closest("[data-mpzoom]");if(zm){const d=+zm.dataset.mpzoom,st=$("#mpStage"),cx=st?(st.scrollLeft+st.clientWidth/2)/st.scrollWidth:.5,cy=st?(st.scrollTop+st.clientHeight/2)/st.scrollHeight:.5;MP.zoom=d===0?1:Math.max(1,Math.min(4,MP.zoom*(d>0?1.5:1/1.5)));mpRedraw();const s2=$("#mpStage");if(s2){s2.scrollLeft=cx*s2.scrollWidth-s2.clientWidth/2;s2.scrollTop=cy*s2.scrollHeight-s2.clientHeight/2}return}
+});
+document.addEventListener("mouseover",e=>{const h=e.target.closest("[data-mphl]");document.querySelectorAll(".mp-pin.npc").forEach(p=>p.classList.toggle("hl",!!h&&p.dataset.mpn===h.dataset.mphl))});
+(()=>{let drag=null;document.addEventListener("pointerdown",e=>{const s=e.target.closest("#mpStage");if(!s||e.target.closest("button")||MP.zoom<=1)return;drag={s,x:e.clientX,y:e.clientY,l:s.scrollLeft,t:s.scrollTop};s.classList.add("drag")});
+  document.addEventListener("pointermove",e=>{if(!drag)return;drag.s.scrollLeft=drag.l-(e.clientX-drag.x);drag.s.scrollTop=drag.t-(e.clientY-drag.y)});
+  document.addEventListener("pointerup",()=>{if(drag){drag.s.classList.remove("drag");drag=null}})})();
+
 /* ---------- events ---------- */
 let bumpId=null;
 function goTab(tab,smooth=true){const wasSearch=!!st.q.trim();st.tab=tab;st.q="";$("#q").value="";closeD();try{history.replaceState(null,"","#"+st.tab)}catch(_){}try{localStorage.setItem("ttc-tab",st.tab)}catch(_){}renderSide();const $t=TABS.find(x=>x[0]===tab);$("#mTitle").textContent=$t?$t[1]:"";if(wasSearch||!document.querySelector(".vsec"))renderView(true);requestAnimationFrame(()=>scrollToSec(tab,smooth))}
@@ -2575,6 +2651,7 @@ document.addEventListener("keydown",e=>{
   const heroP=fetch("img-hero.json").then(r=>r.json()).then(m=>Object.assign(HERO,m)).catch(()=>{});
   try{D=await (await fetch("data.json")).json()}catch(err){$("#mTitle").textContent="โหลดข้อมูลไม่สำเร็จ ลองรีเฟรชหน้าอีกครั้ง";return}
   IX=build();
+  try{MP.list=await (await fetch("maps.json")).json()}catch(_){try{MP.list=await (await fetch("https://12tails-codex.pages.dev/maps.json")).json();MP.list.forEach(z=>z.img="https://12tails-codex.pages.dev/"+z.img)}catch(__){}}
   try{WD.list=await (await fetch("wardrobe.json")).json()}catch(_){try{WD.list=await (await fetch("https://12tails-codex.pages.dev/wardrobe.json")).json()}catch(__){}}
   let sv=null;try{sv=localStorage.getItem("ttc-tab")}catch(_){}
   if(deep)st.tab=h;else if(TABS.some(t=>t[0]===sv))st.tab=sv;

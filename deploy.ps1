@@ -11,12 +11,12 @@ Get-ChildItem -LiteralPath $Src -Filter "c?.html" | ForEach-Object { Remove-Item
 $body = [IO.File]::ReadAllText((Join-Path $Src "index.html"))
 $html = "<!doctype html>`n<html lang=`"th`">`n<head>`n<meta charset=`"utf-8`">`n<meta name=`"viewport`" content=`"width=device-width,initial-scale=1,viewport-fit=cover`">`n<style>[hidden]{display:none!important}img{max-width:100%}</style>`n</head>`n<body>`n$body`n</body>`n</html>`n"
 foreach ($p in (Join-Path $here "index.html"), (Join-Path $dist "index.html")) { [IO.File]::WriteAllText($p, $html, [Text.UTF8Encoding]::new($false)) }
-foreach ($f in "data.json", "img-art.json", "img-hero.json", "img-icon.json", "img-mon.json", "img-skill.json", "logo.webp", "bgm.mp3", "srv-tailstopia.webp", "srv-other.webp", "wardrobe.json") {
+foreach ($f in "data.json", "img-art.json", "img-hero.json", "img-icon.json", "img-mon.json", "img-skill.json", "logo.webp", "bgm.mp3", "srv-tailstopia.webp", "srv-other.webp", "wardrobe.json", "maps.json") {
   Copy-Item -LiteralPath (Join-Path $Src $f) -Destination $here -Force
   Copy-Item -LiteralPath (Join-Path $Src $f) -Destination $dist -Force
 }
 
-foreach ($t in $here, $dist) { Copy-Item -LiteralPath (Join-Path $Src "wd") -Destination $t -Recurse -Force }
+foreach ($t in $here, $dist) { Copy-Item -LiteralPath (Join-Path $Src "wd") -Destination $t -Recurse -Force; Copy-Item -LiteralPath (Join-Path $Src "maps") -Destination $t -Recurse -Force }
 Push-Location $dist
 npx --yes wrangler@latest pages deploy . --project-name 12tails-codex --branch main --commit-dirty=true 2>&1 |
   Select-String -NotMatch 'npm notice|NativeCommandError|CategoryInfo|FullyQualified|At line|RemoteException' | Select-Object -Last 2
