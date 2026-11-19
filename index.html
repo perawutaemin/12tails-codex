@@ -908,6 +908,67 @@ button.here:disabled{opacity:1;color:inherit}
 .rd-pc{display:grid;grid-template-columns:1fr 1fr;gap:12px}.rd-sec.pro{border-color:rgba(127,224,160,.5)}.rd-sec.pro h4{color:#7fe0a0}.rd-sec.con{border-color:rgba(255,138,122,.5)}.rd-sec.con h4{color:#ff8a7a}
 .rd-br{display:flex;gap:8px;align-items:flex-start;margin-bottom:6px}.rd-br>b{width:40px;flex:none;font:700 12px var(--mono);color:var(--gold);padding-top:8px}.rd-br>span{display:flex;flex-wrap:wrap;gap:4px}.rd-sk{width:32px;height:32px;border-radius:8px}
 @media (max-width:900px){.nt-grid,.rd-body,.rd-pc{grid-template-columns:1fr}.rd-h{position:static}}
+/* ---------- build reader v2 ---------- */
+.lvpop-card.rd2,.lvpop-card.gw{width:min(1320px,100%);max-height:none}
+.rdpop2{place-items:stretch;padding:14px}
+.rd2{position:relative;width:min(1320px,100%);max-width:none!important;max-height:none;height:calc(100vh - 28px);height:calc(100dvh - 28px);margin:0 auto!important;padding:0;overflow:hidden;display:flex;flex-direction:column}
+.rd2-x{position:absolute;top:14px;right:14px;z-index:4;background:rgba(0,0,0,.45)!important;backdrop-filter:blur(6px)}
+.rd2-scroll{flex:1;overflow:auto;scrollbar-width:thin}
+.rd2-hero{position:relative;overflow:hidden;padding:30px 34px 24px;min-height:250px;background:radial-gradient(90% 130% at 88% 10%,color-mix(in srgb,var(--acc) 38%,transparent),transparent 62%),repeating-linear-gradient(135deg,rgba(255,255,255,.018) 0 2px,transparent 2px 12px),linear-gradient(180deg,#2c1d12,#1b120b);border-bottom:1px solid color-mix(in srgb,var(--acc) 40%,var(--line))}
+.rd2-art{position:absolute;right:4%;bottom:-8%;height:118%;max-width:46%;object-fit:contain;object-position:bottom right;filter:drop-shadow(0 18px 30px rgba(0,0,0,.6));pointer-events:none;-webkit-mask-image:linear-gradient(90deg,transparent,#000 30%);mask-image:linear-gradient(90deg,transparent,#000 30%)}
+.rd2-ht{position:relative;max-width:min(720px,62%);display:flex;flex-direction:column;gap:10px}
+.rd2-k{font:700 12px var(--mono);letter-spacing:.06em;color:var(--acc);text-transform:uppercase}
+.rd2-ht h2{margin:0;font-size:clamp(24px,3vw,34px);line-height:1.2;color:var(--gold-hi);text-shadow:0 2px 14px rgba(0,0,0,.5)}
+.rd2-meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;font-size:13px;color:var(--muted)}.rd2-meta b{color:var(--text)}
+.rd2-gs{padding:12px 14px;border-radius:14px;background:rgba(0,0,0,.32);border:1px solid rgba(255,255,255,.06);backdrop-filter:blur(4px)}
+.rd2-gs>small{display:block;font-size:11.5px;color:var(--gold);margin-bottom:8px}.rd2-gs>div{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:8px 18px}
+.rd2-g{display:grid;grid-template-columns:40px 1fr auto;align-items:center;gap:10px}
+.rd2-g b{font:700 13px var(--mono);color:var(--c)}.rd2-g em{font-style:normal;font-weight:700;font-size:13px;color:var(--text);min-width:34px;text-align:right}
+.rd2-gb{height:8px;border-radius:8px;background:rgba(255,255,255,.07);overflow:hidden}.rd2-gb i{display:block;height:100%;border-radius:8px;background:var(--c);box-shadow:0 0 10px color-mix(in srgb,var(--c) 60%,transparent)}
+.rd2-g.follow .rd2-gb i{background:repeating-linear-gradient(90deg,var(--c) 0 8px,color-mix(in srgb,var(--c) 45%,transparent) 8px 11px)}
+.rd2-acts{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.rd2-nav{position:sticky;top:0;z-index:3;display:flex;gap:6px;padding:10px 34px;background:rgba(27,18,11,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.rd2-nav button{border:1px solid transparent;background:none;color:var(--muted);border-radius:999px;padding:7px 16px;font:inherit;font-size:13.5px;font-weight:700;cursor:pointer;transition:color .2s,background .2s}
+.rd2-nav button:hover{color:var(--text)}.rd2-nav button.on{color:#24170b;background:var(--gold)}
+.rd2-body{padding:8px 34px 40px;display:flex;flex-direction:column;gap:12px}
+.rd2-sec{padding-top:22px}
+.rd2-sec>h3{display:flex;align-items:baseline;gap:10px;margin:0 0 14px;font-size:19px;color:var(--gold-hi)}
+.rd2-sec>h3::before{content:"";width:4px;height:18px;border-radius:3px;background:var(--acc);align-self:center}
+.rd2-sec>h3 small{font-size:12px;font-weight:400;color:var(--muted)}
+.rd2-empty{margin:0;color:var(--muted);font-size:13.5px}
+.rd2-lead{margin:0 0 16px;max-width:900px;font-size:16px;line-height:1.85;color:var(--text);white-space:pre-line}
+.rd2-chs{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.rd2-ch{position:relative;padding:16px 18px 16px;border-radius:16px;background:var(--weave),var(--panel);border:1px solid var(--line);overflow:hidden}
+.rd2-chn{position:absolute;top:8px;right:14px;font:800 30px var(--mono);color:color-mix(in srgb,var(--acc) 30%,transparent)}
+.rd2-ch h5{margin:0 0 8px;font-size:15px;color:var(--acc)}.rd2-ch p{margin:0;font-size:14px;line-height:1.75;color:var(--text);white-space:pre-line}
+.rd2-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.rd2-tabs button{border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:999px;padding:6px 14px;font:inherit;font-size:13px;font-weight:700;cursor:pointer}.rd2-tabs button i{font-style:normal;font:600 11px var(--mono);opacity:.7}
+.rd2-tabs button.on{background:var(--acc);border-color:var(--acc);color:#1a120c}
+.rd2-gear{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.rd2-slot{position:relative;display:grid;grid-template-columns:60px 1fr;grid-template-rows:auto 1fr;column-gap:14px;align-items:center;padding:12px 14px;border-radius:16px;border:1px solid color-mix(in srgb,var(--rc,#666) 45%,var(--line));background:linear-gradient(120deg,color-mix(in srgb,var(--rc,#666) 14%,transparent),transparent 55%),var(--panel);color:var(--text);font:inherit;text-align:left;cursor:pointer;transition:transform .2s var(--spring),border-color .2s}
+button.rd2-slot:hover{transform:translateY(-2px);border-color:var(--rc)}
+.rd2-slot.none{border-style:dashed;background:rgba(0,0,0,.12);cursor:default;opacity:.6}
+.rd2-sl{grid-column:1/-1;font-size:11.5px;color:var(--gold);margin-bottom:6px}
+.rd2-si{width:60px;height:60px;border-radius:14px;display:grid;place-items:center;background:rgba(0,0,0,.3);border:1px solid var(--line)}.rd2-si img{width:50px;height:50px;object-fit:contain}.rd2-si>i{font-style:normal;color:var(--muted)}
+.rd2-st{display:flex;flex-direction:column;min-width:0;gap:2px}.rd2-st b{font-size:14.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.rd2-st small{font-size:11.5px;color:var(--muted);line-height:1.4}
+.rd2-sock{position:absolute;top:10px;right:10px;font:700 11px var(--mono);font-style:normal;padding:3px 9px;border-radius:999px;background:var(--c);color:#1a120c;box-shadow:0 4px 12px -4px var(--c)}
+.rd2-keys{margin-bottom:16px}
+.rd2-keys h4{margin:0 0 10px;font-size:14px;color:var(--gold)}
+.rd2-tl{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;counter-reset:k}
+.rd2-tl li{position:relative;display:grid;grid-template-columns:44px 1fr;gap:12px;align-items:center;padding:12px 14px 12px 12px;border-radius:14px;border:1px solid var(--line);background:linear-gradient(120deg,rgba(242,207,122,.08),transparent 60%),var(--panel)}
+.rd2-n{position:absolute;top:-8px;left:-6px;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:var(--gold);color:#24170b;font:800 12px var(--mono);box-shadow:0 0 0 3px #1b120b;z-index:1}
+.rd2-tl .ks-ic{width:44px;height:44px}.rd2-tl b{font-size:14px;color:var(--text)}.rd2-tl p{margin:2px 0 0;font-size:12.5px;line-height:1.55;color:var(--muted)}
+.rd2-tree{overflow-x:auto;scrollbar-width:thin;padding:4px 2px 6px}
+.rd2-tree .sktree{grid-template-columns:repeat(4,minmax(0,1fr));margin-top:0}
+.rd2-tree .skp-body{padding:12px 10px}.rd2-tree .skp-body .sk{width:48px;height:48px;border-radius:10px}.rd2-tree .skp-link{flex-basis:10px}.rd2-tree .skp-c .skp-row{gap:8px}.rd2-tree .skp-row{min-height:54px}
+.rd2-tree .sk{cursor:default}.rd2-tree .sk:not(.st-learned){opacity:.26;filter:grayscale(1)}
+.rd2-tree .sk[data-ksn]::after{content:attr(data-ksn);position:absolute;top:-7px;right:-7px;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:var(--gold);color:#24170b;font:800 11px var(--mono);box-shadow:0 0 0 2px #1b120b;z-index:2}
+.rd2-acts .pin-like{background:rgba(255,138,122,.12);color:#ff9c8c;border-color:rgba(255,138,122,.5);padding:8px 14px}.rd2-acts .pin-like.on{background:#c0392b;color:#fff}
+@media (max-width:1200px){.rd2-tree .sktree{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:1000px){.rd2-gear{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:760px){.rdpop2{padding:0}.rd2{height:100vh;height:100dvh;border-radius:0}
+  .rd2-hero{padding:22px 16px 18px;min-height:0}.rd2-art{opacity:.28;right:-10%;max-width:80%;height:100%}.rd2-ht{max-width:100%}
+  .rd2-nav{padding:8px 12px;overflow-x:auto}.rd2-body{padding:4px 14px 30px}.rd2-gear{grid-template-columns:1fr}.rd2-chs{grid-template-columns:1fr}.rd2-tree .sktree{grid-template-columns:1fr}}
 /* ---------- guide writer ---------- */
 body:has(.gwpop.show) #bgm,body:has(#rdPop.show) #bgm{display:none}
 .rd-p{white-space:pre-line}
@@ -2359,7 +2420,7 @@ function skTip(hero,c){
   document.addEventListener("scroll",()=>{tip.hidden=true},true);
 })();
 function skRedraw(hero){const sec=document.getElementById("sksec");if(sec){sec.innerHTML=skInner(hero);return}const y=$("#dBody").scrollTop;open(st.stack[st.stack.length-1],false);$("#dBody").scrollTop=y}const skillTab={},skillSel={};let skillImgLoaded=false;
-function loadSkillImg(){skillImgLoaded=true;fetch("img-skill.json").then(r=>r.json()).then(m=>{Object.assign(IMG,m);if(GW&&document.querySelector("#gwPop.show")&&GW.step===4){const y=document.getElementById("gwBody").scrollTop;gwRender();document.getElementById("gwBody").scrollTop=y}if(st.stack.length&&st.stack[st.stack.length-1].startsWith("tail:")){const y=$("#dBody").scrollTop;open(st.stack[st.stack.length-1],false);$("#dBody").scrollTop=y}}).catch(()=>{skillImgLoaded=false})}
+function loadSkillImg(){skillImgLoaded=true;fetch("img-skill.json").then(r=>r.json()).then(m=>{Object.assign(IMG,m);if(RD&&document.querySelector("#rdPop.show")){const r=document.getElementById("rdTree");if(r)r.innerHTML=rdTree(RD.x.build);const k=document.getElementById("rdKeys");if(k)k.innerHTML=rdKeys(RD.x.build)}if(GW&&document.querySelector("#gwPop.show")&&GW.step===4){const y=document.getElementById("gwBody").scrollTop;gwRender();document.getElementById("gwBody").scrollTop=y}if(st.stack.length&&st.stack[st.stack.length-1].startsWith("tail:")){const y=$("#dBody").scrollTop;open(st.stack[st.stack.length-1],false);$("#dBody").scrollTop=y}}).catch(()=>{skillImgLoaded=false})}
 const questSel={q:null,r:0,f:""};
 function questSection(){
   const Q=D.quests,f=questSel.f.trim().toLowerCase();
@@ -3334,33 +3395,54 @@ document.addEventListener("click",async e=>{
 document.addEventListener("change",e=>{const s=e.target.closest("[data-brdsort]");if(s){BRD.sort=s.value;BRD.lim=24;brdRedraw()}});
 document.addEventListener("input",e=>{if(e.target.id!=="brdq")return;BRD.q=e.target.value;BRD.lim=24;clearTimeout(window.__brdT);window.__brdT=setTimeout(()=>brdRedraw(),160)});
 
-function brdRead(id){const x=(BRD.list||[]).find(y=>y.id===id);if(!x)return;const p=x.build,h=p.t,v=D.tails[h],acc=ACC[h]||"#d6993f",tot=brdTot(p),art=HERO[nf(v.img)]||src(v.img),liked=brdLiked().has(x.id);
+let RD=null;
+function rdSets(p){const g=p.g||{};if(p.g&&p.q&&p.q.length)return p.q.slice(0,3).map((s,i)=>({n:s.n||"เซ็ต",i:NS.map((_,k)=>(s.i||[])[k]||""),sk:(g.sk||[])[i]||[]}));
+  return (p.q&&p.q.length?p.q:[{n:"อุปกรณ์",i:p.e||[]}]).slice(0,3).map(s=>{const o={n:s.n||"เซ็ต",i:["","","","","",""],sk:[]};(s.i||[]).filter(n=>n&&D.items[n]).forEach(n=>{const k=NS.findIndex(z=>z[0]===gwSlot(n));if(k>=0&&!o.i[k])o.i[k]=n});return o})}
+function rdArticle(p,x){let d=(p.g&&p.g.d)||"";const w=p.w||{};if(!p.g){if(w.play)d+="【วิธีเล่น】 "+w.play;if(w.pro)d+="\n【จุดเด่น】 "+w.pro;if(w.con)d+="\n【จุดอ่อน】 "+w.con;if(!d)d=x.desc||""}
+  if(!d.trim())return "";const parts=d.split(/【([^】]{1,30})】/),intro=parts[0].trim(),ch=[];for(let i=1;i<parts.length;i+=2)ch.push([parts[i],(parts[i+1]||"").trim()]);
+  return `${intro?`<p class="rd2-lead">${esc(intro)}</p>`:""}${ch.length?`<div class="rd2-chs">${ch.map(([h,b],i)=>`<article class="rd2-ch"><span class="rd2-chn">${String(i+1).padStart(2,"0")}</span><h5>${esc(h)}</h5><p>${b?esc(b):"—"}</p></article>`).join("")}</div>`:""}`}
+function rdGauges(p){const st=p.g&&p.g.st;if(st&&Object.keys(st).length){const nums=STATS.filter(k=>st[k]&&st[k].m==="num").map(k=>+st[k].v||0),mx=Math.max(1,...nums);
+    return STATS.filter(k=>st[k]).map(k=>{const v=st[k],w=v.m==="max"?100:v.m==="follow"?55:Math.max(15,Math.round((+v.v||0)/mx*85));return `<div class="rd2-g ${v.m}" style="--c:${STC[k]}"><b>${k.toUpperCase()}</b><span class="rd2-gb"><i style="width:${w}%"></i></span><em>${v.m==="max"?"ตัน":v.m==="follow"?"ตาม":esc(v.v||"?")}</em></div>`}).join("")}
+  const tot=brdTot(p),top=STATS.map(k=>[k,tot[k]]).filter(([,n])=>n>0).sort((a,b)=>b[1]-a[1]).slice(0,4),mx=top.length?top[0][1]:1;
+  return top.map(([k,n])=>`<div class="rd2-g num" style="--c:${STC[k]}"><b>${k.toUpperCase()}</b><span class="rd2-gb"><i style="width:${Math.round(n/mx*100)}%"></i></span><em>${fmt(n)}</em></div>`).join("")}
+function rdGear(){const S=RD.sets,cur=Math.min(RD.set,S.length-1),s=S[cur];if(!S.some(z=>z.i.some(Boolean)))return `<p class="rd2-empty">ไกด์นี้ไม่ได้ระบุอุปกรณ์</p>`;
+  return `${S.length>1?`<div class="rd2-tabs">${S.map((z,i)=>`<button type="button" class="${i===cur?"on":""}" data-rdset="${i}">${esc(z.n)} <i>${z.i.filter(Boolean).length}</i></button>`).join("")}</div>`:""}
+  <div class="rd2-gear">${NS.map(([k,l,ic],i)=>{const n=s.i[i],sk=s.sk&&s.sk[i];return n?`<button type="button" class="rd2-slot" data-open="${ref("item",n)}" style="--rc:${tc(I(n).t)}"><span class="rd2-sl">${ic} ${l}</span><span class="rd2-si">${icon(n)}</span><span class="rd2-st"><b>${esc(n)}</b><small>${I(n).lv?`Lv ${esc(I(n).lv)}`:""}${gwIst(n)?` · ${gwIst(n)}`:""}</small></span>${sk?`<em class="rd2-sock" style="--c:${STC[sk]}">ยัด ${sk.toUpperCase()}</em>`:""}</button>`:`<div class="rd2-slot none"><span class="rd2-sl">${ic} ${l}</span><span class="rd2-si"><i>—</i></span><span class="rd2-st"><small>ไม่ระบุ</small></span></div>`}).join("")}</div>`}
+function rdTree(p){const h=p.t;if(!(D.skills||{})[h])return "";const sb=skillBuild[h],sl=skillLevel[h];skillBuild[h]=new Set((p.k||[]).map(Number));skillLevel[h]=p.l||110;let s;
+  try{s=skInner(h)}finally{if(sb)skillBuild[h]=sb;else delete skillBuild[h];if(sl===undefined)delete skillLevel[h];else skillLevel[h]=sl}
+  s=s.replace(/<h4>[\s\S]*?<\/h4>/,"").replace(/<div class="skbar">[\s\S]*?<\/div>/,"");
+  (p.ks||[]).forEach(([c],i)=>{s=s.replace(`data-sk="${h}|${c}"`,`data-sk="${h}|${c}" data-ksn="${i+1}"`)});
+  return s.replace(/data-sk="/g,'data-rsk="').replace(/aria-label="([^"]*)"/g,'aria-label="$1" title="$1"')}
+function rdKeys(p){const h=p.t,ks=p.ks||[];if(!ks.length)return `<p class="rd2-empty">ผู้เขียนไม่ได้ระบุสกิลสำคัญ</p>`;
+  return `<ol class="rd2-tl">${ks.map(([c,note],i)=>`<li><span class="rd2-n">${i+1}</span><span class="ks-ic">${skIcon(h,c)}</span><div><b>${esc(skName(h,c))}</b>${note?`<p>${esc(note)}</p>`:""}</div></li>`).join("")}</ol>`}
+function brdRead(id){const x=(BRD.list||[]).find(y=>y.id===id);if(!x)return;const p=x.build,h=p.t,v=D.tails[h];if(!v)return;const acc=ACC[h]||"#d6993f",art=HERO[nf(v.img)]||src(v.img),liked=brdLiked().has(x.id);
   if(!skillImgLoaded)loadSkillImg();
   fetch(API+"/builds/"+id+"/view",{method:"POST"}).then(r=>r.json()).then(j=>{if(typeof j.views==="number"){x.views=j.views;const e=$("#rdViews");if(e)e.textContent=j.views}}).catch(()=>{});
   try{history.replaceState(null,"","#post="+id)}catch(_){}
-  const sets=(p.q&&p.q.length?p.q:[{n:"อุปกรณ์",i:SLOTS.map((_,i)=>"")}]).map(s=>({n:s.n,i:s.i||[]}));if(!(p.q&&p.q.length))(p.e||[]).forEach(n=>{const si=SLOTS.findIndex(z=>z[0]===slotOf(n));if(si>=0&&!sets[0].i[si])sets[0].i[si]=n});
-  const L=(D.skills||{})[h]||[],learned=new Set(p.k||[]),br=[1,2,3,4].map(tr=>[["Basic","A","B","C"][tr-1],L.filter(s=>s.t===tr&&learned.has(s.c))]);
-  const sec=(t,body)=>body?`<section class="rd-sec"><h4>${t}</h4>${body}</section>`:"";
-  let ov=$("#rdPop");if(!ov){ov=document.createElement("div");ov.id="rdPop";ov.className="lvpop";ov.setAttribute("role","dialog");ov.setAttribute("aria-modal","true");document.body.appendChild(ov);
+  RD={x,set:0,sets:rdSets(p)};
+  let ov=$("#rdPop");if(!ov){ov=document.createElement("div");ov.id="rdPop";ov.setAttribute("role","dialog");ov.setAttribute("aria-modal","true");document.body.appendChild(ov);
     ov.addEventListener("click",e=>{if(e.target===ov||e.target.closest("[data-rdclose]")){ov.classList.remove("show");try{history.replaceState(null,"","#board")}catch(_){}}})}
-  ov.innerHTML=`<div class="lvpop-card rd" style="--acc:${acc}">
-    <header class="rd-h"><span class="rd-art">${art?`<img src="${art}" alt="">`:""}</span><div class="rd-tt"><span class="pin-tail">${esc(h)} · ${esc(v.th)} · Lv ${p.l}</span><h2>${esc(p.n)}</h2>
-      <div class="rd-meta">${x.tags.map(g=>`<i class="pin-tag">${esc(g)}</i>`).join("")}<span>โดย <b>${esc(x.author)}</b> · ${ago(x.at)}</span><span>👁 <b id="rdViews">${x.views||0}</b></span></div>
-      ${x.desc&&!p.g?`<p class="rd-desc">${esc(x.desc)}</p>`:""}</div>
-      <div class="rd-acts"><button type="button" class="pin-like${liked?" on":""}" data-brdlike="${x.id}"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.8 4.5c2.2 0 3.6 1.2 5.2 3 1.6-1.8 3-3 5.2-3 3.8 0 5.9 3.9 4.4 7.3C19.5 16.4 12 21 12 21z"/></svg>${x.likes}</button>
-        <button type="button" class="mk-btn" data-rdcopy="${x.id}">คัดลอกลิงก์</button><button type="button" class="mk-btn gold" data-brdopen="${x.id}">✍ นำไปปรับเป็นไกด์ของฉัน</button><button type="button" class="icon-btn" data-rdclose aria-label="ปิด"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></div></header>
-    <div class="rd-body"><div class="rd-col">
-      ${p.g?sec("คำอธิบาย",p.g.d?`<p class="rd-p">${esc(p.g.d)}</p>`:""):""}
-      ${p.g?sec("สเตตัสที่เน้น",gwFocusHTML(p.g.st)):sec("สเตตัส",`<div class="rd-stat">${bdRadar(tot,acc)}<div class="bx-tot">${STATS.map(k=>`<span style="--c:${STC[k]}"><b>${k.toUpperCase()}</b><em>${fmt(tot[k])}</em><small>${p.s?.[STATS.indexOf(k)]?`+${p.s[STATS.indexOf(k)]} แต้ม`:"–"}</small></span>`).join("")}</div></div>`)}
-      ${sec("ลำดับที่ควรอัป",(p.p||[]).length?`<div class="rd-prio">${p.p.map(([k,tg],i)=>`<span style="--c:${STC[k]||"#ccc"}"><b>${i+1}</b>${esc(String(k).toUpperCase())}${tg?`<i>${esc(tg)}</i>`:""}</span>`).join("<em>›</em>")}</div>`:"")}
-      ${p.g?sec("เซ็ตอุปกรณ์",gwSetsHTML((p.q||[]).map((s,i)=>({n:s.n,i:s.i||[],sk:(p.g.sk||[])[i]||[]})))):sec("อุปกรณ์",sets.some(s=>s.i.some(Boolean))?sets.filter(s=>s.i.some(Boolean)).map(s=>`<div class="rd-set"><small>${esc(s.n)}</small><div>${SLOTS.map(([k,l,ic],i)=>s.i[i]?`<button type="button" class="rd-gi" data-open="${ref("item",s.i[i])}" title="${esc(l)}">${icon(s.i[i])}<span><small>${l}</small><b>${esc(s.i[i])}</b></span></button>`:"").join("")}</div></div>`).join(""):"")}
-    </div><div class="rd-col">
-      ${sec("สกิลสำคัญ",(p.ks||[]).length?`<ol class="rd-ks">${p.ks.map(([c,note])=>`<li><span class="ks-ic">${skIcon(h,c)}</span><span><b>${esc(skName(h,c))}</b>${note?`<small>${esc(note)}</small>`:""}</span></li>`).join("")}</ol>`:"")}
-      ${sec("วิธีเล่น",p.w?.play?`<p class="rd-p">${esc(p.w.play)}</p>`:"")}
-      ${(p.w?.pro||p.w?.con)?`<div class="rd-pc">${p.w.pro?`<section class="rd-sec pro"><h4>จุดเด่น</h4><p class="rd-p">${esc(p.w.pro)}</p></section>`:""}${p.w.con?`<section class="rd-sec con"><h4>จุดอ่อน</h4><p class="rd-p">${esc(p.w.con)}</p></section>`:""}</div>`:""}
-      ${sec("สายสกิลที่เรียน",br.some(([,l])=>l.length)?br.filter(([,l])=>l.length).map(([n,l])=>`<div class="rd-br"><b>${n}</b><span>${l.map(s=>`<span class="rd-sk" title="${esc(s.n)}">${src(s.ic)?`<img src="${src(s.ic)}" alt="">`:esc(s.n.slice(0,2))}</span>`).join("")}</span></div>`).join(""):"")}
+  ov.className="lvpop rdpop2";
+  const g=rdGauges(p),a=rdArticle(p,x),hasSk=!!(D.skills||{})[h],cls=tailClass(v);
+  const chaps=[a&&["rdc-guide","📖 ไกด์"],["rdc-gear","🛡 อุปกรณ์"],hasSk&&["rdc-skill","✦ สกิล"]].filter(Boolean);
+  ov.innerHTML=`<div class="lvpop-card rd2" style="--acc:${acc}"><button type="button" class="icon-btn rd2-x" data-rdclose aria-label="ปิด">${gwX}</button>
+   <div class="rd2-scroll" id="rdScroll">
+    <header class="rd2-hero">${art?`<img class="rd2-art" src="${art}" alt="">`:""}
+     <div class="rd2-ht"><span class="rd2-k">${esc(h)} · ${esc(v.th)}${cls?` · ${esc(cls)}`:""} · Lv ${p.l}</span><h2>${esc(p.n)}</h2>
+      <div class="rd2-meta">${x.tags.map(g=>`<i class="pin-tag">${esc(g)}</i>`).join("")}<span>โดย <b>${esc(x.author)}</b></span><span>${ago(x.at)}</span><span>👁 <b id="rdViews">${x.views||0}</b> ครั้ง</span></div>
+      ${g?`<div class="rd2-gs"><small>สเตตัสที่เน้น</small><div>${g}</div></div>`:""}
+      <div class="rd2-acts"><button type="button" class="pin-like${liked?" on":""}" data-brdlike="${x.id}"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.8 4.5c2.2 0 3.6 1.2 5.2 3 1.6-1.8 3-3 5.2-3 3.8 0 5.9 3.9 4.4 7.3C19.5 16.4 12 21 12 21z"/></svg>${x.likes}</button><button type="button" class="mk-btn" data-rdcopy="${x.id}">🔗 คัดลอกลิงก์</button><button type="button" class="mk-btn gold" data-brdopen="${x.id}">✍ นำไปปรับเป็นไกด์ของฉัน</button></div></div></header>
+    <nav class="rd2-nav">${chaps.map((c,i)=>`<button type="button" class="${i?"":"on"}" data-rdgo="${c[0]}">${c[1]}</button>`).join("")}</nav>
+    <div class="rd2-body">
+     ${a?`<section class="rd2-sec" id="rdc-guide"><h3>ไกด์จากผู้เขียน</h3>${a}</section>`:""}
+     <section class="rd2-sec" id="rdc-gear"><h3>เซ็ตอุปกรณ์ ${RD.sets.length>1?`<small>${RD.sets.length} เซ็ต</small>`:""}</h3><div id="rdGear">${rdGear()}</div></section>
+     ${hasSk?`<section class="rd2-sec" id="rdc-skill"><h3>สายสกิล <small>เรียน ${(p.k||[]).length} สกิล · ตัวเลขทองคือสกิลสำคัญ</small></h3><div class="rd2-keys"><h4>⭐ ลำดับสกิลสำคัญ</h4><div id="rdKeys">${rdKeys(p)}</div></div><div class="rd2-tree" id="rdTree">${rdTree(p)}</div></section>`:""}
     </div></div></div>`;
+  const sc=$("#rdScroll");sc.addEventListener("scroll",()=>{let cur=chaps[0]&&chaps[0][0];chaps.forEach(([cid])=>{const el=document.getElementById(cid);if(el&&el.getBoundingClientRect().top-sc.getBoundingClientRect().top<120)cur=cid});ov.querySelectorAll("[data-rdgo]").forEach(b=>b.classList.toggle("on",b.dataset.rdgo===cur))},{passive:true});
   void ov.offsetWidth;ov.classList.add("show")}
+document.addEventListener("click",e=>{if(!$("#rdPop.show")||!RD)return;let x;
+  if(x=e.target.closest("[data-rdset]")){RD.set=+x.dataset.rdset;$("#rdGear").innerHTML=rdGear();return}
+  if(x=e.target.closest("[data-rdgo]")){const el=document.getElementById(x.dataset.rdgo),sc=$("#rdScroll");if(el&&sc)sc.scrollTo({top:el.offsetTop-56,behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth"});return}});
 document.addEventListener("click",e=>{const r=e.target.closest("[data-brdread]");if(r){brdRead(r.dataset.brdread);return}
   const c=e.target.closest("[data-rdcopy]");if(c){const u=location.origin+location.pathname+"#post="+c.dataset.rdcopy;(navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(()=>toast("คัดลอกลิงก์แล้ว"),()=>prompt("คัดลอกลิงก์นี้",u));return}
   if(e.target.closest("#rdPop [data-brdopen]")){$("#rdPop").classList.remove("show")}},true);
