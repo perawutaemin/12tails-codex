@@ -910,7 +910,7 @@ button.here:disabled{opacity:1;color:inherit}
 @media (max-width:900px){.nt-grid,.rd-body,.rd-pc{grid-template-columns:1fr}.rd-h{position:static}}
 /* ---------- build reader v2 ---------- */
 .lvpop-card.rd2,.lvpop-card.gw{width:min(1320px,100%);max-height:none}
-.rdpop2{place-items:stretch;padding:14px}
+.rdpop2{place-items:stretch;padding:14px;background:#0d0805;backdrop-filter:none}
 .rd2{position:relative;width:min(1320px,100%);max-width:none!important;max-height:none;height:calc(100vh - 28px);height:calc(100dvh - 28px);margin:0 auto!important;padding:0;overflow:hidden;display:flex;flex-direction:column}
 .rd2-x{position:absolute;top:14px;right:14px;z-index:4;background:rgba(0,0,0,.45)!important;backdrop-filter:blur(6px)}
 .rd2-scroll{flex:1;overflow:auto;scrollbar-width:thin}
@@ -969,10 +969,70 @@ button.rd2-slot:hover{transform:translateY(-2px);border-color:var(--rc)}
 @media (max-width:760px){.rdpop2{padding:0}.rd2{height:100vh;height:100dvh;border-radius:0}
   .rd2-hero{padding:22px 16px 18px;min-height:0}.rd2-art{opacity:.28;right:-10%;max-width:80%;height:100%}.rd2-ht{max-width:100%}
   .rd2-nav{padding:8px 12px;overflow-x:auto}.rd2-body{padding:4px 14px 30px}.rd2-gear{grid-template-columns:1fr}.rd2-chs{grid-template-columns:1fr}.rd2-tree .sktree{grid-template-columns:1fr}}
+/* ---------- build reader v3: one screen ---------- */
+.lvpop.gwpop,.lvpop.rdpop2{background:#0d0805;backdrop-filter:none}
+.lvpop-card.gw,.lvpop-card.rd3{background:#1a110b}
+.lvpop-card.rd3{width:100%}
+.rd3 .rd2-tree .sktree.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.pin-card[data-card]{cursor:pointer}
+.pin-art.sk{background:radial-gradient(circle at 50% 35%,#3b2c1d,#150e09);box-shadow:inset 0 0 0 2px #8a6a3c,0 0 0 1px #0d0805}
+.pin-art .cov-sk,.rd3-cov .cov-sk{transform:none!important;object-fit:cover;object-position:center;width:100%;height:100%}
+.cov-wait{display:block;width:100%;height:100%;background:rgba(255,255,255,.06)}
+.gw-cov{display:flex;flex-wrap:wrap;gap:6px;max-height:132px;overflow:auto;padding:6px;border-radius:12px;background:rgba(0,0,0,.22);border:1px solid var(--line);scrollbar-width:thin}
+.gw-cov button{position:relative;width:48px;height:48px;padding:0;border-radius:10px;border:2px solid #5a4428;background:radial-gradient(circle at 50% 35%,#3b2c1d,#150e09);overflow:hidden;cursor:pointer;transition:transform .15s var(--spring),border-color .15s}
+.gw-cov button:hover{transform:translateY(-2px);border-color:var(--gold)}
+.gw-cov button.on{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold),0 0 14px rgba(242,207,122,.5)}
+.gw-cov button img{width:100%;height:100%;object-fit:cover}.gw-cov button>i{font-style:normal;font-size:11px;color:var(--muted)}
+.gw-cov button.tail{width:auto;padding:0 10px 0 0;display:flex;align-items:center;gap:6px}.gw-cov button.tail img{width:44px;height:44px;object-position:50% 12%;transform:scale(1.4);transform-origin:50% 15%}.gw-cov button.tail i{font-size:12px;color:var(--text)}
+.rd3{display:flex;flex-direction:column;overflow:hidden}
+.rd3-h{position:relative;flex:none;display:flex;align-items:center;gap:18px;padding:14px 18px;overflow:hidden;background:radial-gradient(70% 160% at 72% 0%,color-mix(in srgb,var(--acc) 32%,transparent),transparent 65%),linear-gradient(180deg,#2c1d12,#1d130c);border-bottom:1px solid color-mix(in srgb,var(--acc) 40%,var(--line))}
+.rd3-hart{position:absolute;right:30%;top:-30%;height:210%;opacity:.22;pointer-events:none;-webkit-mask-image:linear-gradient(90deg,transparent,#000 40%,#000 60%,transparent);mask-image:linear-gradient(90deg,transparent,#000 40%,#000 60%,transparent)}
+.rd3-cov{position:relative;flex:none;width:84px;height:84px;border-radius:18px;overflow:hidden;background:color-mix(in srgb,var(--acc) 35%,#3a2410);box-shadow:0 0 0 2px var(--acc),0 10px 24px -10px var(--acc)}
+.rd3-cov img{width:100%;height:100%;object-fit:cover;object-position:50% 12%;transform:scale(1.4);transform-origin:50% 15%}
+.rd3-cov.sk{background:radial-gradient(circle at 50% 35%,#3b2c1d,#150e09);box-shadow:0 0 0 2px var(--gold),0 0 22px -4px var(--gold)}
+.rd3-tt{position:relative;min-width:0;flex:1 1 300px;display:flex;flex-direction:column;gap:4px}
+.rd3-tt h2{margin:0;font-size:clamp(20px,2vw,28px);line-height:1.2;color:var(--gold-hi);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rd3-gs{position:relative;flex:0 1 460px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 16px;padding:10px 14px;border-radius:14px;background:rgba(0,0,0,.32);border:1px solid rgba(255,255,255,.06)}
+.rd3 .rd2-acts{position:relative;flex:none;flex-wrap:nowrap}
+.rd3-main{flex:1;min-height:0;display:grid;grid-template-columns:270px minmax(0,1fr) 320px;gap:0}
+.rd3-main>section{min-height:0;display:flex;flex-direction:column;padding:14px 16px}
+.rd3-main h3{flex:none;margin:0 0 10px;font-size:14px;color:var(--gold-hi);display:flex;align-items:baseline;gap:8px}.rd3-main h3 small{font-size:11.5px;font-weight:400;color:var(--muted)}
+.rd3-col{overflow:auto;scrollbar-width:thin}
+.rd3-gear{border-right:1px solid var(--line);background:rgba(0,0,0,.14)}
+.rd3-side{border-left:1px solid var(--line);background:rgba(0,0,0,.14);gap:16px}
+.rd3 .rd2-tabs{margin-bottom:8px}.rd3 .rd2-tabs button{padding:4px 11px;font-size:12px}
+.rd3 .rd2-gear{grid-template-columns:1fr;gap:6px}
+.rd3 .rd2-slot{grid-template-columns:42px 1fr;grid-template-rows:auto;padding:7px 10px;border-radius:12px;column-gap:10px}
+.rd3 .rd2-sl{grid-column:2;grid-row:1;margin:0;align-self:start;font-size:10.5px;line-height:1.2}
+.rd3 .rd2-si{grid-row:1/3;grid-column:1;width:42px;height:42px;border-radius:10px}.rd3 .rd2-si img{width:36px;height:36px}
+.rd3 .rd2-st{grid-column:2;grid-row:2}.rd3 .rd2-st b{font-size:13px}.rd3 .rd2-st small{font-size:10.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rd3 .rd2-slot.none{opacity:.45}
+.rd3 .rd2-sock{top:6px;right:6px;padding:2px 7px;font-size:10px}
+.rd3-tree{overflow:hidden}
+.rd3 .rd2-tree{flex:1;min-height:0;overflow:auto;padding:4px 2px 0}
+.rd3 .rd2-tree .sktree{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.rd3 .rd2-tree .skp{gap:6px}.rd3 .rd2-tree .skp-h{font-size:12.5px}
+.rd3 .rd2-tree .skp-body{gap:6px;padding:8px}
+.rd3 .rd2-tree .skp-row{min-height:0}
+.rd3 .rd2-tree .skp-body .sk{width:var(--sk,48px);height:var(--sk,48px);border-radius:9px;border-width:1.5px}
+.rd3 .rd2-tree .skp-link{flex-basis:8px;height:6px}
+.rd3 .rd2-tree .sk-rom{font-size:9px}
+.rd3 .rd2-tree .sk[data-ksn]::after{width:17px;height:17px;font-size:10px;top:-6px;right:-6px}
+.rd3 .rd2-tl{grid-template-columns:1fr;gap:8px}
+.rd3 .rd2-tl li{grid-template-columns:36px 1fr;padding:8px 10px 8px 12px;gap:10px}.rd3 .rd2-tl .ks-ic{width:36px;height:36px}.rd3 .rd2-tl b{font-size:13px}.rd3 .rd2-tl p{font-size:12px}
+.rd3 .rd2-n{width:20px;height:20px;font-size:11px;top:-6px;left:-6px}
+.rd3 .rd2-lead{font-size:13.5px;line-height:1.7;margin:0 0 10px}
+.rd3 .rd2-chs{grid-template-columns:1fr;gap:8px}.rd3 .rd2-ch{padding:10px 12px;border-radius:12px}.rd3 .rd2-ch h5{font-size:13px;margin-bottom:4px}.rd3 .rd2-ch p{font-size:13px;line-height:1.65}.rd3 .rd2-chn{font-size:20px;top:6px;right:10px}
+@media (max-width:1500px){.rd3-main{grid-template-columns:236px minmax(0,1fr) 280px}}
+@media (max-width:1300px){.rd3-gs{display:none}}
+@media (max-width:1000px),(max-height:600px){.rd3{overflow:auto}.rd3-main{display:block}.rd3-h{flex-wrap:wrap}.rd3-gs{display:grid;flex-basis:100%}.rd3-hart{display:none}
+  .rd3-main>section{padding:14px}.rd3-col,.rd3-tree,.rd3 .rd2-tree{overflow:visible}.rd3-gear,.rd3-side{border:0}
+  .rd3 .rd2-tree{overflow-x:auto}.rd3 .rd2-tree .sktree{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:760px){.rd3-h{padding:14px;gap:12px}.rd3-cov{width:64px;height:64px}.rd3-tt h2{white-space:normal}.rd3-gs{grid-template-columns:1fr}.rd3 .rd2-tree .sktree{grid-template-columns:1fr}.rd3 .rd2-acts{flex-wrap:wrap}}
 /* ---------- guide writer ---------- */
 body:has(.gwpop.show) #bgm,body:has(#rdPop.show) #bgm{display:none}
 .rd-p{white-space:pre-line}
-.gwpop{place-items:stretch;padding:14px}
+.gwpop{place-items:stretch;padding:14px;background:#0d0805;backdrop-filter:none}
 .gw{position:relative;width:min(1240px,100%);max-height:none;height:calc(100vh - 28px);height:calc(100dvh - 28px);margin:0 auto!important;display:flex;flex-direction:column;overflow:hidden;padding:0}
 .gw-top{display:flex;align-items:center;gap:12px;padding:10px 14px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#2b1d12,#22170e)}
 .gw-title{color:var(--gold-hi);font-size:15px;white-space:nowrap}
@@ -2420,7 +2480,7 @@ function skTip(hero,c){
   document.addEventListener("scroll",()=>{tip.hidden=true},true);
 })();
 function skRedraw(hero){const sec=document.getElementById("sksec");if(sec){sec.innerHTML=skInner(hero);return}const y=$("#dBody").scrollTop;open(st.stack[st.stack.length-1],false);$("#dBody").scrollTop=y}const skillTab={},skillSel={};let skillImgLoaded=false;
-function loadSkillImg(){skillImgLoaded=true;fetch("img-skill.json").then(r=>r.json()).then(m=>{Object.assign(IMG,m);if(RD&&document.querySelector("#rdPop.show")){const r=document.getElementById("rdTree");if(r)r.innerHTML=rdTree(RD.x.build);const k=document.getElementById("rdKeys");if(k)k.innerHTML=rdKeys(RD.x.build)}if(GW&&document.querySelector("#gwPop.show")&&GW.step===4){const y=document.getElementById("gwBody").scrollTop;gwRender();document.getElementById("gwBody").scrollTop=y}if(st.stack.length&&st.stack[st.stack.length-1].startsWith("tail:")){const y=$("#dBody").scrollTop;open(st.stack[st.stack.length-1],false);$("#dBody").scrollTop=y}}).catch(()=>{skillImgLoaded=false})}
+function loadSkillImg(){skillImgLoaded=true;fetch("img-skill.json").then(r=>r.json()).then(m=>{Object.assign(IMG,m);if(RD&&document.querySelector("#rdPop.show")){const r=document.getElementById("rdTree");if(r)r.innerHTML=rdTree(RD.x.build);const k=document.getElementById("rdKeys");if(k)k.innerHTML=rdKeys(RD.x.build);const cv=document.querySelector("#rdPop .rd3-cov");if(cv&&RD.x.build.ic)cv.innerHTML=coverImg(RD.x.build,"");rdFit()}if(document.getElementById("brdRoot")&&typeof brdRedraw==="function")try{brdRedraw()}catch(_){}if(GW&&document.querySelector("#gwPop.show")&&(GW.step===4||GW.step===1)){const y=document.getElementById("gwBody").scrollTop;gwRender();document.getElementById("gwBody").scrollTop=y}if(st.stack.length&&st.stack[st.stack.length-1].startsWith("tail:")){const y=$("#dBody").scrollTop;open(st.stack[st.stack.length-1],false);$("#dBody").scrollTop=y}}).catch(()=>{skillImgLoaded=false})}
 const questSel={q:null,r:0,f:""};
 function questSection(){
   const Q=D.quests,f=questSel.f.trim().toLowerCase();
@@ -3176,6 +3236,8 @@ document.addEventListener("input",e=>{const el=e.target;let m;
 function gwCTA(h){return `<div class="gw-cta"><b>✍ สร้าง Build / เขียนไกด์ ${esc(h)}</b><p>เขียนทีละขั้น: ข้อมูลไกด์ › สเตตัสที่เน้น › เซ็ตอุปกรณ์ (ยัด Status) › อัปสกิล + โน้ต › โพสต์ขึ้นกระดาน Build ให้ทุกคนเห็น</p><div><button type="button" class="mk-btn pin" data-gwchoose="${h}">✍ สร้าง Build ${esc(h)}</button><button type="button" class="mk-btn" data-gwtab="board">ดูกระดาน Build</button></div></div>`}
 document.addEventListener("click",e=>{const c=e.target.closest("[data-gwchoose]");if(c){gwChooser(c.dataset.gwchoose||null);return}const b=e.target.closest("[data-gwtab]");if(b){closeD();goTab(b.dataset.gwtab)}});
 /* ---------- guide writer (wizard) ---------- */
+function skIcUrl(h,c){const s=((D.skills||{})[h]||[]).find(x=>x.c===c);return s?src(s.ic):""}
+function coverImg(p,art,lazy){if(p.ic){if(!skillImgLoaded)loadSkillImg();const u=skIcUrl(p.t,p.ic);return u?`<img class="cov-sk" src="${u}" alt="">`:`<i class="cov-wait"></i>`}return art?`<img src="${art}" alt=""${lazy?' loading="lazy"':""}>`:""}
 const NS=[["weapon","อาวุธ","⚔"],["armor","ชุด","👘"],["hat","หมวก","⛑"],["boot","รองเท้า","👢"],["acc","เครื่องประดับ","💍"],["pet","สัตว์เลี้ยง","🐾"]];
 const GW_STEPS=[["เลือกหาง","เลือกสัตว์หางที่จะเขียนไกด์ เปลี่ยนทีหลังได้"],["ข้อมูลไกด์","ตั้งชื่อ บอกว่าเหมาะกับ PVE หรือ PVP แล้วเล่าวิธีเล่นสั้นๆ"],["สเตตัส","เลือกว่าเน้นค่าไหน ตัน = อัปสุด · ตาม = อัปตามต้องใช้ · หรือใส่ตัวเลขเป้าหมาย"],["เซ็ตอุปกรณ์","กดช่องเพื่อเลือกของที่หางนี้ใส่ได้ · อาวุธ ชุด หมวก เลือกได้ว่ายัด Status อะไร"],["สกิล & โน้ต","อัปสกิลตามที่แนะนำ แล้วติดดาวสกิลสำคัญพร้อมเหตุผลว่าทำไมอัป"],["ตรวจ & โพสต์","ดูภาพรวมก่อนโพสต์ขึ้นกระดาน Build"]];
 const GW_OPT=new Set([2,3,4]);
@@ -3186,16 +3248,16 @@ const gwSet=n=>({n,i:["","","","","",""],sk:["","",""]});
 const gwIst=n=>Object.entries(I(n).st||{}).filter(([k])=>STATS.includes(k)).map(([k,v])=>`${k} ${v}`).join(" · ");
 const gwX=`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg>`;
 let GW=null;
-function gwNew(t){GW={step:t?1:0,t:t||null,n:"",a:(brdLS("ttc-author","")||""),tags:[],d:"",st:{},sets:[gwSet("เซ็ตหลัก")],cur:0,pick:null,q:"",ks:[]};if(t){skillBuild[t]=new Set();skillLevel[t]=110}}
+function gwNew(t){GW={step:t?1:0,t:t||null,ic:null,n:"",a:(brdLS("ttc-author","")||""),tags:[],d:"",st:{},sets:[gwSet("เซ็ตหลัก")],cur:0,pick:null,q:"",ks:[]};if(t){skillBuild[t]=new Set();skillLevel[t]=110}}
 let _gwT=0;function gwSave(){clearTimeout(_gwT);_gwT=setTimeout(()=>{if(!GW)return;try{localStorage.setItem("ttc-guide",JSON.stringify({...GW,pick:null,q:"",k:GW.t?[...(skillBuild[GW.t]||[])]:[],l:GW.t?(skillLevel[GW.t]??110):110}));const s=$("#gwSaved");if(s){s.classList.add("on");clearTimeout(s._t);s._t=setTimeout(()=>s.classList.remove("on"),1800)}}catch(_){}gwPrev()},300)}
 function gwDraft(){try{const d=JSON.parse(localStorage.getItem("ttc-guide")||"null");return d&&(d.t||d.n)?d:null}catch(_){return null}}
 function gwLoadDraft(d){GW={...d,pick:null,q:""};if(GW.t){skillBuild[GW.t]=new Set(d.k||[]);skillLevel[GW.t]=d.l||110}}
 function gwFromPack(o,meta){if(!o||!D.tails[o.t])return false;const g=o.g||{};
   const sets=(o.q&&o.q.length?o.q:[{n:"เซ็ตหลัก",i:o.e||[]}]).slice(0,3).map((s,si)=>{const ns=gwSet(s.n||"เซ็ต");(s.i||[]).filter(n=>D.items[n]).forEach(n=>{const k=NS.findIndex(x=>x[0]===gwSlot(n));if(k>=0&&!ns.i[k])ns.i[k]=n});if(g.sk&&g.sk[si])ns.sk=g.sk[si].slice(0,3).map(x=>STATS.includes(x)?x:"");return ns});
   let st=g.st&&Object.keys(g.st).length?g.st:{};if(!Object.keys(st).length&&Array.isArray(o.p))o.p.forEach(([k,tg])=>{if(STATS.includes(k))st[k]=/^\d+$/.test(String(tg).trim())?{m:"num",v:String(tg).trim()}:/สูง|max|ตัน/i.test(tg||"")?{m:"max",v:""}:{m:"follow",v:""}});
-  GW={step:5,t:o.t,n:o.n||"",a:meta?.author||brdLS("ttc-author","")||"",tags:(meta?.tags||[]).filter(x=>x==="PVE"||x==="PVP"),d:g.d||meta?.desc||o.w?.play||"",st,sets,cur:0,pick:null,q:"",ks:Array.isArray(o.ks)?o.ks.map(x=>[x[0]|0,String(x[1]||"")]):[]};
+  GW={step:5,t:o.t,ic:o.ic||null,n:o.n||"",a:meta?.author||brdLS("ttc-author","")||"",tags:(meta?.tags||[]).filter(x=>x==="PVE"||x==="PVP"),d:g.d||meta?.desc||o.w?.play||"",st,sets,cur:0,pick:null,q:"",ks:Array.isArray(o.ks)?o.ks.map(x=>[x[0]|0,String(x[1]||"")]):[]};
   skillBuild[o.t]=new Set((o.k||[]).map(Number));skillLevel[o.t]=Math.max(1,Math.min(110,o.l|0||110));return true}
-function gwPack(){const t=GW.t,s0=GW.sets[0];return {t,l:skillLevel[t]??110,s:[0,0,0,0,0,0,0,0],b:0,e:s0.i.filter(Boolean),k:[...(skillBuild[t]||[])],n:GW.n.trim()||t+" Build",
+function gwPack(){const t=GW.t,s0=GW.sets[0];return {t,ic:GW.ic||undefined,l:skillLevel[t]??110,s:[0,0,0,0,0,0,0,0],b:0,e:s0.i.filter(Boolean),k:[...(skillBuild[t]||[])],n:GW.n.trim()||t+" Build",
   q:GW.sets.map(s=>({n:s.n,i:s.i})),p:[],ks:GW.ks,w:{play:"",pro:"",con:""},g:{d:GW.d,st:GW.st,sk:GW.sets.map(s=>s.sk)}}}
 function gwChecks(){const set=GW.t?skillBuild[GW.t]||new Set():new Set();return [[!!GW.t,"เลือกหาง",0],[!!GW.n.trim(),"ชื่อไกด์",1],[GW.d.trim().length>=20,"คำอธิบาย",1],[Object.keys(GW.st).length>0,"สเตตัส",2],[GW.sets.some(s=>s.i.some(Boolean)),"เซ็ตอุปกรณ์",3],[set.size>0,"สกิล",4]]}
 // ---- live preview ----
@@ -3205,14 +3267,17 @@ function gwAside(){return `<aside class="gw-aside"><div class="gw-ah">ตัว�
 // ---- steps ----
 function gwStep0(){return `<div class="gw-tails">${Object.keys(D.tails).map(tl=>{const v=D.tails[tl],art=HERO[nf(v.img)]||src(v.img);return `<button type="button" class="gw-tl${GW.t===tl?" on":""}" data-gwtail="${tl}" style="--acc:${ACC[tl]}"><span class="gw-tla">${art?`<img src="${art}" alt="" loading="lazy">`:""}</span><b>${esc(tl)}</b><small>${esc(v.th)} · ${esc(tailClass(v)||"")}</small>${GW.t===tl?`<em>✓ เลือกอยู่</em>`:""}</button>`}).join("")}</div>
   ${GW.t?`<p class="gw-note">เปลี่ยนหางแล้วเซ็ตอุปกรณ์และสกิลจะเริ่มใหม่ ส่วนชื่อ คำอธิบาย และสเตตัสยังอยู่</p>`:""}`}
+function gwCovers(){const h=GW.t,v=D.tails[h],art=HERO[nf(v.img)]||src(v.img),seen=new Set(),L=((D.skills||{})[h]||[]).filter(s=>s.ic&&!seen.has(s.n)&&seen.add(s.n));
+  return `<div class="gw-cov"><button type="button" class="tail${GW.ic?"":" on"}" data-gwic="0" title="รูปหาง">${art?`<img src="${art}" alt="">`:""}<i>รูปหาง</i></button>${L.map(s=>{const u=src(s.ic);return `<button type="button" class="${GW.ic===s.c?"on":""}" data-gwic="${s.c}" title="${esc(s.n)}">${u?`<img src="${u}" alt="">`:`<i>${esc(s.n.slice(0,2))}</i>`}</button>`}).join("")}</div>`}
 function gwStep1(){return `<div class="gw-form">
   <label class="gw-fld wide"><span>ชื่อไกด์ <em>*</em></span><input class="gw-big" type="text" maxlength="40" value="${esc(GW.n)}" data-gwf="n" placeholder="เช่น ${esc(GW.t)} ตีแรง ฟาร์มด่าน 9"><i class="gw-hint">ตั้งให้รู้เลยว่าเป็นสายไหน คนจะกดเข้ามาอ่านง่ายขึ้น</i></label>
+  <div class="gw-fld wide"><span>รูปปกไกด์ <small>เลือกรูปสกิลเท่ๆ ไว้โชว์บนการ์ด หรือใช้รูปหาง</small></span>${gwCovers()}</div>
   <label class="gw-fld"><span>ผู้เขียน</span><input type="text" maxlength="24" value="${esc(GW.a)}" data-gwf="a" placeholder="ชื่อในเกมหรือชื่อเล่น"><i class="gw-hint">เว้นว่างได้ จะขึ้นว่า “ไม่ระบุชื่อ”</i></label>
   <div class="gw-fld"><span>เหมาะกับ <small>เลือกได้ทั้งคู่</small></span><div class="gw-mode">${[["PVE","🐉","ฟาร์มด่าน · ตีบอส"],["PVP","⚔","อารีน่า · สู้ผู้เล่น"]].map(([g,ic,s])=>`<button type="button" class="${GW.tags.includes(g)?"on":""}" data-gwtag="${g}" aria-pressed="${GW.tags.includes(g)}"><span>${ic}</span><b>${g}</b><small>${s}</small></button>`).join("")}</div></div>
   <div class="gw-fld wide"><span>คำอธิบาย <small>กดหัวข้อเพื่อแทรกลงในข้อความ</small></span><div class="gw-snip">${GW_SNIP.map(s=>`<button type="button" data-gwsnip="${s}">+ ${s}</button>`).join("")}</div>
     <div class="gw-txt"><textarea maxlength="1500" rows="9" data-gwf="d" placeholder="Build นี้เหมาะกับอะไร เล่นยังไง เปิดด้วยสกิลอะไร จุดเด่น จุดอ่อน…">${esc(GW.d)}</textarea><i class="gw-cnt">${GW.d.length}/1500</i></div></div></div>`}
 function gwStep2(){const cur=JSON.stringify(Object.fromEntries(Object.entries(GW.st).map(([k,v])=>[k,v.m])));
-  return `<div class="gw-pre"><span>เริ่มจากแบบสำเร็จ</span>${GW_PRE.map(([ic,l,o],i)=>`<button type="button" class="${JSON.stringify(o)===cur?"on":""}" data-gwpre="${i}">${ic} ${l}</button>`).join("")}${Object.keys(GW.st).length?`<button type="button" class="clr" data-gwpre="-1">ล้างทั้งหมด</button>`:""}</div>
+  return `${Object.keys(GW.st).length?`<div class="gw-pre"><button type="button" class="clr" data-gwpre="-1">ล้างทั้งหมด</button></div>`:""}
   <div class="gw-st">${STATS.map(k=>{const v=GW.st[k],m=v?.m||"";return `<div class="gw-sc${m?" on":""}" style="--c:${STC[k]}"><div class="gw-sch"><b>${k.toUpperCase()}</b><small>${STH[k]}</small></div>
     <div class="gw-seg">${[["","–"],["max","ตัน"],["follow","ตาม"],["num","ใส่ค่า"]].map(([mm,l])=>`<button type="button" class="${m===mm?"on":""}" data-gwst="${k}|${mm}" ${mm?"":`title="ไม่เน้น"`}>${l}</button>`).join("")}</div>
     ${m==="num"?`<input type="text" inputmode="numeric" maxlength="8" value="${esc(v.v||"")}" data-gwsv="${k}" placeholder="เช่น 160" aria-label="${k} เป้าหมาย">`:""}</div>`}).join("")}</div>`}
@@ -3261,10 +3326,11 @@ function gwRender(){const ov=$("#gwPop");if(!ov||!GW)return;const st=GW.step,[ti
     ${st===3?`<div class="gw-shade${GW.pick!=null?" show":""}" data-gwslot="-1"></div><div class="gw-sheet${GW.pick!=null?" show":""}" id="gwSheet" role="dialog" aria-label="เลือกอุปกรณ์">${GW.pick!=null?gwSheet():""}</div>`:""}</div>`;
   if(keep>0)$("#gwBody").scrollTop=keep;
   gwPrev();ov.querySelector(".gw-steps .on")?.scrollIntoView({inline:"center",block:"nearest"});
-  if(st===4&&!skillImgLoaded)loadSkillImg()}
+  if((st===4||st===1)&&!skillImgLoaded)loadSkillImg()}
 function gwOpen(){let ov=$("#gwPop");if(!ov){ov=document.createElement("div");ov.id="gwPop";ov.className="lvpop gwpop";ov.setAttribute("role","dialog");ov.setAttribute("aria-modal","true");document.body.appendChild(ov)}
   gwRender();void ov.offsetWidth;ov.classList.add("show");document.documentElement.style.overflow="hidden";try{history.replaceState(null,"","#write")}catch(_){}}
 function gwClose(){const ov=$("#gwPop");if(ov)ov.classList.remove("show");document.documentElement.style.overflow="";gwSave();try{history.replaceState(null,"","#"+(st.tab||"board"))}catch(_){}}
+function ov_cov(){document.querySelectorAll("[data-gwic]").forEach(b=>b.classList.toggle("on",(+b.dataset.gwic||null)===GW.ic))}
 function gwGo(s){if(s<0||s>5||(!GW.t&&s>0))return;GW.step=s;GW.pick=null;gwRender();gwSave()}
 function gwChooser(tail){const d=gwDraft();let ov=$("#gwChoose");if(!ov){ov=document.createElement("div");ov.id="gwChoose";ov.className="lvpop";document.body.appendChild(ov);ov.addEventListener("click",e=>{if(e.target===ov||e.target.closest("[data-gwcclose]"))ov.classList.remove("show")})}
   ov.innerHTML=`<div class="lvpop-card gw-ch"><div class="lvpop-h"><span class="lvt-ico">✍</span><span class="lvt-h"><b>สร้าง Build</b><small>เขียนไกด์ใหม่ หรือนำเข้าไกด์ที่มีอยู่</small></span><button type="button" class="icon-btn" data-gwcclose aria-label="ปิด">${gwX}</button></div>
@@ -3283,9 +3349,10 @@ document.addEventListener("click",async e=>{const g=a=>e.target.closest("["+a+"]
   if(!$("#gwPop.show"))return;
   if(x=g("data-gwclose")){gwClose();return}
   if(x=g("data-gwgo")){gwGo(+x.dataset.gwgo);return}
-  if(x=g("data-gwtail")){const tl=x.dataset.gwtail;if(GW.t!==tl){GW.t=tl;GW.sets=[gwSet("เซ็ตหลัก")];GW.cur=0;GW.ks=[];skillBuild[tl]=skillBuild[tl]||new Set();skillLevel[tl]=skillLevel[tl]??110}gwGo(1);return}
+  if(x=g("data-gwtail")){const tl=x.dataset.gwtail;if(GW.t!==tl){GW.t=tl;GW.ic=null;GW.sets=[gwSet("เซ็ตหลัก")];GW.cur=0;GW.ks=[];skillBuild[tl]=skillBuild[tl]||new Set();skillLevel[tl]=skillLevel[tl]??110}gwGo(1);return}
   if(x=g("data-gwtag")){const v=x.dataset.gwtag,i=GW.tags.indexOf(v);if(i>=0)GW.tags.splice(i,1);else GW.tags.push(v);x.classList.toggle("on",i<0);x.setAttribute("aria-pressed",i<0);gwSave();return}
   if(x=g("data-gwsnip")){const ta=$('[data-gwf="d"]');if(!ta)return;const s=ta.selectionStart??ta.value.length,pre=ta.value.slice(0,s),ins=(pre&&!pre.endsWith("\n")?"\n":"")+"【"+x.dataset.gwsnip+"】 ";ta.value=(pre+ins+ta.value.slice(ta.selectionEnd??s)).slice(0,1500);ta.focus();ta.selectionStart=ta.selectionEnd=Math.min(1500,pre.length+ins.length);ta.dispatchEvent(new Event("input",{bubbles:true}));return}
+  if(x=g("data-gwic")){GW.ic=+x.dataset.gwic||null;ov_cov();gwSave();return}
   if(x=g("data-gwpre")){const i=+x.dataset.gwpre;GW.st={};if(i>=0)Object.entries(GW_PRE[i][2]).forEach(([k,m])=>GW.st[k]={m,v:""});gwRender();gwSave();return}
   if(x=g("data-gwst")){const [k,m]=x.dataset.gwst.split("|");if(!m)delete GW.st[k];else GW.st[k]={m,v:GW.st[k]?.v||""};gwRender();gwSave();if(m==="num")setTimeout(()=>$(`[data-gwsv="${k}"]`)?.focus(),0);return}
   if(x=g("data-gwclr")){GW.sets[GW.cur].i[+x.dataset.gwclr]="";gwRender();gwSave();return}
@@ -3331,13 +3398,13 @@ function brdList(){const L=(BRD.list||[]).filter(x=>D.tails[x.build.t]),q=BRD.q.
   return f.sort(BRD.sort==="new"?(a,b)=>b.at-a.at:BRD.sort==="top"?(a,b)=>b.likes-a.likes||b.at-a.at:(a,b)=>hot(b)-hot(a))}
 function brdCard(x,i){
   const p=x.build,v=D.tails[p.t],acc=ACC[p.t]||"#d6993f",tot=brdTot(p),top=STATS.map(k=>[k,tot[k]]).sort((a,b)=>b[1]-a[1]).slice(0,3),liked=brdLiked().has(x.id),art=HERO[nf(v.img)]||src(v.img),adm=brdAdmin();
-  return `<article class="pin-card" style="--acc:${acc};--r:${[-1.2,.8,-.4,1.1,-.9,.5][i%6]}deg;--d:${Math.min(i,12)*40}ms">
+  return `<article class="pin-card" data-card="${x.id}" style="--acc:${acc};--r:${[-1.2,.8,-.4,1.1,-.9,.5][i%6]}deg;--d:${Math.min(i,12)*40}ms">
     <span class="pin-dot" aria-hidden="true"></span>
     ${adm?`<button type="button" class="pin-del" data-brddel="${x.id}" title="ลบ (แอดมิน)">ลบ</button>`:""}
-    <div class="pin-top"><span class="pin-art">${art?`<img src="${art}" alt="" loading="lazy">`:""}</span>
+    <div class="pin-top"><span class="pin-art${p.ic?" sk":""}">${coverImg(p,art,1)}</span>
       <div class="pin-tt"><span class="pin-tail">${esc(p.t)} · ${esc(v.th)}</span><h4>${esc(p.n)}</h4><span class="pin-meta">Lv ${p.l}${x.tags.map(g=>` <i class="pin-tag">${esc(g)}</i>`).join("")}</span></div></div>
     ${p.g?`${gwFocusHTML(p.g.st)||""}`:`<div class="pin-mid">${bdRadar(tot,acc)}<div class="pin-stats">${top.map(([k,n])=>`<span style="--c:${STC[k]}"><b>${k.toUpperCase()}</b><em>${fmt(n)}</em></span>`).join("")}</div></div>`}
-    ${x.desc?`<p class="pin-desc">${esc(x.desc)}</p>`:""}
+    ${x.desc?`<p class="pin-desc">${esc(x.desc).replace(/【([^】]{1,30})】/g,"<b>$1:</b> ")}</p>`:""}
     ${(p.e||[]).length?`<div class="pin-eq">${p.e.slice(0,6).map(n=>`<span title="${esc(n)}">${icon(n)}</span>`).join("")}${p.e.length>6?`<i>+${p.e.length-6}</i>`:""}</div>`:""}
     <div class="pin-foot"><button type="button" class="pin-like${liked?" on":""}" data-brdlike="${x.id}" aria-pressed="${liked}"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.8 4.5c2.2 0 3.6 1.2 5.2 3 1.6-1.8 3-3 5.2-3 3.8 0 5.9 3.9 4.4 7.3C19.5 16.4 12 21 12 21z"/></svg>${x.likes}</button>
       <span class="pin-by">โดย <b>${esc(x.author)}</b> · ${ago(x.at)}</span>
@@ -3424,26 +3491,32 @@ function brdRead(id){const x=(BRD.list||[]).find(y=>y.id===id);if(!x)return;cons
     ov.addEventListener("click",e=>{if(e.target===ov||e.target.closest("[data-rdclose]")){ov.classList.remove("show");try{history.replaceState(null,"","#board")}catch(_){}}})}
   ov.className="lvpop rdpop2";
   const g=rdGauges(p),a=rdArticle(p,x),hasSk=!!(D.skills||{})[h],cls=tailClass(v);
-  const chaps=[a&&["rdc-guide","📖 ไกด์"],["rdc-gear","🛡 อุปกรณ์"],hasSk&&["rdc-skill","✦ สกิล"]].filter(Boolean);
-  ov.innerHTML=`<div class="lvpop-card rd2" style="--acc:${acc}"><button type="button" class="icon-btn rd2-x" data-rdclose aria-label="ปิด">${gwX}</button>
-   <div class="rd2-scroll" id="rdScroll">
-    <header class="rd2-hero">${art?`<img class="rd2-art" src="${art}" alt="">`:""}
-     <div class="rd2-ht"><span class="rd2-k">${esc(h)} · ${esc(v.th)}${cls?` · ${esc(cls)}`:""} · Lv ${p.l}</span><h2>${esc(p.n)}</h2>
-      <div class="rd2-meta">${x.tags.map(g=>`<i class="pin-tag">${esc(g)}</i>`).join("")}<span>โดย <b>${esc(x.author)}</b></span><span>${ago(x.at)}</span><span>👁 <b id="rdViews">${x.views||0}</b> ครั้ง</span></div>
-      ${g?`<div class="rd2-gs"><small>สเตตัสที่เน้น</small><div>${g}</div></div>`:""}
-      <div class="rd2-acts"><button type="button" class="pin-like${liked?" on":""}" data-brdlike="${x.id}"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.8 4.5c2.2 0 3.6 1.2 5.2 3 1.6-1.8 3-3 5.2-3 3.8 0 5.9 3.9 4.4 7.3C19.5 16.4 12 21 12 21z"/></svg>${x.likes}</button><button type="button" class="mk-btn" data-rdcopy="${x.id}">🔗 คัดลอกลิงก์</button><button type="button" class="mk-btn gold" data-brdopen="${x.id}">✍ นำไปปรับเป็นไกด์ของฉัน</button></div></div></header>
-    <nav class="rd2-nav">${chaps.map((c,i)=>`<button type="button" class="${i?"":"on"}" data-rdgo="${c[0]}">${c[1]}</button>`).join("")}</nav>
-    <div class="rd2-body">
-     ${a?`<section class="rd2-sec" id="rdc-guide"><h3>ไกด์จากผู้เขียน</h3>${a}</section>`:""}
-     <section class="rd2-sec" id="rdc-gear"><h3>เซ็ตอุปกรณ์ ${RD.sets.length>1?`<small>${RD.sets.length} เซ็ต</small>`:""}</h3><div id="rdGear">${rdGear()}</div></section>
-     ${hasSk?`<section class="rd2-sec" id="rdc-skill"><h3>สายสกิล <small>เรียน ${(p.k||[]).length} สกิล · ตัวเลขทองคือสกิลสำคัญ</small></h3><div class="rd2-keys"><h4>⭐ ลำดับสกิลสำคัญ</h4><div id="rdKeys">${rdKeys(p)}</div></div><div class="rd2-tree" id="rdTree">${rdTree(p)}</div></section>`:""}
-    </div></div></div>`;
-  const sc=$("#rdScroll");sc.addEventListener("scroll",()=>{let cur=chaps[0]&&chaps[0][0];chaps.forEach(([cid])=>{const el=document.getElementById(cid);if(el&&el.getBoundingClientRect().top-sc.getBoundingClientRect().top<120)cur=cid});ov.querySelectorAll("[data-rdgo]").forEach(b=>b.classList.toggle("on",b.dataset.rdgo===cur))},{passive:true});
-  void ov.offsetWidth;ov.classList.add("show")}
+  ov.innerHTML=`<div class="lvpop-card rd2 rd3" style="--acc:${acc}">
+   <header class="rd3-h">${art?`<img class="rd3-hart" src="${art}" alt="">`:""}
+    <span class="rd3-cov${p.ic?" sk":""}">${coverImg(p,art)}</span>
+    <div class="rd3-tt"><span class="rd2-k">${esc(h)} · ${esc(v.th)}${cls?` · ${esc(cls)}`:""} · Lv ${p.l}</span><h2>${esc(p.n)}</h2>
+     <div class="rd2-meta">${x.tags.map(g=>`<i class="pin-tag">${esc(g)}</i>`).join("")}<span>โดย <b>${esc(x.author)}</b></span><span>${ago(x.at)}</span><span>👁 <b id="rdViews">${x.views||0}</b></span></div></div>
+    ${g?`<div class="rd3-gs">${g}</div>`:""}
+    <div class="rd2-acts"><button type="button" class="pin-like${liked?" on":""}" data-brdlike="${x.id}"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.8 4.5c2.2 0 3.6 1.2 5.2 3 1.6-1.8 3-3 5.2-3 3.8 0 5.9 3.9 4.4 7.3C19.5 16.4 12 21 12 21z"/></svg>${x.likes}</button><button type="button" class="mk-btn" data-rdcopy="${x.id}" title="คัดลอกลิงก์">🔗</button><button type="button" class="mk-btn gold" data-brdopen="${x.id}">✍ นำไปปรับ</button><button type="button" class="icon-btn" data-rdclose aria-label="ปิด">${gwX}</button></div>
+   </header>
+   <div class="rd3-main">
+    <section class="rd3-col rd3-gear"><h3>🛡 เซ็ตอุปกรณ์</h3><div id="rdGear">${rdGear()}</div></section>
+    ${hasSk?`<section class="rd3-tree"><h3>✦ สายสกิล <small>เรียน ${(p.k||[]).length} สกิล · เลขทอง = สกิลสำคัญ</small></h3><div class="rd2-tree" id="rdTree">${rdTree(p)}</div></section>`:`<section class="rd3-tree"></section>`}
+    <section class="rd3-col rd3-side"><div class="rd3-keys"><h3>⭐ สกิลสำคัญ</h3><div id="rdKeys">${rdKeys(p)}</div></div>${a?`<div class="rd3-guide"><h3>📖 ไกด์จากผู้เขียน</h3>${a}</div>`:""}</section>
+   </div></div>`;
+  void ov.offsetWidth;ov.classList.add("show");requestAnimationFrame(rdFit)}
+function rdFit(){const c=$("#rdPop.show .rd3"),tr=$("#rdTree");if(!c||!tr)return;const g=tr.querySelector(".sktree");if(matchMedia("(max-width:1000px),(max-height:600px)").matches){c.style.removeProperty("--sk");g&&g.classList.remove("g2");return}
+  const ps=[...tr.querySelectorAll(".skp")];if(!ps.length)return;const rowsOf=q=>q.querySelectorAll(".skp-row").length,colsOf=q=>Math.max(1,...[...q.querySelectorAll(".skp-row")].map(r=>r.querySelectorAll(".sk").length));
+  const R=ps.map(rowsOf),C=Math.max(...ps.map(colsOf)),tw=tr.clientWidth,th=tr.clientHeight,hd=48,gap=6,lk=8;
+  const fit=(perRow,rowSets)=>{const W=(tw-(perRow-1)*10)/perRow-18-(C-1)*lk;let need=0,heads=0;rowSets.forEach(r=>{need+=r;heads+=1});const H=th-heads*hd-(rowSets.length-1)*10-(need-rowSets.length)*gap;return Math.min(Math.floor(W/C),Math.floor(H/need))};
+  const s4=fit(ps.length,[Math.max(...R)]),s2=ps.length>2?fit(2,[Math.max(R[0],R[1]||0),Math.max(R[2]||0,R[3]||0)]):-1,two=s2>s4;
+  g&&g.classList.toggle("g2",two);c.style.setProperty("--sk",Math.max(22,Math.min(56,two?s2:s4))+"px")}
+addEventListener("resize",()=>{clearTimeout(rdFit._t);rdFit._t=setTimeout(rdFit,120)});
 document.addEventListener("click",e=>{if(!$("#rdPop.show")||!RD)return;let x;
   if(x=e.target.closest("[data-rdset]")){RD.set=+x.dataset.rdset;$("#rdGear").innerHTML=rdGear();return}
   if(x=e.target.closest("[data-rdgo]")){const el=document.getElementById(x.dataset.rdgo),sc=$("#rdScroll");if(el&&sc)sc.scrollTo({top:el.offsetTop-56,behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth"});return}});
 document.addEventListener("click",e=>{const r=e.target.closest("[data-brdread]");if(r){brdRead(r.dataset.brdread);return}
+  const cd=e.target.closest(".pin-card[data-card]");if(cd&&cd.dataset.card!=="_prev"&&!e.target.closest("button,a,input,select,textarea")){brdRead(cd.dataset.card);return}
   const c=e.target.closest("[data-rdcopy]");if(c){const u=location.origin+location.pathname+"#post="+c.dataset.rdcopy;(navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(()=>toast("คัดลอกลิงก์แล้ว"),()=>prompt("คัดลอกลิงก์นี้",u));return}
   if(e.target.closest("#rdPop [data-brdopen]")){$("#rdPop").classList.remove("show")}},true);
 let pendingPost=null;

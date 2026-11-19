@@ -58,6 +58,7 @@ export default {
           p: Array.isArray(p.p) ? p.p.slice(0, 8).map((x) => [clean(x && x[0], 4), clean(x && x[1], 12)]) : [],
           ks: Array.isArray(p.ks) ? p.ks.slice(0, 10).map((x) => [x && x[0] | 0, clean(x && x[1], 120)]) : [],
           w: { play: clean(p.w && p.w.play, 800), pro: clean(p.w && p.w.pro, 400), con: clean(p.w && p.w.con, 400) },
+          ic: Number.isInteger(p.ic) && p.ic > 0 && p.ic < 100000 ? p.ic : undefined,
           g: p.g ? {
             d: clean(p.g.d, 1500),
             st: Object.fromEntries(Object.entries(p.g.st || {}).filter(([k, v]) => STATS.includes(k) && v && ["max", "follow", "num"].includes(v.m)).map(([k, v]) => [k, { m: v.m, v: clean(v.v, 8) }])),
