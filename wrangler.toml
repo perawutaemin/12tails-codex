@@ -1,0 +1,7 @@
+name = "12tails-codex"
+pages_build_output_dir = "."
+compatibility_date = "2026-11-01"
+
+[[kv_namespaces]]
+binding = "TTC_VISITS"
+id = "9c7a014d6f6a4c078e45ddac60f5c037"
