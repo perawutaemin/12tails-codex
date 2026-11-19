@@ -862,7 +862,9 @@ button.here:disabled{opacity:1;color:inherit}
 .mp-stage{position:relative;height:clamp(440px,74vh,860px);overflow:auto;border-radius:12px;background:#2a1c10;scrollbar-width:thin;cursor:grab}
 .mp-stage.drag{cursor:grabbing}
 .mp-canvas{position:relative;margin:4px auto}
-.mp-canvas img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;user-select:none;animation:mpIn .6s ease both}
+.mp-canvas>img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;user-select:none;animation:mpIn .6s ease both}
+.mp-pin .ring img,.mp-li .ring img{width:100%;height:100%;object-fit:cover;object-position:50% 18%}
+.mp-pin.npc .ring{background:#f3e2b8}
 @keyframes mpIn{from{opacity:0;transform:scale(1.03)}}
 .mp-pin{position:absolute;z-index:2;color:var(--text);font:inherit}
 .mp-pin.npc{translate:-50% -100%;display:flex;flex-direction:column;align-items:center;gap:1px;border:0;background:none;padding:0;cursor:pointer;animation:mpDrop .5s cubic-bezier(.3,1.5,.5,1) both;animation-delay:var(--d)}
