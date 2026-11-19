@@ -2420,7 +2420,7 @@ document.addEventListener("keydown",e=>{const q=e.target.closest?.("[data-mkq]")
 function countUp(el,n){const t0=performance.now(),from=0;const step=t=>{const p=Math.min(1,(t-t0)/1400),e=1-Math.pow(1-p,4);el.textContent=fmt(Math.round(from+(n-from)*e));if(p<1)requestAnimationFrame(step)};requestAnimationFrame(step)}
 async function visits(){
   let first=false;try{first=!sessionStorage.getItem("ttc-v");sessionStorage.setItem("ttc-v","1")}catch(_){}
-  try{const r=await fetch("api/visits",{method:first?"POST":"GET",cache:"no-store"});if(!r.ok)return;const c=await r.json();if(typeof c.total!=="number")return;
+  try{const r=await fetch("https://12tails-codex-visits.ails-odex.workers.dev",{method:first?"POST":"GET",cache:"no-store"});if(!r.ok)return;const c=await r.json();if(typeof c.total!=="number")return;
     const box=$("#lnVisits");box.hidden=false;countUp($("#lvTotal"),c.total);countUp($("#lvToday"),c.today)}catch(_){}
 }
 
@@ -2667,12 +2667,15 @@ function lnLoop(t){
   if(p>=1&&!document.hidden)showTail(lnIdx+1);
   lnRaf=requestAnimationFrame(lnLoop);
 }
-function showLanding(){
+function setHash(h,push){try{if(location.hash==="#"+h)return;history[push?"pushState":"replaceState"](null,"","#"+h)}catch(_){}}
+function showLanding(fromNav){
+  if(!fromNav)setHash("home",true);$("#srv").hidden=true;$("#srv").classList.remove("show");
   closeD();const L=$("#landing");L.hidden=false;void L.offsetWidth;L.classList.remove("out");
   if(D){landingStrip();landingFacts();showTail(lnIdx)}
   cancelAnimationFrame(lnRaf);lnRaf=requestAnimationFrame(lnLoop);
 }
-function showServers(){
+function showServers(fromNav){
+  if(!fromNav)setHash("server",true);
   const S=$("#srv"),L=$("#landing");S.hidden=false;void S.offsetWidth;S.classList.add("show");L.classList.add("out");cancelAnimationFrame(lnRaf);setTimeout(()=>{L.hidden=true},450);
 }
 function hideServers(){const S=$("#srv");S.classList.remove("show");S.classList.add("leaving");setTimeout(()=>{S.hidden=true;S.classList.remove("leaving")},400)}
@@ -2684,7 +2687,8 @@ document.addEventListener("click",e=>{
   try{localStorage.setItem("ttc-server",c.dataset.srv)}catch(_){}
   c.classList.add("picked");setTimeout(()=>{hideServers();enterApp("tails");if(pendingTail){const id=pendingTail;pendingTail=null;setTimeout(()=>open("tail:"+id),200)}},380);
 });
-function enterApp(tab){
+function enterApp(tab,fromNav){
+  if(!fromNav)setHash(tab||st.tab||"tails",true);
   const L=$("#landing");L.classList.add("out");cancelAnimationFrame(lnRaf);
   setTimeout(()=>{L.hidden=true},450);
   if(D){if(tab)goTab(tab);else renderView(true)}
@@ -2698,12 +2702,16 @@ document.addEventListener("keydown",e=>{
   if((e.key==="Enter"||e.key===" ")&&e.target.matches?.('[role="button"][data-open]')){e.preventDefault();open(e.target.dataset.open)}
 });
 
+window.addEventListener("popstate",()=>{const h=(location.hash||"").slice(1)||"home";
+  if(h==="home"){showLanding(true);return}
+  if(h==="server"){$("#landing").hidden=true;showServers(true);return}
+  if(TABS.some(t=>t[0]===h)){if(!$("#srv").hidden)hideServers();const L=$("#landing");if(!L.hidden){L.classList.add("out");cancelAnimationFrame(lnRaf);setTimeout(()=>{L.hidden=true},450)}if(D)goTab(h)}});
 /* ---------- boot ---------- */
 (async()=>{
   visits();
   const h=(location.hash||"").slice(1);
   const deep=TABS.some(t=>t[0]===h);
-  if(deep){$("#landing").hidden=true}
+  if(deep||h==="server"){$("#landing").hidden=true}
   const heroP=fetch("img-hero.json").then(r=>r.json()).then(m=>Object.assign(HERO,m)).catch(()=>{});
   try{D=await (await fetch("data.json")).json()}catch(err){$("#mTitle").textContent="โหลดข้อมูลไม่สำเร็จ ลองรีเฟรชหน้าอีกครั้ง";return}
   IX=build();
@@ -2713,7 +2721,7 @@ document.addEventListener("keydown",e=>{
   if(deep)st.tab=h;else if(TABS.some(t=>t[0]===sv))st.tab=sv;
   renderSide();renderView(deep);if(st.tab!=="tails")requestAnimationFrame(()=>scrollToSec(st.tab,false));
   await heroP;refresh();if(st.tab!=="tails")requestAnimationFrame(()=>scrollToSec(st.tab,false));
-  if(!deep)showLanding();
+  if(h==="server"){$("#landing").hidden=true;showServers(true)}else if(!deep){showLanding(true);setHash("home",false)}
   let done=0;const parts=["art","mon","icon"];
   $("#imgStatus").textContent="กำลังโหลดรูปภาพ…";
   for(const p of parts){try{Object.assign(IMG,await (await fetch("img-"+p+".json")).json());done++;refresh();if(!$("#landing").hidden)landingStrip()}catch(_){}}

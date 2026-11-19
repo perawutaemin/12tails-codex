@@ -1,0 +1,8 @@
+name = "12tails-codex-visits"
+main = "worker.js"
+compatibility_date = "2026-11-01"
+workers_dev = true
+
+[[kv_namespaces]]
+binding = "TTC_VISITS"
+id = "9c7a014d6f6a4c078e45ddac60f5c037"
