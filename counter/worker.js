@@ -49,8 +49,15 @@ export default {
       if (!TAILS.includes(p.t)) return J({ error: "ไม่รู้จักหางนี้" }, 400);
       const b = {
         id: crypto.randomUUID().slice(0, 8), at: Date.now(), likes: 0,
-        build: { t: p.t, l: Math.max(1, Math.min(110, p.l | 0)), s: nums(p.s, 8, 400) || [0, 0, 0, 0, 0, 0, 0, 0], b: nums(p.b, 8, 2000), e: (p.e || []).slice(0, 8).map((x) => clean(x, 60)), k: (p.k || []).slice(0, 200).map((x) => x | 0), n: clean(p.n, 40) },
-        author: clean(body.author, 24) || "ไม่ระบุชื่อ", desc: clean(body.desc, 200), tags: (body.tags || []).filter((x) => TAGS.includes(x)).slice(0, 3), ip,
+        build: {
+          t: p.t, l: Math.max(1, Math.min(110, p.l | 0)), s: nums(p.s, 8, 400) || [0, 0, 0, 0, 0, 0, 0, 0], b: nums(p.b, 8, 2000),
+          e: (p.e || []).slice(0, 8).map((x) => clean(x, 60)), k: (p.k || []).slice(0, 200).map((x) => x | 0), n: clean(p.n, 40),
+          q: Array.isArray(p.q) ? p.q.slice(0, 3).map((s) => ({ n: clean(s && s.n, 24), i: (s && Array.isArray(s.i) ? s.i : []).slice(0, 6).map((x) => clean(x, 60)) })) : [],
+          p: Array.isArray(p.p) ? p.p.slice(0, 8).map((x) => [clean(x && x[0], 4), clean(x && x[1], 12)]) : [],
+          ks: Array.isArray(p.ks) ? p.ks.slice(0, 10).map((x) => [x && x[0] | 0, clean(x && x[1], 120)]) : [],
+          w: { play: clean(p.w && p.w.play, 800), pro: clean(p.w && p.w.pro, 400), con: clean(p.w && p.w.con, 400) },
+        },
+        author: clean(body.author, 24) || "ไม่ระบุชื่อ", desc: clean(body.desc, 200), tags: (body.tags || []).filter((x) => TAGS.includes(x)).slice(0, 3), views: 0, ip,
       };
       if (!b.build.n) b.build.n = b.build.t + " Build";
       const list = await readBuilds(kv); list.unshift(b);
@@ -67,6 +74,15 @@ export default {
       if (await kv.get(lk)) return J({ likes: b.likes, already: true });
       b.likes++; await kv.put("builds", JSON.stringify(list)); await kv.put(lk, "1", { expirationTtl: 400 * 86400 });
       return J({ likes: b.likes });
+    }
+
+    m = path.match(/^\/builds\/([\w-]{4,12})\/view$/);
+    if (m && req.method === "POST") {
+      const vk = "vw:" + m[1] + ":" + ip;
+      const list = await readBuilds(kv), b = list.find((x) => x.id === m[1]);
+      if (!b) return J({ error: "ไม่พบ Build" }, 404);
+      if (!(await kv.get(vk))) { b.views = (b.views || 0) + 1; await kv.put("builds", JSON.stringify(list)); await kv.put(vk, "1", { expirationTtl: 86400 }); }
+      return J({ views: b.views || 0 });
     }
 
     m = path.match(/^\/builds\/([\w-]{4,12})$/);
