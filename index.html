@@ -1222,7 +1222,7 @@ button.here:disabled{opacity:1;color:inherit}
 .bgm-mute{display:grid;place-items:center;width:22px;height:22px;padding:0;border:0;background:none;color:var(--gold-hi);cursor:pointer}
 .bgm-mute svg{width:18px;height:18px}.bgm-mute .x{display:none}
 .bgm.muted .bgm-mute .w1,.bgm.muted .bgm-mute .w2{display:none}.bgm.muted .bgm-mute .x{display:inline}
-.bgm-vol input{-webkit-appearance:none;appearance:none;width:120px;height:4px;border-radius:4px;background:linear-gradient(90deg,var(--gold) var(--p,40%),rgba(255,255,255,.15) var(--p,40%));cursor:pointer}
+.bgm-vol input{-webkit-appearance:none;appearance:none;width:120px;height:4px;border-radius:4px;background:linear-gradient(90deg,var(--gold) var(--p,10%),rgba(255,255,255,.15) var(--p,10%));cursor:pointer}
 .bgm-vol input::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:#fff2c9;border:2px solid #c9922f;box-shadow:0 0 6px rgba(242,207,122,.6)}
 .bgm-vol input::-moz-range-thumb{width:12px;height:12px;border-radius:50%;background:#fff2c9;border:2px solid #c9922f}
 .bgm-vol b{font:600 11px var(--mono);color:var(--gold-hi);min-width:22px;text-align:right}
@@ -1519,7 +1519,7 @@ button.here:disabled{opacity:1;color:inherit}
   </button>
   <div class="bgm-panel">
     <span class="bgm-title">Moonguild Camp</span>
-    <label class="bgm-vol"><button type="button" id="bgmMute" class="bgm-mute" aria-label="ปิดเสียง"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z"/><path class="w1" d="M15.5 8.5a5 5 0 0 1 0 7"/><path class="w2" d="M19 5a10 10 0 0 1 0 14"/><path class="x" d="m16 9 6 6m0-6-6 6"/></svg></button><input type="range" id="bgmVol" min="0" max="100" value="40" aria-label="ระดับเสียง"><b id="bgmPct">40</b></label>
+    <label class="bgm-vol"><button type="button" id="bgmMute" class="bgm-mute" aria-label="ปิดเสียง"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z"/><path class="w1" d="M15.5 8.5a5 5 0 0 1 0 7"/><path class="w2" d="M19 5a10 10 0 0 1 0 14"/><path class="x" d="m16 9 6 6m0-6-6 6"/></svg></button><input type="range" id="bgmVol" min="0" max="100" value="10" aria-label="ระดับเสียง"><b id="bgmPct">10</b></label>
   </div>
   <audio id="bgmAudio" src="bgm.mp3" loop preload="none"></audio>
 </div>
@@ -2363,7 +2363,7 @@ document.addEventListener("keydown",e=>{const q=e.target.closest?.("[data-mkq]")
 (()=>{
   const A=$("#bgmAudio"),btn=$("#bgmBtn"),vol=$("#bgmVol"),pct=$("#bgmPct"),mute=$("#bgmMute"),box=$("#bgm");
   const get=(k,d)=>{try{const v=localStorage.getItem(k);return v==null?d:v}catch(_){return d}},put=(k,v)=>{try{localStorage.setItem(k,v)}catch(_){}};
-  let want=get("ttc-bgm","on")==="on",v=+get("ttc-bgm-vol",40);if(!(v>=0&&v<=100))v=40;
+  let want=get("ttc-bgm","on")==="on",v=+get("ttc-bgm-vol",10);if(!(v>=0&&v<=100))v=10;
   const paint=()=>{const on=!A.paused;btn.setAttribute("aria-pressed",on);btn.setAttribute("aria-label",on?"ปิดเพลง":"เปิดเพลง");box.classList.toggle("on",on);box.classList.toggle("muted",A.muted||A.volume===0);vol.value=Math.round(A.volume*100);pct.textContent=vol.value;vol.style.setProperty("--p",vol.value+"%")};
   A.volume=v/100;
   const play=()=>A.play().then(paint).catch(paint);
