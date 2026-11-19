@@ -3,6 +3,7 @@
 //   GET      /builds      list board builds
 //   POST     /builds      post a build
 //   POST     /builds/:id/like   like once per IP
+//   PUT      /builds/:id  edit (body.tok = edit key from the POST reply, or X-Admin)
 //   DELETE   /builds/:id  admin only (header X-Admin = env.ADMIN_KEY)
 const ORIGINS = ["https://perawutaemin.github.io", "https://claude.ai"];
 const day = () => new Date(Date.now() + 7 * 3600e3).toISOString().slice(0, 10); // Bangkok date
@@ -13,12 +14,35 @@ const POST_LIMIT = 3; // per IP per hour
 function cors(req) {
   const o = req.headers.get("Origin") || "";
   const ok = ORIGINS.includes(o) || o.endsWith(".claudeusercontent.com") || o.startsWith("http://localhost");
-  return { "Access-Control-Allow-Origin": ok ? o : ORIGINS[0], "Access-Control-Allow-Methods": "GET, POST, DELETE, OPTIONS", "Access-Control-Allow-Headers": "content-type, x-admin", "Vary": "Origin" };
+  return { "Access-Control-Allow-Origin": ok ? o : ORIGINS[0], "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS", "Access-Control-Allow-Headers": "content-type, x-admin", "Vary": "Origin" };
 }
 async function sha(s) { const b = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s)); return [...new Uint8Array(b)].slice(0, 12).map((x) => x.toString(16).padStart(2, "0")).join(""); }
 const clean = (s, n) => String(s ?? "").replace(/[\u0000-\u001f<>]/g, "").trim().slice(0, n);
 const clean2 = 0;
 const nums = (a, n, max) => Array.isArray(a) ? a.slice(0, n).map((x) => Math.max(0, Math.min(max, x | 0))) : 0;
+const isAdmin = (req, env) => !!env.ADMIN_KEY && (req.headers.get("X-Admin") || "").trim() === String(env.ADMIN_KEY).trim();
+function parsePost(body) {
+  const p = body.build || {};
+  if (!TAILS.includes(p.t)) return null;
+  const build = {
+          t: p.t, l: Math.max(1, Math.min(100, p.l | 0)), s: nums(p.s, 8, 400) || [0, 0, 0, 0, 0, 0, 0, 0], b: nums(p.b, 8, 2000),
+          e: (p.e || []).slice(0, 8).map((x) => clean(x, 60)), k: (p.k || []).slice(0, 200).map((x) => x | 0), n: clean(p.n, 40),
+          q: Array.isArray(p.q) ? p.q.slice(0, 3).map((s) => ({ n: clean(s && s.n, 24), i: (s && Array.isArray(s.i) ? s.i : []).slice(0, 6).map((x) => clean(x, 60)) })) : [],
+          p: Array.isArray(p.p) ? p.p.slice(0, 8).map((x) => [clean(x && x[0], 4), clean(x && x[1], 12)]) : [],
+          ks: Array.isArray(p.ks) ? p.ks.slice(0, 10).map((x) => [x && x[0] | 0, clean(x && x[1], 120)]) : [],
+          w: { play: clean(p.w && p.w.play, 800), pro: clean(p.w && p.w.pro, 400), con: clean(p.w && p.w.con, 400) },
+          ic: Number.isInteger(p.ic) && p.ic > 0 && p.ic < 100000 ? p.ic : undefined,
+          g: p.g ? {
+            d: clean(p.g.d, 1500),
+            st: Object.fromEntries(Object.entries(p.g.st || {}).filter(([k, v]) => STATS.includes(k) && v && ["max", "follow", "num"].includes(v.m)).map(([k, v]) => [k, { m: v.m, v: clean(v.v, 8) }])),
+            rp: Array.isArray(p.g.rp) ? p.g.rp.slice(0, 3).map((s) => (Array.isArray(s) ? s : []).slice(0, 6).map((x) => clean(x, 60))) : [],
+            sk: Array.isArray(p.g.sk) ? p.g.sk.slice(0, 3).map((s) => (Array.isArray(s) ? s : []).slice(0, 3).map((x) => (STATS.includes(x) ? x : ""))) : [],
+          } : undefined,
+        };
+  if (!build.n) build.n = build.t + " Build";
+  return { build, author: clean(body.author, 24) || "ไม่ระบุชื่อ", desc: clean(body.desc, 200), tags: (body.tags || []).filter((x) => TAGS.includes(x)).slice(0, 3) };
+}
+const pub = ({ ip: _, tk: __, ...b }) => b;
 async function readBuilds(kv) { try { return JSON.parse((await kv.get("builds")) || "[]"); } catch { return []; } }
 export default {
   async fetch(req, env) {
@@ -40,36 +64,17 @@ export default {
 
     if (path === "/builds" && req.method === "GET") {
       const list = await readBuilds(kv);
-      return J(list.map(({ ip: _, ...b }) => b));
+      return J(list.map(pub));
     }
 
     if (path === "/builds" && req.method === "POST") {
       let body; try { body = await req.json(); } catch { return J({ error: "ข้อมูลไม่ถูกต้อง" }, 400); }
-      const p = body.build || {};
-      if (!TAILS.includes(p.t)) return J({ error: "ไม่รู้จักหางนี้" }, 400);
-      const b = {
-        id: crypto.randomUUID().slice(0, 8), at: Date.now(), likes: 0,
-        build: {
-          t: p.t, l: Math.max(1, Math.min(110, p.l | 0)), s: nums(p.s, 8, 400) || [0, 0, 0, 0, 0, 0, 0, 0], b: nums(p.b, 8, 2000),
-          e: (p.e || []).slice(0, 8).map((x) => clean(x, 60)), k: (p.k || []).slice(0, 200).map((x) => x | 0), n: clean(p.n, 40),
-          q: Array.isArray(p.q) ? p.q.slice(0, 3).map((s) => ({ n: clean(s && s.n, 24), i: (s && Array.isArray(s.i) ? s.i : []).slice(0, 6).map((x) => clean(x, 60)) })) : [],
-          p: Array.isArray(p.p) ? p.p.slice(0, 8).map((x) => [clean(x && x[0], 4), clean(x && x[1], 12)]) : [],
-          ks: Array.isArray(p.ks) ? p.ks.slice(0, 10).map((x) => [x && x[0] | 0, clean(x && x[1], 120)]) : [],
-          w: { play: clean(p.w && p.w.play, 800), pro: clean(p.w && p.w.pro, 400), con: clean(p.w && p.w.con, 400) },
-          ic: Number.isInteger(p.ic) && p.ic > 0 && p.ic < 100000 ? p.ic : undefined,
-          g: p.g ? {
-            d: clean(p.g.d, 1500),
-            st: Object.fromEntries(Object.entries(p.g.st || {}).filter(([k, v]) => STATS.includes(k) && v && ["max", "follow", "num"].includes(v.m)).map(([k, v]) => [k, { m: v.m, v: clean(v.v, 8) }])),
-            rp: Array.isArray(p.g.rp) ? p.g.rp.slice(0, 3).map((s) => (Array.isArray(s) ? s : []).slice(0, 6).map((x) => clean(x, 60))) : [],
-            sk: Array.isArray(p.g.sk) ? p.g.sk.slice(0, 3).map((s) => (Array.isArray(s) ? s : []).slice(0, 3).map((x) => (STATS.includes(x) ? x : ""))) : [],
-          } : undefined,
-        },
-        author: clean(body.author, 24) || "ไม่ระบุชื่อ", desc: clean(body.desc, 200), tags: (body.tags || []).filter((x) => TAGS.includes(x)).slice(0, 3), views: 0, ip,
-      };
-      if (!b.build.n) b.build.n = b.build.t + " Build";
+      const f = parsePost(body); if (!f) return J({ error: "ไม่รู้จักหางนี้" }, 400);
+      const tok = crypto.randomUUID().replace(/-/g, "");
+      const b = { id: crypto.randomUUID().slice(0, 8), at: Date.now(), likes: 0, views: 0, ...f, ip, tk: await sha(tok + "|edit") };
       const list = await readBuilds(kv); list.unshift(b);
       await kv.put("builds", JSON.stringify(list.slice(0, 2000)));
-      const { ip: _, ...out } = b; return J(out, 201);
+      return J({ ...pub(b), tok }, 201);
     }
 
     let m = path.match(/^\/builds\/([\w-]{4,12})\/like$/);
@@ -100,8 +105,19 @@ export default {
     }
 
     m = path.match(/^\/builds\/([\w-]{4,12})$/);
+    if (m && req.method === "PUT") {
+      let body; try { body = await req.json(); } catch { return J({ error: "ข้อมูลไม่ถูกต้อง" }, 400); }
+      const list = await readBuilds(kv), b = list.find((x) => x.id === m[1]);
+      if (!b) return J({ error: "ไม่พบ Build" }, 404);
+      const okTok = body.tok && b.tk && (await sha(String(body.tok) + "|edit")) === b.tk;
+      if (!okTok && !isAdmin(req, env) && !(!b.tk && b.ip === ip)) return J({ error: "แก้ได้เฉพาะเครื่องที่โพสต์ไกด์นี้" }, 403);
+      const f = parsePost(body); if (!f) return J({ error: "ไม่รู้จักหางนี้" }, 400);
+      Object.assign(b, f, { ed: Date.now() });
+      await kv.put("builds", JSON.stringify(list));
+      return J(pub(b));
+    }
     if (m && req.method === "DELETE") {
-      if (!env.ADMIN_KEY || (req.headers.get("X-Admin") || "").trim() !== String(env.ADMIN_KEY).trim()) return J({ error: "ไม่มีสิทธิ์" }, 403);
+      if (!isAdmin(req, env)) return J({ error: "ไม่มีสิทธิ์" }, 403);
       const list = await readBuilds(kv), n = list.length, left = list.filter((x) => x.id !== m[1]);
       await kv.put("builds", JSON.stringify(left)); return J({ deleted: n - left.length });
     }
