@@ -1578,7 +1578,7 @@ let D=null,IX=null;const IMG={};
 const st={tab:"tails",q:"",f:{},limit:{},stack:[]};
 const mult={};
 const HIDE_TABS=new Set(["monster","craft","wardrobe"]);
-const TABS=[["tails","12 หาง"],["npc","NPC"],["craft","สูตรคราฟ"],["stage","ด่าน & ดรอป"],["sched","บอส & อารีน่า"],["map","แผนที่"],["wardrobe","ห้องแต่งตัว"],["breakdown","ย่อยไอเทม"],["market","ซื้อ-ขาย"],["monster","มอนสเตอร์"],["items","ไอเทม"]];
+const TABS=[["tails","12 หาง"],["map","แผนที่"],["npc","NPC"],["items","ไอเทม"],["breakdown","ย่อยไอเทม"],["market","ซื้อ-ขาย"],["stage","ด่าน & ดรอป"],["sched","บอส & อารีน่า"],["craft","สูตรคราฟ"],["wardrobe","ห้องแต่งตัว"],["monster","มอนสเตอร์"]];
 const TOPIC_IMG={npc:["npc","Razan"],craft:["item","Falchion V"],trade:["npc","Pedo"],stage:["stage","tt101"],breakdown:["item","Frozen Wand"],monster:["mon","Carron"],items:["item","Acacite"],server:["acacia"]};
 const TYPE={weapon:"อาวุธ",armor:"ชุด/หมวก",boot:"รองเท้า",accessory:"เครื่องประดับ",trinket:"เครื่องราง",material:"วัตถุดิบ",food:"อาหาร",field:"ใช้ในด่าน",key:"ไอเทมสำคัญ",coin:"เหรียญ",pet:"สัตว์เลี้ยง",mount:"พาหนะ",recipe:"สูตร",prize:"ของรางวัล",misc:"อื่นๆ"};
 const priceOf=v=>[v.gil!=null?fmt(v.gil)+" Gil":"",v.jil!=null?fmt(v.jil)+" Gil":""].filter(Boolean).join(" · ")||gilTxt(v.s||"");
@@ -1673,7 +1673,7 @@ function bannerArt(id){
   return `<span class="bn-art fan">${l.map((n,i)=>`<span class="bn-i" style="--k:${i}"><img src="${src(I(n).i)}" alt=""></span>`).join("")}</span>${glyph}`;
 }
 function withClear(fl){const ks=[...new Set([...fl.matchAll(/data-f(?:sel)?="([^"]+)"/g)].map(m=>m[1]))],qs=[...fl.matchAll(/data-fq="([^"]+)"/g)].map(m=>m[1]);ks.push(...qs.map(q=>"q:"+q));return ks.some(k=>k.startsWith("q:")?!!(st.f[k.slice(2)]||"").trim():F(k)!=="all")?fl+`<button type="button" class="fclear" data-fclear="${esc(ks.join(","))}"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4l8 8M12 4l-8 8"/></svg>ล้างตัวกรอง</button>`:fl}
-function sideOrder(){const all=["tails",...TABS.slice(1).filter(x=>!HIDE_TABS.has(x[0])).map(x=>x[0])];let o=[];try{o=JSON.parse(localStorage.getItem("ttc-order")||"[]")}catch(_){}o=o.filter(x=>all.includes(x));return [...o,...all.filter(x=>!o.includes(x))]}
+function sideOrder(){const all=["tails",...TABS.slice(1).filter(x=>!HIDE_TABS.has(x[0])).map(x=>x[0])];let o=[];try{o=JSON.parse(localStorage.getItem("ttc-order2")||"[]")}catch(_){}o=o.filter(x=>all.includes(x));return [...o,...all.filter(x=>!o.includes(x))]}
 function renderSide(){
   const cur=st.q?"":st.tab;IX.count.market=MK.sell.length+MK.buy.length;IX.count.sched=8;IX.count.map=MP.list.length;IX.count.wardrobe=WD.list.length;
   const tails=Object.entries(D.tails);
@@ -2627,7 +2627,7 @@ $("#homeBtn").onclick=()=>showLanding();$("#mHome").onclick=()=>showLanding();
   box.addEventListener("dragstart",e=>{const t=e.target.closest(".topic");if(!t)return;drag=t;t.classList.add("dragging");e.dataTransfer.effectAllowed="move";try{e.dataTransfer.setData("text/plain",t.dataset.tab)}catch(_){}});
   box.addEventListener("dragover",e=>{if(!drag)return;e.preventDefault();const over=e.target.closest(".topic");if(!over||over===drag)return;const r=over.getBoundingClientRect();box.insertBefore(drag,e.clientY<r.top+r.height/2?over:over.nextSibling)});
   box.addEventListener("drop",e=>e.preventDefault());
-  box.addEventListener("dragend",()=>{if(!drag)return;drag.classList.remove("dragging");drag=null;const o=[...box.querySelectorAll(".topic")].map(x=>x.dataset.tab);try{localStorage.setItem("ttc-order",JSON.stringify(o))}catch(_){}
+  box.addEventListener("dragend",()=>{if(!drag)return;drag.classList.remove("dragging");drag=null;const o=[...box.querySelectorAll(".topic")].map(x=>x.dataset.tab);try{localStorage.setItem("ttc-order2",JSON.stringify(o))}catch(_){}
     const cur=st.tab;renderSide();if(document.body.classList.contains("allmode")){renderView(true);requestAnimationFrame(()=>scrollToSec(cur,false))}toast("สลับลำดับเมนูแล้ว")});
 })();/* ---------- landing ---------- */
 const HERO={};
