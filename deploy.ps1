@@ -1,4 +1,4 @@
-# Sync the latest site from the Claude scratchpad into TailsCodex and deploy to 12tails-codex.pages.dev
+# Sync the latest site from the Claude scratchpad into TailsCodex and publish to GitHub Pages
 param([string]$Src = "C:\Users\User\AppData\Local\Temp\claude\C--Users-User\0dc5737c-d204-4312-bdf5-11fc8ae4c1ab\scratchpad\site")
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $dist = Join-Path $here "dist"
@@ -17,7 +17,10 @@ foreach ($f in "data.json", "img-art.json", "img-hero.json", "img-icon.json", "i
 }
 
 foreach ($t in $here, $dist) { Copy-Item -LiteralPath (Join-Path $Src "wd") -Destination $t -Recurse -Force; Copy-Item -LiteralPath (Join-Path $Src "maps") -Destination $t -Recurse -Force }
-Push-Location $dist
-npx --yes wrangler@latest pages deploy . --project-name 12tails-codex --branch main --commit-dirty=true 2>&1 |
-  Select-String -NotMatch 'npm notice|NativeCommandError|CategoryInfo|FullyQualified|At line|RemoteException' | Select-Object -Last 2
+Push-Location $here
+$env:Path = [Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [Environment]::GetEnvironmentVariable("Path","User")
+git add -A 2>$null
+git commit -q -m ("Update site " + (Get-Date -Format "yyyy-MM-dd HH:mm")) 2>$null
+git push -q 2>$null
+Write-Output ("Pushed " + (git log --oneline -1))
 Pop-Location

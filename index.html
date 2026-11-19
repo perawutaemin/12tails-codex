@@ -2370,7 +2370,7 @@ async function mkImage(){
     });
     y+=Math.ceil(L.length/NC)*(CH+G)+18;
   });
-  c.fillStyle="#8f7a5f";c.font="400 14px Prompt, sans-serif";c.textAlign="center";c.fillText("12tails-codex.pages.dev  ·  "+new Date().toLocaleDateString("th-TH",{day:"numeric",month:"short",year:"numeric"}),W/2,H-34);c.textAlign="left";
+  c.fillStyle="#8f7a5f";c.font="400 14px Prompt, sans-serif";c.textAlign="center";c.fillText("perawutaemin.github.io/12tails-codex  ·  "+new Date().toLocaleDateString("th-TH",{day:"numeric",month:"short",year:"numeric"}),W/2,H-34);c.textAlign="left";
   const url=cv.toDataURL("image/png");
   let ov=$("#mkPrev");if(!ov){ov=document.createElement("div");ov.id="mkPrev";ov.className="mk-prev";document.body.appendChild(ov);ov.addEventListener("click",e=>{if(e.target===ov||e.target.closest("[data-mkclose]"))ov.classList.remove("show")})}
   ov.innerHTML=`<div class="mk-pcard"><img src="${url}" alt="รูปรายการซื้อขาย"><div class="mk-pacts"><a class="mk-btn gold" href="${url}" download="tailstopia-trade.png">ดาวน์โหลดรูป</a><button type="button" class="mk-btn ghost" data-mkclose>ปิด</button></div><small>บนมือถือ กดค้างที่รูปเพื่อบันทึกได้</small></div>`;
@@ -2525,7 +2525,7 @@ function wdView(){
     <div class="wd-grid" id="wdGrid">${wdGrid()}</div>
   </div>`;
 }
-document.addEventListener("error",e=>{const im=e.target;if(im.tagName!=="IMG"||im.dataset.fb)return;const s=im.getAttribute("src")||"";if(!/^(wd\/|wardrobe)/.test(s))return;im.dataset.fb="1";im.src="https://12tails-codex.pages.dev/"+s},true);
+document.addEventListener("error",e=>{const im=e.target;if(im.tagName!=="IMG"||im.dataset.fb)return;const s=im.getAttribute("src")||"";if(!/^(wd\/|wardrobe)/.test(s))return;im.dataset.fb="1";im.src="https://perawutaemin.github.io/12tails-codex/"+s},true);
 function wdRedraw(all){const r=$("#wdRoot");if(!r)return;if(all){r.innerHTML=wdView();return}const b=$("#wdStageBox");if(b)b.innerHTML=wdStage();const g=$("#wdGrid");if(g)g.innerHTML=wdGrid()}
 document.addEventListener("click",e=>{
   const a=e.target.closest("[data-wdtail],[data-wdset],[data-wdvar],[data-wdside],[data-wdnav]");if(!a)return;
@@ -2707,8 +2707,8 @@ document.addEventListener("keydown",e=>{
   const heroP=fetch("img-hero.json").then(r=>r.json()).then(m=>Object.assign(HERO,m)).catch(()=>{});
   try{D=await (await fetch("data.json")).json()}catch(err){$("#mTitle").textContent="โหลดข้อมูลไม่สำเร็จ ลองรีเฟรชหน้าอีกครั้ง";return}
   IX=build();
-  try{MP.list=await (await fetch("maps.json")).json()}catch(_){try{MP.list=await (await fetch("https://12tails-codex.pages.dev/maps.json")).json();MP.list.forEach(z=>z.img="https://12tails-codex.pages.dev/"+z.img)}catch(__){}}
-  try{WD.list=await (await fetch("wardrobe.json")).json()}catch(_){try{WD.list=await (await fetch("https://12tails-codex.pages.dev/wardrobe.json")).json()}catch(__){}}
+  try{MP.list=await (await fetch("maps.json")).json()}catch(_){try{MP.list=await (await fetch("https://perawutaemin.github.io/12tails-codex/maps.json")).json();MP.list.forEach(z=>z.img="https://perawutaemin.github.io/12tails-codex/"+z.img)}catch(__){}}
+  try{WD.list=await (await fetch("wardrobe.json")).json()}catch(_){try{WD.list=await (await fetch("https://perawutaemin.github.io/12tails-codex/wardrobe.json")).json()}catch(__){}}
   let sv=null;try{sv=localStorage.getItem("ttc-tab")}catch(_){}
   if(deep)st.tab=h;else if(TABS.some(t=>t[0]===sv))st.tab=sv;
   renderSide();renderView(deep);if(st.tab!=="tails")requestAnimationFrame(()=>scrollToSec(st.tab,false));
