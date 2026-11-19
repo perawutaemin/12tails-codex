@@ -1678,7 +1678,7 @@ function renderSide(){
   const cur=st.q?"":st.tab;IX.count.market=MK.sell.length+MK.buy.length;IX.count.sched=8;IX.count.map=MP.list.length;IX.count.wardrobe=WD.list.length;
   const tails=Object.entries(D.tails);
   let h=`<button class="topic set" type="button" data-tab="tails" aria-current="${cur==="tails"}"><span class="set-head"><span class="tname">12 หาง</span><span class="tcount">ตัวละครที่เล่นได้</span></span><span class="tailrow">${tails.map(([id,v])=>src(v.ic)?ring(v.ic,id):ring(v.img,id,"cover")).join("")}</span>${bannerArt("tails")}<span class="bn-grip" aria-hidden="true" title="ลากเพื่อสลับลำดับ"><i></i></span></button>`;
-  const SUB={npc:"ร้านค้า คราฟ แลกของ",stage:"ภารกิจ บอส ดันเจี้ยน",breakdown:"ย่อยแล้วได้อะไร",market:"รายการขาย · รับซื้อ",sched:"ตารางเวลา · วันนี้มีอะไร",map:"เมืองแสง · แคมป์ · โคลอสเซียม",wardrobe:"ลองชุดทุกหาง",craft:"สูตรทั้งหมด",monster:"มอนสเตอร์",items:"ค้นหา · มาจากไหน"};
+  const SUB={npc:"ร้านค้า คราฟ แลกของ",stage:"ภารกิจ บอส ดันเจี้ยน",breakdown:"ย่อยแล้วได้อะไร",market:"รายการขาย · รับซื้อ",sched:"ตารางเวลา · วันนี้มีอะไร",map:"เมืองแสง · แคมป์ · กิลด์ · โคลอสเซียม",wardrobe:"ลองชุดทุกหาง",craft:"สูตรทั้งหมด",monster:"มอนสเตอร์",items:"ค้นหา · มาจากไหน"};
   h+=TABS.slice(1).filter(t=>!HIDE_TABS.has(t[0])).map(([id,l])=>`<button class="topic set" type="button" data-tab="${id}" aria-current="${cur===id}"><span class="set-head"><span class="tname">${l}</span><span class="tcount"><span class="tsub">${SUB[id]||""}</span><span class="tnum">&nbsp;· ${fmt(IX.count[id])}</span></span></span><span class="tailrow">${sidePreview(id)}</span>${bannerArt(id)}<span class="bn-grip" aria-hidden="true" title="ลากเพื่อสลับลำดับ"><i></i></span></button>`).join("");
   const tmp=document.createElement("div");tmp.innerHTML=h;const by={};tmp.querySelectorAll(".topic").forEach(el=>{el.draggable=true;by[el.dataset.tab]=el.outerHTML});
   $("#topics").innerHTML=sideOrder().map(k=>by[k]||"").join("");
@@ -1772,7 +1772,7 @@ function renderTab(t){
   let title="",sub="",fl="",html="";
   if(t==="tails"){title="12 หาง";sub="เลือกหางเพื่อดูค่าพลัง สายสกิล อาวุธ และชุด";html=`<div class="tailwall">${Object.keys(D.tails).map(tailTile).join("")}</div>`}
   if(t==="wardrobe"){title="ห้องแต่งตัว";sub="ดูชุดทุกเซ็ตของแต่ละหาง ทั้งด้านหน้าและด้านหลัง";html=`<div id="wdRoot">${wdView()}</div>`}
-  if(t==="map"){title="แผนที่";sub="5 พื้นที่ · กดหมุด NPC เพื่อดูร้าน สูตร และภารกิจ · กดไอคอนหมุดในรายชื่อเพื่อซูมไปหา";html=`<div id="mpRoot">${mpView()}</div>`}
+  if(t==="map"){title="แผนที่";sub="6 พื้นที่ · กดหมุด NPC เพื่อดูร้าน สูตร และภารกิจ · กดไอคอนหมุดในรายชื่อเพื่อซูมไปหา";html=`<div id="mpRoot">${mpView()}</div>`}
   if(t==="sched"){title="ตารางบอส & อารีน่า";sub="เวลาไทย · ตารางของเซิร์ฟ TailsTopia";html=schedView()}
   if(t==="market"){title="ซื้อ-ขาย";sub="จัดรายการขาย / รับซื้อ แล้วบันทึกเป็นรูปไปโพสต์";html=mkView()}
   if(t==="npc"){
