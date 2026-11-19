@@ -8,6 +8,7 @@ const ORIGINS = ["https://perawutaemin.github.io", "https://claude.ai"];
 const day = () => new Date(Date.now() + 7 * 3600e3).toISOString().slice(0, 10); // Bangkok date
 const TAILS = ["Wolf", "Bison", "Panda", "Whale", "Cat", "Chameleon", "Rabbit", "Mole", "Monkey", "Penguin", "Sheep", "Bat"];
 const TAGS = ["PVE", "PVP", "ฟาร์ม", "ตีบอส", "มือใหม่"];
+const STATS = ["Atk", "Def", "Agi", "Vit", "Int", "Cha", "Tal", "Lck"];
 const POST_LIMIT = 3; // per IP per hour
 function cors(req) {
   const o = req.headers.get("Origin") || "";
@@ -16,6 +17,7 @@ function cors(req) {
 }
 async function sha(s) { const b = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s)); return [...new Uint8Array(b)].slice(0, 12).map((x) => x.toString(16).padStart(2, "0")).join(""); }
 const clean = (s, n) => String(s ?? "").replace(/[\u0000-\u001f<>]/g, "").trim().slice(0, n);
+const clean2 = 0;
 const nums = (a, n, max) => Array.isArray(a) ? a.slice(0, n).map((x) => Math.max(0, Math.min(max, x | 0))) : 0;
 async function readBuilds(kv) { try { return JSON.parse((await kv.get("builds")) || "[]"); } catch { return []; } }
 export default {
@@ -56,6 +58,11 @@ export default {
           p: Array.isArray(p.p) ? p.p.slice(0, 8).map((x) => [clean(x && x[0], 4), clean(x && x[1], 12)]) : [],
           ks: Array.isArray(p.ks) ? p.ks.slice(0, 10).map((x) => [x && x[0] | 0, clean(x && x[1], 120)]) : [],
           w: { play: clean(p.w && p.w.play, 800), pro: clean(p.w && p.w.pro, 400), con: clean(p.w && p.w.con, 400) },
+          g: p.g ? {
+            d: clean(p.g.d, 1500),
+            st: Object.fromEntries(Object.entries(p.g.st || {}).filter(([k, v]) => STATS.includes(k) && v && ["max", "follow", "num"].includes(v.m)).map(([k, v]) => [k, { m: v.m, v: clean(v.v, 8) }])),
+            sk: Array.isArray(p.g.sk) ? p.g.sk.slice(0, 3).map((s) => (Array.isArray(s) ? s : []).slice(0, 3).map((x) => (STATS.includes(x) ? x : ""))) : [],
+          } : undefined,
         },
         author: clean(body.author, 24) || "ไม่ระบุชื่อ", desc: clean(body.desc, 200), tags: (body.tags || []).filter((x) => TAGS.includes(x)).slice(0, 3), views: 0, ip,
       };
