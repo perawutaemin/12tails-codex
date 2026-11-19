@@ -3368,10 +3368,10 @@ function gwStep3(){const S=GW.sets[GW.cur],cnt=S.i.filter(Boolean).length;
     <div class="gw-slots">${tiles}</div>`}
 function gwSugList(){const q=GW.q.trim().toLowerCase(),slot=NS[GW.pick][0],t=GW.t,curN=GW.sets[GW.cur].i[GW.pick];
   const pool=Object.keys(D.items).filter(n=>{const it=I(n);return (itemCat(n)==="equip"||it.t==="pet")&&gwSlot(n)===slot}),own=pool.filter(n=>tailsOf(n).includes(t));
-  let L=(slot==="pet"?pool.filter(n=>{const ts=tailsOf(n);return !ts.length||ts.includes(t)}):own.length?own:pool.filter(n=>!tailsOf(n).length)).filter(n=>!q||n.toLowerCase().includes(q));
+  let L=(slot==="acc"?pool:slot==="pet"?pool.filter(n=>{const ts=tailsOf(n);return !ts.length||ts.includes(t)}):own.length?own:pool.filter(n=>!tailsOf(n).length)).filter(n=>!q||n.toLowerCase().includes(q));
   L.sort((a,c)=>(+(I(c).lv||0))-(+(I(a).lv||0))||a.localeCompare(c));const tot=L.length,more=tot>80;L=L.slice(0,80);
   return [L.length?L.map(n=>`<button type="button" class="${n===curN?"on":""}" data-gwput="${esc(n)}" style="--rc:${tc(I(n).t)}">${icon(n)}<span class="gw-sgt"><b>${esc(n)}</b><small>${I(n).lv?`Lv ${esc(I(n).lv)}`:""}${gwIst(n)?` · ${gwIst(n)}`:TYPE[I(n).t]?` · ${esc(TYPE[I(n).t])}`:""}</small></span>${n===curN?"<em>✓</em>":""}</button>`).join("")+(more?`<div class="mk-none">แสดง 80 ชิ้นแรก · พิมพ์ค้นหาเพื่อดูเพิ่ม</div>`:""):`<div class="mk-none">ไม่พบ${NS[GW.pick][1]}ที่ ${esc(t)} ใส่ได้</div>`,tot]}
-function gwSheet(){const [h,n]=gwSugList(),l=NS[GW.pick][1];return `<div class="gw-shh"><div><small>${esc(GW.sets[GW.cur].n)}</small><b>เลือก${l}</b><span id="gwsn">ของ ${esc(GW.t)} ${n} ชิ้น</span></div><button type="button" class="icon-btn" data-gwslot="-1" aria-label="ปิด">${gwX}</button></div>
+function gwSheet(){const [h,n]=gwSugList(),l=NS[GW.pick][1];return `<div class="gw-shh"><div><small>${esc(GW.sets[GW.cur].n)}</small><b>เลือก${l}</b><span id="gwsn">${NS[GW.pick][0]==="acc"?"ใส่ได้ทุกหาง":"ของ "+esc(GW.t)} ${n} ชิ้น</span></div><button type="button" class="icon-btn" data-gwslot="-1" aria-label="ปิด">${gwX}</button></div>
   <div class="mk-add gw-shq"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input type="search" id="gwq" autocomplete="off" placeholder="พิมพ์ชื่อ${l}…" value="${esc(GW.q)}"></div>
   <div class="gw-sug" id="gwsug">${h}</div>`}
 function gwKeys(){const t=GW.t,set=skillBuild[t]||new Set(),learned=[...set].sort((a,c)=>a-c),star=new Set(GW.ks.map(x=>x[0]));
@@ -3455,7 +3455,7 @@ document.addEventListener("input",e=>{if(!GW||!$("#gwPop.show"))return;const el=
   if(d.gwsv){el.value=el.value.replace(/[^\d]/g,"");GW.st[d.gwsv].v=el.value;gwSave();return}
   if(d.gwksn!==undefined){GW.ks[+d.gwksn][1]=el.value;gwSave();return}
   if(el.hasAttribute("data-gwsetname")){GW.sets[GW.cur].n=el.value.slice(0,24)||"เซ็ต";const b=document.querySelector(`[data-gwset="${GW.cur}"]`);if(b)b.firstChild.textContent=GW.sets[GW.cur].n+" ";gwSave();return}
-  if(el.id==="gwq"){GW.q=el.value;const [h,n]=gwSugList();$("#gwsug").innerHTML=h;$("#gwsn").textContent=`ของ ${GW.t} ${n} ชิ้น`}});
+  if(el.id==="gwq"){GW.q=el.value;const [h,n]=gwSugList();$("#gwsug").innerHTML=h;$("#gwsn").textContent=`${NS[GW.pick][0]==="acc"?"ใส่ได้ทุกหาง":"ของ "+GW.t} ${n} ชิ้น`}});
 document.addEventListener("keydown",e=>{if(!$("#gwPop.show"))return;if(e.key==="Escape"){e.stopPropagation();if(GW.pick!=null){GW.pick=null;gwRender()}else gwClose();return}
   if(e.key==="Enter"&&e.target.matches('[data-gwf="n"],[data-gwf="a"]')){e.preventDefault();const n=$("#gwNext");if(n&&!n.disabled)n.click()}},true);
 const _skRedraw2=skRedraw;skRedraw=function(h){_skRedraw2(h);const k=document.getElementById("gwks");if(k&&GW&&GW.t===h){k.innerHTML=gwKeys();gwSave()}};
