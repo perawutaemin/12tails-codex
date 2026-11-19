@@ -1904,6 +1904,40 @@ button.gw-opt:hover{border-color:var(--gold);transform:translateY(-2px)}
 .d-sec.pop{animation:pop .4s var(--ease) both;animation-delay:calc(var(--i,0) * 50ms)}
 
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+/* ---------- guide polish 2 ---------- */
+.pin-dot{display:none}
+.pin-art.sk{width:72px;height:72px;border-radius:14px}
+.rd3-cov{width:96px;height:96px;border-radius:20px}
+.gw-cov{max-height:164px;gap:8px;padding:8px}
+.gw-cov button{width:64px;height:64px;border-radius:12px}
+.gw-cov button.tail img{width:60px;height:60px}
+.gw-mode button{grid-template-columns:1fr;padding:10px 14px}.gw-mode button b{font-size:16px}
+.gw-post{grid-template-columns:1fr;text-align:center;justify-items:center}
+.gw-oi{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:rgba(242,207,122,.12);color:var(--gold-hi);font-size:24px!important;font-weight:300}
+.lvt-ico svg{display:block}
+/* wizard skill tree: 4 aligned branches, nodes scale to fit */
+.gw-body .sktree{grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.gw-body .skp{container-type:inline-size;min-width:0}
+.gw-body .skp-body{padding:12px 10px}
+.gw-body .skp-body .sk{width:min(60px,calc((100cqi - 20px - 30px) / 4));height:min(60px,calc((100cqi - 20px - 30px) / 4))}
+.gw-body .skp-link{flex-basis:10px}
+.gw-body .skp-row{min-height:0}
+.gw-body .skp-h{font-size:13px}
+@media (max-width:1100px){.gw-body .sktree{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.gw-body .sktree{grid-template-columns:1fr}}
+/* step 3 gear slots: bigger icons */
+.gw-slots{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+.gw-sb{padding:14px;gap:14px}
+.gw-si{width:72px;height:72px;border-radius:16px;background:radial-gradient(circle at 50% 35%,rgba(255,255,255,.06),rgba(0,0,0,.35));border:1px solid color-mix(in srgb,var(--rc) 50%,var(--line))}
+.gw-si>.ic{width:64px!important;height:64px!important;border-radius:14px}.gw-si img{width:100%!important;height:100%!important;object-fit:contain}.rd3 .rd2-si>.ic{width:46px!important;height:46px!important}.rd3 .rd2-si img{width:100%!important;height:100%!important}.gw-sug button>.ic{width:52px!important;height:52px!important}
+.gw-se{font-size:28px;font-weight:300;color:var(--muted);opacity:.6}
+.gw-st2 small{font-size:12px}.gw-st2 b{font-size:15.5px}.gw-st2 i{font-size:12px}
+.gw-sock{padding:10px 14px 14px;gap:5px}.gw-sock button{padding:4px 8px;font-size:11px}
+.gw-sug button{padding:8px 12px;gap:12px}
+.gw-sug button>:first-child{flex:none;width:52px;height:52px;display:grid;place-items:center}
+.gw-sug button>:first-child img,.gw-sug button>img:first-child{width:52px!important;height:52px!important;object-fit:contain}
+.gw-sug b{font-size:14.5px}
+.rd3 .rd2-slot{grid-template-columns:50px 1fr}.rd3 .rd2-sock{position:static;grid-column:2;grid-row:3;justify-self:start;margin-top:4px}.rd3 .rd2-si{grid-row:1/4!important}.rd3 .rd2-si{width:50px;height:50px}.rd3 .rd2-si img{width:44px;height:44px}
 </style>
 
 <section class="landing" id="landing" aria-label="หน้าแรก">
@@ -2211,7 +2245,7 @@ function renderTab(t){
   if(t==="tails"){title="12 หาง";sub="เลือกหางเพื่อดูค่าพลัง สายสกิล อาวุธ และชุด";html=`<div class="tailwall">${Object.keys(D.tails).map(tailTile).join("")}</div>`}
   if(t==="wardrobe"){title="ห้องแต่งตัว";sub="ดูชุดทุกเซ็ตของแต่ละหาง ทั้งด้านหน้าและด้านหลัง";html=`<div id="wdRoot">${wdView()}</div>`}
   if(t==="map"){title="แผนที่";sub="6 พื้นที่ · กดหมุด NPC เพื่อดูร้าน สูตร และภารกิจ · กดไอคอนหมุดในรายชื่อเพื่อซูมไปหา";html=`<div id="mpRoot">${mpView()}</div>`}
-  if(t==="board"){title="กระดาน Build";sub="ไกด์ Build จากผู้เล่น · กดหัวใจไกด์ที่ชอบ · กด ✍ สร้าง Build เพื่อเขียนไกด์ของคุณ";html=`<div id="brdRoot">${brdView()}</div>`;if(!BRD.list&&!BRD.loading)brdLoad()}
+  if(t==="board"){title="กระดาน Build";sub="ไกด์ Build จากผู้เล่น · กดการ์ดเพื่ออ่าน · กดสร้าง Build เพื่อเขียนไกด์ของคุณ";html=`<div id="brdRoot">${brdView()}</div>`;if(!BRD.list&&!BRD.loading)brdLoad()}
   if(t==="sched"){title="ตารางบอส & อารีน่า";sub="เวลาไทย · ตารางของเซิร์ฟ TailsTopia";html=schedView()}
   if(t==="market"){title="ซื้อ-ขาย";sub="จัดรายการขาย / รับซื้อ แล้วบันทึกเป็นรูปไปโพสต์";html=mkView()}
   if(t==="npc"){
@@ -3233,12 +3267,12 @@ document.addEventListener("input",e=>{const el=e.target;let m;
   if(m=el.dataset.bdw){const [h,k]=m.split("|");bld(h).w[k]=el.value;bdSaveSoon(h);const mt=$("#bdmeter");if(mt)mt.innerHTML=bdMeter(h);return}
   if(m=el.dataset.bdname){bdSaveSoon(m);const mt=$("#bdmeter");if(mt)setTimeout(()=>{mt.innerHTML=bdMeter(m)},0)}
 });
-function gwCTA(h){return `<div class="gw-cta"><b>✍ สร้าง Build / เขียนไกด์ ${esc(h)}</b><p>เขียนทีละขั้น: ข้อมูลไกด์ › สเตตัสที่เน้น › เซ็ตอุปกรณ์ (ยัด Status) › อัปสกิล + โน้ต › โพสต์ขึ้นกระดาน Build ให้ทุกคนเห็น</p><div><button type="button" class="mk-btn pin" data-gwchoose="${h}">✍ สร้าง Build ${esc(h)}</button><button type="button" class="mk-btn" data-gwtab="board">ดูกระดาน Build</button></div></div>`}
+function gwCTA(h){return `<div class="gw-cta"><b>สร้าง Build / เขียนไกด์ ${esc(h)}</b><p>เขียนทีละขั้น: ข้อมูลไกด์ › สเตตัสที่เน้น › เซ็ตอุปกรณ์ (ยัด Status) › อัปสกิล + โน้ต › โพสต์ขึ้นกระดาน Build ให้ทุกคนเห็น</p><div><button type="button" class="mk-btn pin" data-gwchoose="${h}">สร้าง Build ${esc(h)}</button><button type="button" class="mk-btn" data-gwtab="board">ดูกระดาน Build</button></div></div>`}
 document.addEventListener("click",e=>{const c=e.target.closest("[data-gwchoose]");if(c){gwChooser(c.dataset.gwchoose||null);return}const b=e.target.closest("[data-gwtab]");if(b){closeD();goTab(b.dataset.gwtab)}});
 /* ---------- guide writer (wizard) ---------- */
 function skIcUrl(h,c){const s=((D.skills||{})[h]||[]).find(x=>x.c===c);return s?src(s.ic):""}
 function coverImg(p,art,lazy){if(p.ic){if(!skillImgLoaded)loadSkillImg();const u=skIcUrl(p.t,p.ic);return u?`<img class="cov-sk" src="${u}" alt="">`:`<i class="cov-wait"></i>`}return art?`<img src="${art}" alt=""${lazy?' loading="lazy"':""}>`:""}
-const NS=[["weapon","อาวุธ","⚔"],["armor","ชุด","👘"],["hat","หมวก","⛑"],["boot","รองเท้า","👢"],["acc","เครื่องประดับ","💍"],["pet","สัตว์เลี้ยง","🐾"]];
+const NS=[["weapon","อาวุธ",""],["armor","ชุด",""],["hat","หมวก",""],["boot","รองเท้า",""],["acc","เครื่องประดับ",""],["pet","สัตว์เลี้ยง",""]];
 const GW_STEPS=[["เลือกหาง","เลือกสัตว์หางที่จะเขียนไกด์ เปลี่ยนทีหลังได้"],["ข้อมูลไกด์","ตั้งชื่อ บอกว่าเหมาะกับ PVE หรือ PVP แล้วเล่าวิธีเล่นสั้นๆ"],["สเตตัส","เลือกว่าเน้นค่าไหน ตัน = อัปสุด · ตาม = อัปตามต้องใช้ · หรือใส่ตัวเลขเป้าหมาย"],["เซ็ตอุปกรณ์","กดช่องเพื่อเลือกของที่หางนี้ใส่ได้ · อาวุธ ชุด หมวก เลือกได้ว่ายัด Status อะไร"],["สกิล & โน้ต","อัปสกิลตามที่แนะนำ แล้วติดดาวสกิลสำคัญพร้อมเหตุผลว่าทำไมอัป"],["ตรวจ & โพสต์","ดูภาพรวมก่อนโพสต์ขึ้นกระดาน Build"]];
 const GW_OPT=new Set([2,3,4]);
 const GW_PRE=[["⚔","สายตีกายภาพ",{Atk:"max",Agi:"follow"}],["🔮","สายเวท",{Int:"max",Tal:"follow"}],["🛡","สายถึก",{Vit:"max",Def:"follow"}],["🍀","สายโชค",{Lck:"max",Atk:"follow"}]];
@@ -3273,7 +3307,7 @@ function gwStep1(){return `<div class="gw-form">
   <label class="gw-fld wide"><span>ชื่อไกด์ <em>*</em></span><input class="gw-big" type="text" maxlength="40" value="${esc(GW.n)}" data-gwf="n" placeholder="เช่น ${esc(GW.t)} ตีแรง ฟาร์มด่าน 9"><i class="gw-hint">ตั้งให้รู้เลยว่าเป็นสายไหน คนจะกดเข้ามาอ่านง่ายขึ้น</i></label>
   <div class="gw-fld wide"><span>รูปปกไกด์ <small>เลือกรูปสกิลเท่ๆ ไว้โชว์บนการ์ด หรือใช้รูปหาง</small></span>${gwCovers()}</div>
   <label class="gw-fld"><span>ผู้เขียน</span><input type="text" maxlength="24" value="${esc(GW.a)}" data-gwf="a" placeholder="ชื่อในเกมหรือชื่อเล่น"><i class="gw-hint">เว้นว่างได้ จะขึ้นว่า “ไม่ระบุชื่อ”</i></label>
-  <div class="gw-fld"><span>เหมาะกับ <small>เลือกได้ทั้งคู่</small></span><div class="gw-mode">${[["PVE","🐉","ฟาร์มด่าน · ตีบอส"],["PVP","⚔","อารีน่า · สู้ผู้เล่น"]].map(([g,ic,s])=>`<button type="button" class="${GW.tags.includes(g)?"on":""}" data-gwtag="${g}" aria-pressed="${GW.tags.includes(g)}"><span>${ic}</span><b>${g}</b><small>${s}</small></button>`).join("")}</div></div>
+  <div class="gw-fld"><span>เหมาะกับ <small>เลือกได้ทั้งคู่</small></span><div class="gw-mode">${[["PVE","ฟาร์มด่าน · ตีบอส"],["PVP","อารีน่า · สู้ผู้เล่น"]].map(([g,s])=>`<button type="button" class="${GW.tags.includes(g)?"on":""}" data-gwtag="${g}" aria-pressed="${GW.tags.includes(g)}"><b>${g}</b><small>${s}</small></button>`).join("")}</div></div>
   <div class="gw-fld wide"><span>คำอธิบาย <small>กดหัวข้อเพื่อแทรกลงในข้อความ</small></span><div class="gw-snip">${GW_SNIP.map(s=>`<button type="button" data-gwsnip="${s}">+ ${s}</button>`).join("")}</div>
     <div class="gw-txt"><textarea maxlength="1500" rows="9" data-gwf="d" placeholder="Build นี้เหมาะกับอะไร เล่นยังไง เปิดด้วยสกิลอะไร จุดเด่น จุดอ่อน…">${esc(GW.d)}</textarea><i class="gw-cnt">${GW.d.length}/1500</i></div></div></div>`}
 function gwStep2(){const cur=JSON.stringify(Object.fromEntries(Object.entries(GW.st).map(([k,v])=>[k,v.m])));
@@ -3284,7 +3318,7 @@ function gwStep2(){const cur=JSON.stringify(Object.fromEntries(Object.entries(GW
 function gwStep3(){const S=GW.sets[GW.cur],cnt=S.i.filter(Boolean).length;
   const tabs=GW.sets.map((s,i)=>`<button type="button" class="${i===GW.cur?"on":""}" data-gwset="${i}">${esc(s.n)} <i>${s.i.filter(Boolean).length}/6</i></button>`).join("")+(GW.sets.length<3?`<button type="button" class="add" data-gwsetadd>+ เพิ่มเซ็ต</button>`:"");
   const tiles=NS.map(([k,l,ic],si)=>{const n=S.i[si];return `<div class="gw-slot${n?" has":""}${GW.pick===si?" pick":""}" style="--rc:${n?tc(I(n).t):"var(--line)"}">
-    <button type="button" class="gw-sb" data-gwslot="${si}"><span class="gw-si">${n?icon(n):`<span class="gw-se">${ic}</span>`}</span><span class="gw-st2"><small>${l}</small><b>${n?esc(n):`+ เลือก${l}`}</b>${n?`<i>${I(n).lv?`Lv ${esc(I(n).lv)}`:""}${gwIst(n)?` · ${gwIst(n)}`:""}</i>`:`<i>กดเพื่อเลือก</i>`}</span></button>
+    <button type="button" class="gw-sb" data-gwslot="${si}"><span class="gw-si">${n?icon(n):`<span class="gw-se">+</span>`}</span><span class="gw-st2"><small>${l}</small><b>${n?esc(n):`เลือก${l}`}</b>${n?`<i>${I(n).lv?`Lv ${esc(I(n).lv)}`:""}${gwIst(n)?` · ${gwIst(n)}`:""}</i>`:`<i>กดเพื่อเลือก</i>`}</span></button>
     ${n?`<button type="button" class="gw-sx" data-gwclr="${si}" title="เอาออก" aria-label="เอาออก">×</button>`:""}
     ${si<3?`<div class="gw-sock"><small>ยัด</small>${STATS.map(x=>`<button type="button" class="${S.sk[si]===x?"on":""}" style="--c:${STC[x]}" data-gwsock="${si}|${x}">${x.toUpperCase()}</button>`).join("")}</div>`:""}</div>`}).join("");
   return `<div class="gw-sets">${tabs}</div>
@@ -3300,24 +3334,24 @@ function gwSheet(){const [h,n]=gwSugList(),l=NS[GW.pick][1];return `<div class="
 function gwKeys(){const t=GW.t,set=skillBuild[t]||new Set(),learned=[...set].sort((a,c)=>a-c),star=new Set(GW.ks.map(x=>x[0]));
   return `${GW.ks.length?`<div class="ks-list">${GW.ks.map(([c,note],i)=>`<div class="ks-it"><b class="ks-n">${i+1}</b><span class="ks-ic">${skIcon(t,c)}</span><span class="ks-t"><b>${esc(skName(t,c))}</b>${set.has(c)?"":`<small class="neg">ยังไม่ได้อัปในสายสกิล</small>`}<input value="${esc(note)}" maxlength="120" placeholder="ทำไมอัปสกิลนี้…" data-gwksn="${i}"></span><button type="button" data-gwksmv="${i}|-1" ${i?"":"disabled"}>▲</button><button type="button" data-gwksmv="${i}|1" ${i<GW.ks.length-1?"":"disabled"}>▼</button><button type="button" data-gwksrm="${i}">×</button></div>`).join("")}</div>`:""}
     ${learned.length?`<div class="ks-pool">${learned.map(c=>`<button type="button" class="${star.has(c)?"on":""}" data-gwks="${c}" title="${esc(skName(t,c))}">${skIcon(t,c)}${star.has(c)?"<em>★</em>":""}</button>`).join("")}</div>`:`<span class="bx-none">อัปสกิลในสายด้านบนก่อน แล้วสกิลที่อัปจะมาโผล่ที่นี่ให้ติดดาว</span>`}`}
-function gwStep4(){return `${skillTree(GW.t)}<section class="d-sec bx-card gw-kcard"><div class="bx-ch">⭐ สกิลสำคัญ & โน้ต <small>ไม่บังคับ · กดไอคอนสกิลที่อัปแล้วเพื่อติดดาว (สูงสุด 10)</small></div><div id="gwks">${gwKeys()}</div></section>`}
+function gwStep4(){return `${skillTree(GW.t)}<section class="d-sec bx-card gw-kcard"><div class="bx-ch">สกิลสำคัญ & โน้ต <small>ไม่บังคับ · กดไอคอนสกิลที่อัปแล้วเพื่อติดดาว (สูงสุด 10)</small></div><div id="gwks">${gwKeys()}</div></section>`}
 function gwFocusHTML(st){const L=STATS.filter(k=>st&&st[k]);return L.length?`<div class="gw-focus">${L.map(k=>{const v=st[k];return `<span style="--c:${STC[k]}"><b>${k.toUpperCase()}</b><i>${v.m==="max"?"ตัน":v.m==="follow"?"ตาม":esc(v.v||"?")}</i></span>`}).join("")}</div>`:""}
 function gwSetsHTML(sets){return sets.filter(s=>s.i.some(Boolean)).map(s=>`<div class="rd-set"><small>${esc(s.n)}</small><div>${NS.map(([k,l],i)=>s.i[i]?`<button type="button" class="rd-gi" data-open="${ref("item",s.i[i])}">${icon(s.i[i])}<span><small>${l}${s.sk&&s.sk[i]?` · <em class="sock">ยัด ${s.sk[i].toUpperCase()}</em>`:""}</small><b>${esc(s.i[i])}</b></span></button>`:"").join("")}</div></div>`).join("")}
 function gwStep5(){const C=gwChecks(),ok=C.filter(x=>x[0]).length,t=GW.t,v=D.tails[t],acc=ACC[t]||"#d6993f",art=HERO[nf(v.img)]||src(v.img),can=!!(GW.t&&GW.n.trim()),miss=C.filter(x=>!x[0]);
   return `<div class="gw-fgrid"><div class="gw-fl">
     <div class="gw-sum" style="--acc:${acc}"><div class="gw-sh"><span class="rd-art">${art?`<img src="${art}" alt="">`:""}</span><div><span class="pin-tail">${esc(t)} · ${esc(v.th)}</span><h3>${esc(GW.n||"(ยังไม่ได้ตั้งชื่อ)")}</h3><small>โดย ${esc(GW.a||"ไม่ระบุชื่อ")} ${GW.tags.map(g=>`<i class="pin-tag">${g}</i>`).join(" ")}</small></div></div>
       ${GW.d?`<p class="rd-p">${esc(GW.d.length>400?GW.d.slice(0,400)+"…":GW.d)}</p>`:""}${gwFocusHTML(GW.st)}${gwSetsHTML(GW.sets)}</div>
-    <div class="gw-ready${ok===6?" all":""}"><div class="gw-mh"><span>${ok===6?"🎉 ไกด์ครบทุกส่วนแล้ว":miss.length?`ยังขาด: ${miss.map(x=>x[1]).join(", ")}`:""}</span><b>${ok}/6</b></div><div class="gw-mbar"><i style="width:${ok/6*100}%"></i></div>
+    <div class="gw-ready${ok===6?" all":""}"><div class="gw-mh"><span>${ok===6?"ไกด์ครบทุกส่วนแล้ว":miss.length?`ยังขาด: ${miss.map(x=>x[1]).join(", ")}`:""}</span><b>${ok}/6</b></div><div class="gw-mbar"><i style="width:${ok/6*100}%"></i></div>
       <div class="gw-mchk">${C.map(([o,l,s])=>`<button type="button" class="${o?"ok":""}" data-gwgo="${s}">${o?"✓":"○"} ${l}</button>`).join("")}</div></div>
-    <button type="button" class="gw-post" data-gwpost ${can?"":"disabled"}><span>📌</span><b>บันทึก & โพสต์ไกด์</b><small>${can?"ขึ้นกระดาน Build ทันที ทุกคนเห็น":"ต้องเลือกหางและตั้งชื่อไกด์ก่อน"}</small></button>
-    <div class="gw-fin"><button type="button" class="mk-btn" data-gwcode>🔗 คัดลอกลิงก์ไกด์</button><button type="button" class="bx-mini" data-gwreset>ลบร่าง เริ่มใหม่</button></div>
+    <button type="button" class="gw-post" data-gwpost ${can?"":"disabled"}><b>บันทึก & โพสต์ไกด์</b><small>${can?"ขึ้นกระดาน Build ทันที ทุกคนเห็น":"ต้องเลือกหางและตั้งชื่อไกด์ก่อน"}</small></button>
+    <div class="gw-fin"><button type="button" class="mk-btn" data-gwcode><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg> คัดลอกลิงก์ไกด์</button><button type="button" class="bx-mini" data-gwreset>ลบร่าง เริ่มใหม่</button></div>
     <p class="bx-help">โพสต์แล้วลบเองไม่ได้ ตรวจให้เรียบร้อยก่อน · ร่างบันทึกอัตโนมัติในเครื่องนี้</p></div>
   <div class="gw-fr"><div class="gw-ah">ตัวอย่างบนกระดาน</div><div class="gw-prev" id="gwPrev"></div></div></div>`}
 function gwRender(){const ov=$("#gwPop");if(!ov||!GW)return;const st=GW.step,[title,sub]=GW_STEPS[st],aside=st>=1&&st<=3&&!!GW.t;
   const pb=$("#gwBody"),keep=pb&&pb.dataset.step===String(st)?pb.scrollTop:-1,nx=GW_STEPS[st+1],block=st===0?!GW.t:st===1&&!GW.n.trim();
   const tv=GW.t&&D.tails[GW.t],tart=tv?(HERO[nf(tv.img)]||src(tv.img)):"";
   ov.innerHTML=`<div class="lvpop-card gw">
-    <div class="gw-top"><b class="gw-title">✍ เขียนไกด์</b>${GW.t?`<button type="button" class="gw-tchip" data-gwgo="0" style="--acc:${ACC[GW.t]}" title="เปลี่ยนหาง">${tart?`<img src="${tart}" alt="">`:""}<span>${esc(GW.t)}</span></button>`:""}
+    <div class="gw-top"><b class="gw-title">เขียนไกด์</b>${GW.t?`<button type="button" class="gw-tchip" data-gwgo="0" style="--acc:${ACC[GW.t]}" title="เปลี่ยนหาง">${tart?`<img src="${tart}" alt="">`:""}<span>${esc(GW.t)}</span></button>`:""}
       <nav class="gw-steps" aria-label="ขั้นตอน">${GW_STEPS.map(([l],i)=>`<button type="button" class="${i===st?"on":""}${i<st?" done":""}" data-gwgo="${i}" ${!GW.t&&i>0?"disabled":""} ${i===st?`aria-current="step"`:""}><i>${i<st?"✓":i}</i><span>${l}</span></button>`).join("")}</nav>
       <span class="gw-saved" id="gwSaved">✓ บันทึกร่างแล้ว</span><button type="button" class="icon-btn" data-gwclose aria-label="ปิด">${gwX}</button></div>
     <div class="gw-hero"><span class="gw-no">${st?`ขั้นที่ ${st} จาก 5`:"เริ่มต้น"}</span><h3>${title}${GW_OPT.has(st)?` <small>ไม่บังคับ</small>`:""}</h3><p>${sub}</p></div>
@@ -3333,10 +3367,10 @@ function gwClose(){const ov=$("#gwPop");if(ov)ov.classList.remove("show");docume
 function ov_cov(){document.querySelectorAll("[data-gwic]").forEach(b=>b.classList.toggle("on",(+b.dataset.gwic||null)===GW.ic))}
 function gwGo(s){if(s<0||s>5||(!GW.t&&s>0))return;GW.step=s;GW.pick=null;gwRender();gwSave()}
 function gwChooser(tail){const d=gwDraft();let ov=$("#gwChoose");if(!ov){ov=document.createElement("div");ov.id="gwChoose";ov.className="lvpop";document.body.appendChild(ov);ov.addEventListener("click",e=>{if(e.target===ov||e.target.closest("[data-gwcclose]"))ov.classList.remove("show")})}
-  ov.innerHTML=`<div class="lvpop-card gw-ch"><div class="lvpop-h"><span class="lvt-ico">✍</span><span class="lvt-h"><b>สร้าง Build</b><small>เขียนไกด์ใหม่ หรือนำเข้าไกด์ที่มีอยู่</small></span><button type="button" class="icon-btn" data-gwcclose aria-label="ปิด">${gwX}</button></div>
-    <div class="gw-opts"><button type="button" class="gw-opt" data-gwstart="${tail||""}"><span>✨</span><b>สร้างไกด์ใหม่</b><small>${tail?`เริ่มเขียนไกด์ ${esc(tail)} · 5 ขั้น ใช้เวลาไม่กี่นาที`:"เลือกหาง แล้วเขียนทีละขั้น · 5 ขั้น ใช้เวลาไม่กี่นาที"}</small></button>
-      ${d?`<button type="button" class="gw-opt" data-gwcont><span>📝</span><b>เขียนต่อ</b><small>ร่างที่ค้างไว้: ${esc(d.n||d.t||"ไม่มีชื่อ")}${d.t?` · ${esc(d.t)}`:""}</small></button>`:""}
-      <div class="gw-opt imp"><span>📥</span><b>นำเข้าไกด์</b><small>วางลิงก์ไกด์ (#build= หรือ #post=) หรือโค้ดไกด์</small><textarea id="gwImp" rows="2" placeholder="วางลิงก์หรือโค้ดที่นี่"></textarea><button type="button" class="mk-btn gold" data-gwimp>นำเข้า</button></div></div></div>`;
+  ov.innerHTML=`<div class="lvpop-card gw-ch"><div class="lvpop-h"><span class="lvt-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></span><span class="lvt-h"><b>สร้าง Build</b><small>เขียนไกด์ใหม่ หรือนำเข้าไกด์ที่มีอยู่</small></span><button type="button" class="icon-btn" data-gwcclose aria-label="ปิด">${gwX}</button></div>
+    <div class="gw-opts"><button type="button" class="gw-opt" data-gwstart="${tail||""}"><span class="gw-oi">+</span><b>สร้างไกด์ใหม่</b><small>${tail?`เริ่มเขียนไกด์ ${esc(tail)} · 5 ขั้น ใช้เวลาไม่กี่นาที`:"เลือกหาง แล้วเขียนทีละขั้น · 5 ขั้น ใช้เวลาไม่กี่นาที"}</small></button>
+      ${d?`<button type="button" class="gw-opt" data-gwcont><span class="gw-oi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></span><b>เขียนต่อ</b><small>ร่างที่ค้างไว้: ${esc(d.n||d.t||"ไม่มีชื่อ")}${d.t?` · ${esc(d.t)}`:""}</small></button>`:""}
+      <div class="gw-opt imp"><span class="gw-oi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg></span><b>นำเข้าไกด์</b><small>วางลิงก์ไกด์ (#build= หรือ #post=) หรือโค้ดไกด์</small><textarea id="gwImp" rows="2" placeholder="วางลิงก์หรือโค้ดที่นี่"></textarea><button type="button" class="mk-btn gold" data-gwimp>นำเข้า</button></div></div></div>`;
   void ov.offsetWidth;ov.classList.add("show")}
 async function gwImport(txt){txt=String(txt||"").trim();let m=txt.match(/#post=([\w-]+)/)||(/^[\w-]{6,12}$/.test(txt)&&!/=/.test(txt)?[0,txt]:null);
   if(m){if(!BRD.list)await brdLoad();const x=(BRD.list||[]).find(y=>y.id===m[1]);if(!x){toast("ไม่พบไกด์นี้บนกระดาน");return false}return gwFromPack(JSON.parse(JSON.stringify(x.build)),x)}
@@ -3416,11 +3450,11 @@ function brdView(){
     <div class="brd-row2"><div class="brd-tags">${["all",...BTAGS].map(g=>`<button type="button" class="${BRD.tag===g?"on":""}" data-brdtag="${g}">${g==="all"?"ทุกแท็ก":esc(g)}</button>`).join("")}</div>
       <select class="sel" data-brdsort aria-label="เรียงลำดับ"><option value="hot"${BRD.sort==="hot"?" selected":""}>🔥 ฮอตตอนนี้</option><option value="new"${BRD.sort==="new"?" selected":""}>ใหม่ล่าสุด</option><option value="top"${BRD.sort==="top"?" selected":""}>♥ มากที่สุด</option></select>
       <label class="search brd-q"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input type="search" id="brdq" placeholder="ค้นหาชื่อ Build คนโพสต์ หรืออุปกรณ์…" value="${esc(BRD.q)}" autocomplete="off"></label>
-      <button type="button" class="mk-btn pin" data-brdnew>✍ สร้าง Build</button></div></div>`;
+      <button type="button" class="mk-btn pin" data-brdnew>สร้าง Build</button></div></div>`;
   if(BRD.loading&&!BRD.list)return bar+`<div class="brd-board"><div class="brd-empty">กำลังโหลดกระดาน…</div></div>`;
   if(BRD.err)return bar+`<div class="brd-board"><div class="brd-empty">${BRD.err}</div></div>`;
   const L=brdList(),shown=L.slice(0,BRD.lim);
-  return bar+`<div class="brd-board">${shown.length?`<div class="brd-grid">${shown.map(brdCard).join("")}</div>${L.length>shown.length?`<div class="brd-more" id="brdMore">กำลังโหลดเพิ่ม… (${L.length-shown.length})</div>`:""}`:`<div class="brd-empty"><b>ยังไม่มี Build บนกระดาน${BRD.tail!=="all"||BRD.tag!=="all"||BRD.q?" ที่ตรงกับตัวกรองนี้":""}</b><span>เป็นคนแรกที่โพสต์ไกด์! กด ✍ สร้าง Build แล้วเขียนทีละขั้น</span><button type="button" class="mk-btn pin" data-brdnew>✍ สร้าง Build</button></div>`}
+  return bar+`<div class="brd-board">${shown.length?`<div class="brd-grid">${shown.map(brdCard).join("")}</div>${L.length>shown.length?`<div class="brd-more" id="brdMore">กำลังโหลดเพิ่ม… (${L.length-shown.length})</div>`:""}`:`<div class="brd-empty"><b>ยังไม่มี Build บนกระดาน${BRD.tail!=="all"||BRD.tag!=="all"||BRD.q?" ที่ตรงกับตัวกรองนี้":""}</b><span>เป็นคนแรกที่โพสต์ไกด์! กดสร้าง Build แล้วเขียนทีละขั้น</span><button type="button" class="mk-btn pin" data-brdnew>สร้าง Build</button></div>`}
     <div class="brd-admin">${brdAdmin()?`โหมดแอดมินเปิดอยู่ · <button type="button" data-brdadmin="off">ออก</button>`:`<button type="button" data-brdadmin="on">แอดมิน</button>`}</div></div>`}
 function brdRedraw(all){const r=$("#brdRoot");if(!r)return;const f=document.activeElement&&document.activeElement.id==="brdq";r.innerHTML=brdView();if(f){const q=$("#brdq");q.focus();q.setSelectionRange(q.value.length,q.value.length)}}
 function brdMoreCheck(){const m=$("#brdMore");if(!m)return;const r=m.getBoundingClientRect();if(r.top<innerHeight+300){BRD.lim+=24;brdRedraw()}}
@@ -3474,7 +3508,7 @@ function rdGauges(p){const st=p.g&&p.g.st;if(st&&Object.keys(st).length){const n
   return top.map(([k,n])=>`<div class="rd2-g num" style="--c:${STC[k]}"><b>${k.toUpperCase()}</b><span class="rd2-gb"><i style="width:${Math.round(n/mx*100)}%"></i></span><em>${fmt(n)}</em></div>`).join("")}
 function rdGear(){const S=RD.sets,cur=Math.min(RD.set,S.length-1),s=S[cur];if(!S.some(z=>z.i.some(Boolean)))return `<p class="rd2-empty">ไกด์นี้ไม่ได้ระบุอุปกรณ์</p>`;
   return `${S.length>1?`<div class="rd2-tabs">${S.map((z,i)=>`<button type="button" class="${i===cur?"on":""}" data-rdset="${i}">${esc(z.n)} <i>${z.i.filter(Boolean).length}</i></button>`).join("")}</div>`:""}
-  <div class="rd2-gear">${NS.map(([k,l,ic],i)=>{const n=s.i[i],sk=s.sk&&s.sk[i];return n?`<button type="button" class="rd2-slot" data-open="${ref("item",n)}" style="--rc:${tc(I(n).t)}"><span class="rd2-sl">${ic} ${l}</span><span class="rd2-si">${icon(n)}</span><span class="rd2-st"><b>${esc(n)}</b><small>${I(n).lv?`Lv ${esc(I(n).lv)}`:""}${gwIst(n)?` · ${gwIst(n)}`:""}</small></span>${sk?`<em class="rd2-sock" style="--c:${STC[sk]}">ยัด ${sk.toUpperCase()}</em>`:""}</button>`:`<div class="rd2-slot none"><span class="rd2-sl">${ic} ${l}</span><span class="rd2-si"><i>—</i></span><span class="rd2-st"><small>ไม่ระบุ</small></span></div>`}).join("")}</div>`}
+  <div class="rd2-gear">${NS.map(([k,l,ic],i)=>{const n=s.i[i],sk=s.sk&&s.sk[i];return n?`<button type="button" class="rd2-slot" data-open="${ref("item",n)}" style="--rc:${tc(I(n).t)}"><span class="rd2-sl">${l}</span><span class="rd2-si">${icon(n)}</span><span class="rd2-st"><b>${esc(n)}</b><small>${I(n).lv?`Lv ${esc(I(n).lv)}`:""}${gwIst(n)?` · ${gwIst(n)}`:""}</small></span>${sk?`<em class="rd2-sock" style="--c:${STC[sk]}">ยัด ${sk.toUpperCase()}</em>`:""}</button>`:`<div class="rd2-slot none"><span class="rd2-sl">${l}</span><span class="rd2-si"><i>—</i></span><span class="rd2-st"><small>ไม่ระบุ</small></span></div>`}).join("")}</div>`}
 function rdTree(p){const h=p.t;if(!(D.skills||{})[h])return "";const sb=skillBuild[h],sl=skillLevel[h];skillBuild[h]=new Set((p.k||[]).map(Number));skillLevel[h]=p.l||110;let s;
   try{s=skInner(h)}finally{if(sb)skillBuild[h]=sb;else delete skillBuild[h];if(sl===undefined)delete skillLevel[h];else skillLevel[h]=sl}
   s=s.replace(/<h4>[\s\S]*?<\/h4>/,"").replace(/<div class="skbar">[\s\S]*?<\/div>/,"");
@@ -3497,12 +3531,12 @@ function brdRead(id){const x=(BRD.list||[]).find(y=>y.id===id);if(!x)return;cons
     <div class="rd3-tt"><span class="rd2-k">${esc(h)} · ${esc(v.th)}${cls?` · ${esc(cls)}`:""} · Lv ${p.l}</span><h2>${esc(p.n)}</h2>
      <div class="rd2-meta">${x.tags.map(g=>`<i class="pin-tag">${esc(g)}</i>`).join("")}<span>โดย <b>${esc(x.author)}</b></span><span>${ago(x.at)}</span><span>👁 <b id="rdViews">${x.views||0}</b></span></div></div>
     ${g?`<div class="rd3-gs">${g}</div>`:""}
-    <div class="rd2-acts"><button type="button" class="pin-like${liked?" on":""}" data-brdlike="${x.id}"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.8 4.5c2.2 0 3.6 1.2 5.2 3 1.6-1.8 3-3 5.2-3 3.8 0 5.9 3.9 4.4 7.3C19.5 16.4 12 21 12 21z"/></svg>${x.likes}</button><button type="button" class="mk-btn" data-rdcopy="${x.id}" title="คัดลอกลิงก์">🔗</button><button type="button" class="mk-btn gold" data-brdopen="${x.id}">✍ นำไปปรับ</button><button type="button" class="icon-btn" data-rdclose aria-label="ปิด">${gwX}</button></div>
+    <div class="rd2-acts"><button type="button" class="pin-like${liked?" on":""}" data-brdlike="${x.id}"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.8 4.5c2.2 0 3.6 1.2 5.2 3 1.6-1.8 3-3 5.2-3 3.8 0 5.9 3.9 4.4 7.3C19.5 16.4 12 21 12 21z"/></svg>${x.likes}</button><button type="button" class="mk-btn" data-rdcopy="${x.id}" title="คัดลอกลิงก์"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg> คัดลอกลิงก์</button><button type="button" class="icon-btn" data-rdclose aria-label="ปิด">${gwX}</button></div>
    </header>
    <div class="rd3-main">
-    <section class="rd3-col rd3-gear"><h3>🛡 เซ็ตอุปกรณ์</h3><div id="rdGear">${rdGear()}</div></section>
-    ${hasSk?`<section class="rd3-tree"><h3>✦ สายสกิล <small>เรียน ${(p.k||[]).length} สกิล · เลขทอง = สกิลสำคัญ</small></h3><div class="rd2-tree" id="rdTree">${rdTree(p)}</div></section>`:`<section class="rd3-tree"></section>`}
-    <section class="rd3-col rd3-side"><div class="rd3-keys"><h3>⭐ สกิลสำคัญ</h3><div id="rdKeys">${rdKeys(p)}</div></div>${a?`<div class="rd3-guide"><h3>📖 ไกด์จากผู้เขียน</h3>${a}</div>`:""}</section>
+    <section class="rd3-col rd3-gear"><h3>เซ็ตอุปกรณ์</h3><div id="rdGear">${rdGear()}</div></section>
+    ${hasSk?`<section class="rd3-tree"><h3>สายสกิล <small>เรียน ${(p.k||[]).length} สกิล · เลขทอง = สกิลสำคัญ</small></h3><div class="rd2-tree" id="rdTree">${rdTree(p)}</div></section>`:`<section class="rd3-tree"></section>`}
+    <section class="rd3-col rd3-side"><div class="rd3-keys"><h3>สกิลสำคัญ</h3><div id="rdKeys">${rdKeys(p)}</div></div>${a?`<div class="rd3-guide"><h3>ไกด์จากผู้เขียน</h3>${a}</div>`:""}</section>
    </div></div>`;
   void ov.offsetWidth;ov.classList.add("show");requestAnimationFrame(rdFit)}
 function rdFit(){const c=$("#rdPop.show .rd3"),tr=$("#rdTree");if(!c||!tr)return;const g=tr.querySelector(".sktree");if(matchMedia("(max-width:1000px),(max-height:600px)").matches){c.style.removeProperty("--sk");g&&g.classList.remove("g2");return}
