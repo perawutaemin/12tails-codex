@@ -324,7 +324,7 @@ button:active,.stage:active{transform:scale(.97)!important;transition-duration:.
 .ln-art .ln-pt{grid-area:1/1;max-height:min(64vh,620px);max-width:100%;width:auto;object-fit:contain;filter:drop-shadow(0 40px 50px rgba(0,0,0,.75));
   translate:calc(var(--tx,0) * 14px) calc(var(--ty,0) * 10px);transition:translate .6s var(--ease);animation:lnArt .85s var(--ease) both,lnFloat 6s 1s ease-in-out infinite}
 .ln-art .ln-pt.rev{animation:lnArtL .85s var(--ease) both,lnFloat 6s 1s ease-in-out infinite}
-.ln-art .ln-pt.leave{animation:lnLeave .45s var(--ease) both}
+.ln-art .ln-pt.leave{animation:lnLeave .45s var(--ease) both;pointer-events:none;z-index:0}
 @keyframes lnArt{from{opacity:0;transform:translateX(80px) scale(.96);filter:blur(10px) drop-shadow(0 40px 50px rgba(0,0,0,.75))}}
 @keyframes lnArtL{from{opacity:0;transform:translateX(-80px) scale(.96);filter:blur(10px) drop-shadow(0 40px 50px rgba(0,0,0,.75))}}
 @keyframes lnLeave{to{opacity:0;transform:scale(.94);filter:blur(8px)}}
@@ -2517,6 +2517,7 @@ function showTail(i,user){
   const prev=lnIdx;lnIdx=(i+ids.length)%ids.length;
   const id=ids[lnIdx],v=D.tails[id],art=$("#lnArt");
   $("#landing").style.setProperty("--acc",ACC[id]||"#d6993f");
+  art.querySelectorAll(".ln-pt.leave").forEach(el=>el.remove());
   art.querySelectorAll(".ln-pt").forEach(el=>{el.classList.add("leave");setTimeout(()=>el.remove(),450)});
   art.querySelector(".ln-name")?.remove();
   const s=HERO[nf(v.img)]||src(v.img);
@@ -2544,19 +2545,20 @@ function showServers(){
 }
 function hideServers(){const S=$("#srv");S.classList.remove("show");S.classList.add("leaving");setTimeout(()=>{S.hidden=true;S.classList.remove("leaving")},400)}
 document.addEventListener("click",e=>{
-  if(e.target.closest("[data-srvpick]")){showServers();return}
-  if(e.target.closest("[data-srvback]")){hideServers();showLanding();return}
+  if(e.target.closest("[data-srvpick]")){pendingTail=null;showServers();return}
+  if(e.target.closest("[data-srvback]")){pendingTail=null;hideServers();showLanding();return}
   const c=e.target.closest("[data-srv]");if(!c)return;
   if(c.dataset.srv==="soon"){c.classList.remove("shake");void c.offsetWidth;c.classList.add("shake");toast("เซิร์ฟนี้กำลังจะมาเร็ว ๆ นี้");return}
   try{localStorage.setItem("ttc-server",c.dataset.srv)}catch(_){}
-  c.classList.add("picked");setTimeout(()=>{hideServers();enterApp("tails")},380);
+  c.classList.add("picked");setTimeout(()=>{hideServers();enterApp("tails");if(pendingTail){const id=pendingTail;pendingTail=null;setTimeout(()=>open("tail:"+id),200)}},380);
 });
 function enterApp(tab){
   const L=$("#landing");L.classList.add("out");cancelAnimationFrame(lnRaf);
   setTimeout(()=>{L.hidden=true},450);
   if(D){if(tab)goTab(tab);else renderView(true)}
 }
-$("#lnArt").addEventListener("click",()=>{const id=$("#lnArt").dataset.id;if(!id)return;enterApp("tails");setTimeout(()=>open("tail:"+id),180)});
+let pendingTail=null;
+$("#lnArt").addEventListener("click",()=>{const id=$("#lnArt").dataset.id;if(!id)return;pendingTail=id;showServers()});
 $("#landing").addEventListener("pointermove",e=>{const r=e.currentTarget.getBoundingClientRect();const art=$("#lnArt");art.style.setProperty("--tx",((e.clientX-r.left)/r.width-.5).toFixed(3));art.style.setProperty("--ty",((e.clientY-r.top)/r.height-.5).toFixed(3))});
 (function motes(){let h="";for(let i=0;i<16;i++)h+=`<i style="left:${(i*61)%100}%;animation-duration:${9+(i*7)%9}s;animation-delay:${-(i*1.7)%12}s;opacity:0;transform:scale(${.6+(i%4)*.25})"></i>`;$("#motes").innerHTML=h})();
 document.addEventListener("keydown",e=>{
