@@ -1938,6 +1938,18 @@ button.gw-opt:hover{border-color:var(--gold);transform:translateY(-2px)}
 .gw-sug button>:first-child img,.gw-sug button>img:first-child{width:52px!important;height:52px!important;object-fit:contain}
 .gw-sug b{font-size:14.5px}
 .rd3 .rd2-slot{grid-template-columns:50px 1fr}.rd3 .rd2-sock{position:static;grid-column:2;grid-row:3;justify-self:start;margin-top:4px}.rd3 .rd2-si{grid-row:1/4!important}.rd3 .rd2-si{width:50px;height:50px}.rd3 .rd2-si img{width:44px;height:44px}
+/* ---------- favourites ---------- */
+.pin-fav{position:absolute;top:10px;right:10px;z-index:2;display:inline-flex;align-items:center;gap:6px;width:32px;height:32px;justify-content:center;padding:0;border-radius:50%;border:1px solid rgba(58,36,16,.25);background:rgba(255,255,255,.55);color:#9aa7b4;cursor:pointer;transition:transform .2s var(--spring),color .2s,background .2s}
+.pin-fav svg{fill:none;stroke:currentColor;stroke-width:2;stroke-linejoin:round}
+.pin-fav:hover{transform:scale(1.12);color:#3b9cff}
+.pin-fav.on{color:#fff;background:linear-gradient(135deg,#5bb8ff,#2b7fe0);border-color:#2b7fe0;box-shadow:0 4px 12px -4px #2b7fe0}.pin-fav.on svg{fill:currentColor}
+.pin-card .pin-tt{padding-right:34px}
+.pin-del{right:48px!important}
+.pin-fav.big{position:static;width:auto;height:auto;padding:8px 14px;border-radius:999px;background:rgba(91,184,255,.1);border-color:rgba(91,184,255,.45);color:#8cc8ff;font:700 13px var(--font)}
+.pin-fav.big.on{background:linear-gradient(135deg,#5bb8ff,#2b7fe0);color:#fff}
+.brd-tags .fav{display:inline-flex;align-items:center;gap:6px}.brd-tags .fav svg{width:14px;height:14px;fill:#5bb8ff}
+.brd-tags .fav i{font-style:normal;font:600 11px var(--mono);opacity:.75}
+.brd-tags .fav.on{background:linear-gradient(135deg,#5bb8ff,#2b7fe0)!important;border-color:#2b7fe0!important;color:#fff!important}.brd-tags .fav.on svg{fill:#fff}
 </style>
 
 <section class="landing" id="landing" aria-label="หน้าแรก">
@@ -3293,10 +3305,10 @@ function gwFromPack(o,meta){if(!o||!D.tails[o.t])return false;const g=o.g||{};
   skillBuild[o.t]=new Set((o.k||[]).map(Number));skillLevel[o.t]=Math.max(1,Math.min(110,o.l|0||110));return true}
 function gwPack(){const t=GW.t,s0=GW.sets[0];return {t,ic:GW.ic||undefined,l:skillLevel[t]??110,s:[0,0,0,0,0,0,0,0],b:0,e:s0.i.filter(Boolean),k:[...(skillBuild[t]||[])],n:GW.n.trim()||t+" Build",
   q:GW.sets.map(s=>({n:s.n,i:s.i})),p:[],ks:GW.ks,w:{play:"",pro:"",con:""},g:{d:GW.d,st:GW.st,sk:GW.sets.map(s=>s.sk)}}}
-function gwChecks(){const set=GW.t?skillBuild[GW.t]||new Set():new Set();return [[!!GW.t,"เลือกหาง",0],[!!GW.n.trim(),"ชื่อไกด์",1],[GW.d.trim().length>=20,"คำอธิบาย",1],[Object.keys(GW.st).length>0,"สเตตัส",2],[GW.sets.some(s=>s.i.some(Boolean)),"เซ็ตอุปกรณ์",3],[set.size>0,"สกิล",4]]}
+function gwChecks(){const set=GW.t?skillBuild[GW.t]||new Set():new Set();return [[!!GW.t,"เลือกหาง",0],[!!GW.n.trim(),"ชื่อไกด์",1],[GW.tags.length>0,"PVE/PVP",1],[GW.d.trim().length>=20,"คำอธิบาย",1],[Object.keys(GW.st).length>0,"สเตตัส",2],[GW.sets.some(s=>s.i.some(Boolean)),"เซ็ตอุปกรณ์",3],[set.size>0,"สกิล",4]]}
 // ---- live preview ----
 function gwPrev(){if(!GW||!GW.t)return;const el=$("#gwPrev");if(el)el.innerHTML=brdCard({id:"_prev",at:Date.now(),likes:0,views:0,author:GW.a||"ไม่ระบุชื่อ",desc:GW.d.slice(0,200),tags:GW.tags,build:gwPack()},0);const m=$("#gwMini");if(m)m.innerHTML=gwMini()}
-function gwMini(){const C=gwChecks(),ok=C.filter(x=>x[0]).length;return `<div class="gw-mh"><span>ความครบของไกด์</span><b>${ok}/6</b></div><div class="gw-mbar"><i style="width:${ok/6*100}%"></i></div><div class="gw-mchk">${C.map(([o,l,s])=>`<button type="button" class="${o?"ok":""}" data-gwgo="${s}">${o?"✓":"○"} ${l}</button>`).join("")}</div>`}
+function gwMini(){const C=gwChecks(),ok=C.filter(x=>x[0]).length;return `<div class="gw-mh"><span>ความครบของไกด์</span><b>${ok}/${C.length}</b></div><div class="gw-mbar"><i style="width:${ok/C.length*100}%"></i></div><div class="gw-mchk">${C.map(([o,l,s])=>`<button type="button" class="${o?"ok":""}" data-gwgo="${s}">${o?"✓":"○"} ${l}</button>`).join("")}</div>`}
 function gwAside(){return `<aside class="gw-aside"><div class="gw-ah">ตัวอย่างบนกระดาน <small>อัปเดตตามที่กรอก</small></div><div class="gw-prev" id="gwPrev"></div><div class="gw-mini" id="gwMini"></div></aside>`}
 // ---- steps ----
 function gwStep0(){return `<div class="gw-tails">${Object.keys(D.tails).map(tl=>{const v=D.tails[tl],art=HERO[nf(v.img)]||src(v.img);return `<button type="button" class="gw-tl${GW.t===tl?" on":""}" data-gwtail="${tl}" style="--acc:${ACC[tl]}"><span class="gw-tla">${art?`<img src="${art}" alt="" loading="lazy">`:""}</span><b>${esc(tl)}</b><small>${esc(v.th)} · ${esc(tailClass(v)||"")}</small>${GW.t===tl?`<em>✓ เลือกอยู่</em>`:""}</button>`}).join("")}</div>
@@ -3307,7 +3319,7 @@ function gwStep1(){return `<div class="gw-form">
   <label class="gw-fld wide"><span>ชื่อไกด์ <em>*</em></span><input class="gw-big" type="text" maxlength="40" value="${esc(GW.n)}" data-gwf="n" placeholder="เช่น ${esc(GW.t)} ตีแรง ฟาร์มด่าน 9"><i class="gw-hint">ตั้งให้รู้เลยว่าเป็นสายไหน คนจะกดเข้ามาอ่านง่ายขึ้น</i></label>
   <div class="gw-fld wide"><span>รูปปกไกด์ <small>เลือกรูปสกิลเท่ๆ ไว้โชว์บนการ์ด หรือใช้รูปหาง</small></span>${gwCovers()}</div>
   <label class="gw-fld"><span>ผู้เขียน</span><input type="text" maxlength="24" value="${esc(GW.a)}" data-gwf="a" placeholder="ชื่อในเกมหรือชื่อเล่น"><i class="gw-hint">เว้นว่างได้ จะขึ้นว่า “ไม่ระบุชื่อ”</i></label>
-  <div class="gw-fld"><span>เหมาะกับ <small>เลือกได้ทั้งคู่</small></span><div class="gw-mode">${[["PVE","ฟาร์มด่าน · ตีบอส"],["PVP","อารีน่า · สู้ผู้เล่น"]].map(([g,s])=>`<button type="button" class="${GW.tags.includes(g)?"on":""}" data-gwtag="${g}" aria-pressed="${GW.tags.includes(g)}"><b>${g}</b><small>${s}</small></button>`).join("")}</div></div>
+  <div class="gw-fld"><span>เหมาะกับ <em>*</em> <small>เลือกอย่างน้อย 1 · เลือกได้ทั้งคู่</small></span><div class="gw-mode">${[["PVE","ฟาร์มด่าน · ตีบอส"],["PVP","อารีน่า · สู้ผู้เล่น"]].map(([g,s])=>`<button type="button" class="${GW.tags.includes(g)?"on":""}" data-gwtag="${g}" aria-pressed="${GW.tags.includes(g)}"><b>${g}</b><small>${s}</small></button>`).join("")}</div></div>
   <div class="gw-fld wide"><span>คำอธิบาย <small>กดหัวข้อเพื่อแทรกลงในข้อความ</small></span><div class="gw-snip">${GW_SNIP.map(s=>`<button type="button" data-gwsnip="${s}">+ ${s}</button>`).join("")}</div>
     <div class="gw-txt"><textarea maxlength="1500" rows="9" data-gwf="d" placeholder="Build นี้เหมาะกับอะไร เล่นยังไง เปิดด้วยสกิลอะไร จุดเด่น จุดอ่อน…">${esc(GW.d)}</textarea><i class="gw-cnt">${GW.d.length}/1500</i></div></div></div>`}
 function gwStep2(){const cur=JSON.stringify(Object.fromEntries(Object.entries(GW.st).map(([k,v])=>[k,v.m])));
@@ -3338,18 +3350,18 @@ function gwKeys(){const t=GW.t,set=skillBuild[t]||new Set(),learned=[...set].sor
 function gwStep4(){return `${skillTree(GW.t)}<section class="d-sec bx-card gw-kcard"><div class="bx-ch">สกิลสำคัญ & โน้ต <small>ไม่บังคับ · กดไอคอนสกิลที่อัปแล้วเพื่อติดดาว (สูงสุด 10)</small></div><div id="gwks">${gwKeys()}</div></section>`}
 function gwFocusHTML(st){const L=STATS.filter(k=>st&&st[k]);return L.length?`<div class="gw-focus">${L.map(k=>{const v=st[k];return `<span style="--c:${STC[k]}"><b>${k.toUpperCase()}</b><i>${v.m==="max"?"ตัน":v.m==="follow"?"ตาม":esc(v.v||"?")}</i></span>`}).join("")}</div>`:""}
 function gwSetsHTML(sets){return sets.filter(s=>s.i.some(Boolean)).map(s=>`<div class="rd-set"><small>${esc(s.n)}</small><div>${NS.map(([k,l],i)=>s.i[i]?`<span class="rd-gi">${icon(s.i[i])}<span><small>${l}${s.sk&&s.sk[i]?` · <em class="sock">ยัด ${s.sk[i].toUpperCase()}</em>`:""}</small><b>${esc(s.i[i])}</b></span></span>`:"").join("")}</div></div>`).join("")}
-function gwStep5(){const C=gwChecks(),ok=C.filter(x=>x[0]).length,t=GW.t,v=D.tails[t],acc=ACC[t]||"#d6993f",art=HERO[nf(v.img)]||src(v.img),can=!!(GW.t&&GW.n.trim()),miss=C.filter(x=>!x[0]);
+function gwStep5(){const C=gwChecks(),ok=C.filter(x=>x[0]).length,t=GW.t,v=D.tails[t],acc=ACC[t]||"#d6993f",art=HERO[nf(v.img)]||src(v.img),can=!!(GW.t&&GW.n.trim()&&GW.tags.length),miss=C.filter(x=>!x[0]);
   return `<div class="gw-fgrid"><div class="gw-fl">
     <div class="gw-sum" style="--acc:${acc}"><div class="gw-sh"><span class="rd-art">${art?`<img src="${art}" alt="">`:""}</span><div><span class="pin-tail">${esc(t)} · ${esc(v.th)}</span><h3>${esc(GW.n||"(ยังไม่ได้ตั้งชื่อ)")}</h3><small>โดย ${esc(GW.a||"ไม่ระบุชื่อ")} ${GW.tags.map(g=>`<i class="pin-tag">${g}</i>`).join(" ")}</small></div></div>
       ${GW.d?`<p class="rd-p">${esc(GW.d.length>400?GW.d.slice(0,400)+"…":GW.d)}</p>`:""}${gwFocusHTML(GW.st)}${gwSetsHTML(GW.sets)}</div>
-    <div class="gw-ready${ok===6?" all":""}"><div class="gw-mh"><span>${ok===6?"ไกด์ครบทุกส่วนแล้ว":miss.length?`ยังขาด: ${miss.map(x=>x[1]).join(", ")}`:""}</span><b>${ok}/6</b></div><div class="gw-mbar"><i style="width:${ok/6*100}%"></i></div>
+    <div class="gw-ready${ok===C.length?" all":""}"><div class="gw-mh"><span>${ok===C.length?"ไกด์ครบทุกส่วนแล้ว":miss.length?`ยังขาด: ${miss.map(x=>x[1]).join(", ")}`:""}</span><b>${ok}/${C.length}</b></div><div class="gw-mbar"><i style="width:${ok/C.length*100}%"></i></div>
       <div class="gw-mchk">${C.map(([o,l,s])=>`<button type="button" class="${o?"ok":""}" data-gwgo="${s}">${o?"✓":"○"} ${l}</button>`).join("")}</div></div>
-    <button type="button" class="gw-post" data-gwpost ${can?"":"disabled"}><b>บันทึก & โพสต์ไกด์</b><small>${can?"ขึ้นกระดาน Build ทันที ทุกคนเห็น":"ต้องเลือกหางและตั้งชื่อไกด์ก่อน"}</small></button>
+    <button type="button" class="gw-post" data-gwpost ${can?"":"disabled"}><b>บันทึก & โพสต์ไกด์</b><small>${can?"ขึ้นกระดาน Build ทันที ทุกคนเห็น":"ต้องเลือกหาง ตั้งชื่อ และเลือก PVE/PVP ก่อน"}</small></button>
     <div class="gw-fin"><button type="button" class="mk-btn" data-gwcode><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg> คัดลอกลิงก์ไกด์</button><button type="button" class="bx-mini" data-gwreset>ลบร่าง เริ่มใหม่</button></div>
     <p class="bx-help">โพสต์แล้วลบเองไม่ได้ ตรวจให้เรียบร้อยก่อน · ร่างบันทึกอัตโนมัติในเครื่องนี้</p></div>
   <div class="gw-fr"><div class="gw-ah">ตัวอย่างบนกระดาน</div><div class="gw-prev" id="gwPrev"></div></div></div>`}
 function gwRender(){const ov=$("#gwPop");if(!ov||!GW)return;const st=GW.step,[title,sub]=GW_STEPS[st],aside=st>=1&&st<=3&&!!GW.t;
-  const pb=$("#gwBody"),keep=pb&&pb.dataset.step===String(st)?pb.scrollTop:-1,nx=GW_STEPS[st+1],block=st===0?!GW.t:st===1&&!GW.n.trim();
+  const pb=$("#gwBody"),keep=pb&&pb.dataset.step===String(st)?pb.scrollTop:-1,nx=GW_STEPS[st+1],block=st===0?!GW.t:st===1&&(!GW.n.trim()||!GW.tags.length);
   const tv=GW.t&&D.tails[GW.t],tart=tv?(HERO[nf(tv.img)]||src(tv.img)):"";
   ov.innerHTML=`<div class="lvpop-card gw">
     <div class="gw-top"><b class="gw-title">เขียนไกด์</b>${GW.t?`<button type="button" class="gw-tchip" data-gwgo="0" style="--acc:${ACC[GW.t]}" title="เปลี่ยนหาง">${tart?`<img src="${tart}" alt="">`:""}<span>${esc(GW.t)}</span></button>`:""}
@@ -3357,7 +3369,7 @@ function gwRender(){const ov=$("#gwPop");if(!ov||!GW)return;const st=GW.step,[ti
       <span class="gw-saved" id="gwSaved">✓ บันทึกร่างแล้ว</span><button type="button" class="icon-btn" data-gwclose aria-label="ปิด">${gwX}</button></div>
     <div class="gw-hero"><span class="gw-no">${st?`ขั้นที่ ${st} จาก 5`:"เริ่มต้น"}</span><h3>${title}${GW_OPT.has(st)?` <small>ไม่บังคับ</small>`:""}</h3><p>${sub}</p></div>
     <div class="gw-main${aside?" has-aside":""}"><div class="gw-body${keep<0?" gw-in":""}" id="gwBody" data-step="${st}">${[gwStep0,gwStep1,gwStep2,gwStep3,gwStep4,gwStep5][st]()}</div>${aside?gwAside():""}</div>
-    <div class="gw-foot"><button type="button" class="mk-btn ghost" data-gwgo="${st-1}" ${st?"":"disabled"}>← ย้อนกลับ</button><span class="gw-bar"><i style="width:${st/5*100}%"></i></span>${st<5?`<button type="button" class="mk-btn gold gw-next" id="gwNext" data-gwgo="${st+1}" ${block?"disabled":""}><small>${block?(st?"ตั้งชื่อไกด์ก่อน":"เลือกหางก่อน"):"ถัดไป"}</small>${nx[0]} →</button>`:`<span></span>`}</div>
+    <div class="gw-foot"><button type="button" class="mk-btn ghost" data-gwgo="${st-1}" ${st?"":"disabled"}>← ย้อนกลับ</button><span class="gw-bar"><i style="width:${st/5*100}%"></i></span>${st<5?`<button type="button" class="mk-btn gold gw-next" id="gwNext" data-gwgo="${st+1}" ${block?"disabled":""}><small>${block?(st?gwNeed():"เลือกหางก่อน"):"ถัดไป"}</small>${nx[0]} →</button>`:`<span></span>`}</div>
     ${st===3?`<div class="gw-shade${GW.pick!=null?" show":""}" data-gwslot="-1"></div><div class="gw-sheet${GW.pick!=null?" show":""}" id="gwSheet" role="dialog" aria-label="เลือกอุปกรณ์">${GW.pick!=null?gwSheet():""}</div>`:""}</div>`;
   if(keep>0)$("#gwBody").scrollTop=keep;
   gwPrev();ov.querySelector(".gw-steps .on")?.scrollIntoView({inline:"center",block:"nearest"});
@@ -3366,7 +3378,9 @@ function gwOpen(){let ov=$("#gwPop");if(!ov){ov=document.createElement("div");ov
   gwRender();void ov.offsetWidth;ov.classList.add("show");document.documentElement.style.overflow="hidden";try{history.replaceState(null,"","#write")}catch(_){}}
 function gwClose(){const ov=$("#gwPop");if(ov)ov.classList.remove("show");document.documentElement.style.overflow="";gwSave();try{history.replaceState(null,"","#"+(st.tab||"board"))}catch(_){}}
 function ov_cov(){document.querySelectorAll("[data-gwic]").forEach(b=>b.classList.toggle("on",(+b.dataset.gwic||null)===GW.ic))}
-function gwGo(s){if(s<0||s>5||(!GW.t&&s>0))return;GW.step=s;GW.pick=null;gwRender();gwSave()}
+function gwNeed(){return !GW.n.trim()&&!GW.tags.length?"ตั้งชื่อ + เลือก PVE/PVP":!GW.n.trim()?"ตั้งชื่อไกด์ก่อน":"เลือก PVE หรือ PVP"}
+function gwNextSync(){const n=$("#gwNext");if(!n||GW.step!==1)return;const blk=!GW.n.trim()||!GW.tags.length;n.disabled=blk;n.querySelector("small").textContent=blk?gwNeed():"ถัดไป"}
+function gwGo(s){if(s<0||s>5||(!GW.t&&s>0))return;if(s>1&&GW.step<=1&&(!GW.n.trim()||!GW.tags.length)){GW.step=1;gwRender();toast(gwNeed());return}GW.step=s;GW.pick=null;gwRender();gwSave()}
 function gwChooser(tail){const d=gwDraft();let ov=$("#gwChoose");if(!ov){ov=document.createElement("div");ov.id="gwChoose";ov.className="lvpop";document.body.appendChild(ov);ov.addEventListener("click",e=>{if(e.target===ov||e.target.closest("[data-gwcclose]"))ov.classList.remove("show")})}
   ov.innerHTML=`<div class="lvpop-card gw-ch"><div class="lvpop-h"><span class="lvt-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></span><span class="lvt-h"><b>สร้าง Build</b><small>เขียนไกด์ใหม่ หรือนำเข้าไกด์ที่มีอยู่</small></span><button type="button" class="icon-btn" data-gwcclose aria-label="ปิด">${gwX}</button></div>
     <div class="gw-opts"><button type="button" class="gw-opt" data-gwstart="${tail||""}"><span class="gw-oi">+</span><b>สร้างไกด์ใหม่</b><small>${tail?`เริ่มเขียนไกด์ ${esc(tail)} · 5 ขั้น ใช้เวลาไม่กี่นาที`:"เลือกหาง แล้วเขียนทีละขั้น · 5 ขั้น ใช้เวลาไม่กี่นาที"}</small></button>
@@ -3385,7 +3399,7 @@ document.addEventListener("click",async e=>{const g=a=>e.target.closest("["+a+"]
   if(x=g("data-gwclose")){gwClose();return}
   if(x=g("data-gwgo")){gwGo(+x.dataset.gwgo);return}
   if(x=g("data-gwtail")){const tl=x.dataset.gwtail;if(GW.t!==tl){GW.t=tl;GW.ic=null;GW.sets=[gwSet("เซ็ตหลัก")];GW.cur=0;GW.ks=[];skillBuild[tl]=skillBuild[tl]||new Set();skillLevel[tl]=skillLevel[tl]??110}gwGo(1);return}
-  if(x=g("data-gwtag")){const v=x.dataset.gwtag,i=GW.tags.indexOf(v);if(i>=0)GW.tags.splice(i,1);else GW.tags.push(v);x.classList.toggle("on",i<0);x.setAttribute("aria-pressed",i<0);gwSave();return}
+  if(x=g("data-gwtag")){const v=x.dataset.gwtag,i=GW.tags.indexOf(v);if(i>=0)GW.tags.splice(i,1);else GW.tags.push(v);x.classList.toggle("on",i<0);x.setAttribute("aria-pressed",i<0);gwNextSync();gwSave();return}
   if(x=g("data-gwsnip")){const ta=$('[data-gwf="d"]');if(!ta)return;const s=ta.selectionStart??ta.value.length,pre=ta.value.slice(0,s),ins=(pre&&!pre.endsWith("\n")?"\n":"")+"【"+x.dataset.gwsnip+"】 ";ta.value=(pre+ins+ta.value.slice(ta.selectionEnd??s)).slice(0,1500);ta.focus();ta.selectionStart=ta.selectionEnd=Math.min(1500,pre.length+ins.length);ta.dispatchEvent(new Event("input",{bubbles:true}));return}
   if(x=g("data-gwic")){GW.ic=+x.dataset.gwic||null;ov_cov();gwSave();return}
   if(x=g("data-gwpre")){const i=+x.dataset.gwpre;GW.st={};if(i>=0)Object.entries(GW_PRE[i][2]).forEach(([k,m])=>GW.st[k]={m,v:""});gwRender();gwSave();return}
@@ -3402,14 +3416,14 @@ document.addEventListener("click",async e=>{const g=a=>e.target.closest("["+a+"]
   if(x=g("data-gwksmv")){const [i,d]=x.dataset.gwksmv.split("|"),a=+i,c=a+ +d;[GW.ks[a],GW.ks[c]]=[GW.ks[c],GW.ks[a]];$("#gwks").innerHTML=gwKeys();gwSave();return}
   if(x=g("data-gwreset")){if(x.dataset.armed!=="1"){x.dataset.armed="1";x.textContent="กดอีกครั้งเพื่อลบร่าง";return}try{localStorage.removeItem("ttc-guide")}catch(_){}gwNew(null);gwRender();toast("ลบร่างแล้ว");return}
   if(x=g("data-gwcode")){const u=location.origin+location.pathname+"#build="+b64e(JSON.stringify(gwPack()));(navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(()=>toast("คัดลอกลิงก์ไกด์แล้ว ส่งให้เพื่อน หรือวางที่ 'นำเข้าไกด์' ได้"),()=>prompt("คัดลอกลิงก์นี้",u));return}
-  if(x=g("data-gwpost")){if(!GW.t||!GW.n.trim())return;x.disabled=true;x.querySelector("b").textContent="กำลังโพสต์…";try{localStorage.setItem("ttc-author",JSON.stringify(GW.a))}catch(_){}
+  if(x=g("data-gwpost")){if(!GW.t||!GW.n.trim()||!GW.tags.length)return;x.disabled=true;x.querySelector("b").textContent="กำลังโพสต์…";try{localStorage.setItem("ttc-author",JSON.stringify(GW.a))}catch(_){}
     try{const r=await fetch(API+"/builds",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({build:gwPack(),author:GW.a,tags:GW.tags,desc:GW.d.slice(0,200)})});const j=await r.json();if(!r.ok)throw new Error(j.error||"โพสต์ไม่สำเร็จ");
       (BRD.list=BRD.list||[]).unshift(j);try{localStorage.removeItem("ttc-guide")}catch(_){}gwClose();toast("โพสต์ไกด์แล้ว!");BRD.sort="new";BRD.tail="all";BRD.tag="all";closeD();goTab("board");setTimeout(()=>{brdRedraw(true);brdRead(j.id)},250)}
     catch(err){toast(err.message||"โพสต์ไม่สำเร็จ");x.disabled=false;x.querySelector("b").textContent="บันทึก & โพสต์ไกด์"}return}
 },true);
 document.addEventListener("input",e=>{if(!GW||!$("#gwPop.show"))return;const el=e.target,d=el.dataset;
   if(d.gwf){GW[d.gwf]=el.value;if(d.gwf==="d"){const c=el.parentElement.querySelector(".gw-cnt");if(c)c.textContent=el.value.length+"/1500"}
-    if(d.gwf==="n"){const n=$("#gwNext");if(n){const blk=!el.value.trim();n.disabled=blk;n.querySelector("small").textContent=blk?"ตั้งชื่อไกด์ก่อน":"ถัดไป"}}gwSave();return}
+    if(d.gwf==="n")gwNextSync();gwSave();return}
   if(d.gwsv){el.value=el.value.replace(/[^\d]/g,"");GW.st[d.gwsv].v=el.value;gwSave();return}
   if(d.gwksn!==undefined){GW.ks[+d.gwksn][1]=el.value;gwSave();return}
   if(el.hasAttribute("data-gwsetname")){GW.sets[GW.cur].n=el.value.slice(0,24)||"เซ็ต";const b=document.querySelector(`[data-gwset="${GW.cur}"]`);if(b)b.firstChild.textContent=GW.sets[GW.cur].n+" ";gwSave();return}
@@ -3420,6 +3434,8 @@ const _skRedraw2=skRedraw;skRedraw=function(h){_skRedraw2(h);const k=document.ge
 /* ---------- build board ---------- */
 const API="https://12tails-codex-visits.ails-odex.workers.dev";
 const BTAGS=["PVE","PVP"];
+const brdFav=()=>{try{return new Set(JSON.parse(localStorage.getItem("ttc-fav")||"[]"))}catch(_){return new Set()}};
+function favBtn(id,big){const on=brdFav().has(id);return `<button type="button" class="pin-fav${on?" on":""}${big?" big":""}" data-brdfav="${id}" aria-pressed="${on}" title="${on?"เอาออกจาก Fav":"ติดดาว Fav"}"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.8 6.4.9-4.6 4.5 1.1 6.3L12 17.3l-5.7 3 1.1-6.3-4.6-4.5 6.4-.9z"/></svg>${big?`<span>${on?"Fav แล้ว":"Fav"}</span>`:""}</button>`}
 const BRD={list:null,loading:false,err:"",tail:"all",tag:"all",sort:"new",q:"",lim:24};
 const brdLS=(k,d)=>{try{return JSON.parse(localStorage.getItem(k)||"null")??d}catch(_){return d}};
 const brdLiked=()=>new Set(brdLS("ttc-liked",[]));
@@ -3428,7 +3444,7 @@ async function brdLoad(){BRD.loading=true;BRD.err="";try{const r=await fetch(API
 function ago(ms){const m=Math.max(1,Math.round((Date.now()-ms)/60000));return m<60?`${m} นาทีที่แล้ว`:m<1440?`${Math.round(m/60)} ชม.ที่แล้ว`:m<43200?`${Math.round(m/1440)} วันที่แล้ว`:new Date(ms).toLocaleDateString("th-TH",{day:"numeric",month:"short",year:"2-digit"})}
 function brdTot(p){const e=Object.fromEntries(STATS.map(k=>[k,0]));(p.e||[]).forEach(n=>{const s=I(n).st||{};STATS.forEach(k=>e[k]+=stNum(s[k]))});return Object.fromEntries(STATS.map((k,i)=>[k,(p.s?.[i]|0)+(p.b?(p.b[i]|0):0)+e[k]]))}
 function brdList(){const L=(BRD.list||[]).filter(x=>D.tails[x.build.t]),q=BRD.q.trim().toLowerCase(),now=Date.now();
-  const f=L.filter(x=>(BRD.tail==="all"||x.build.t===BRD.tail)&&(BRD.tag==="all"||x.tags.includes(BRD.tag))&&(!q||[x.build.n,x.author,x.desc,x.build.t,D.tails[x.build.t].th,...(x.build.e||[])].join(" ").toLowerCase().includes(q)));
+  const f=L.filter(x=>(BRD.tail==="all"||x.build.t===BRD.tail)&&(BRD.tag==="all"||(BRD.tag==="fav"?brdFav().has(x.id):x.tags.includes(BRD.tag)))&&(!q||[x.build.n,x.author,x.desc,x.build.t,D.tails[x.build.t].th,...(x.build.e||[])].join(" ").toLowerCase().includes(q)));
   const hot=x=>(x.likes+1)/Math.pow((now-x.at)/3.6e6+2,1.4);
   return f.sort(BRD.sort==="new"?(a,b)=>b.at-a.at:BRD.sort==="top"?(a,b)=>b.likes-a.likes||b.at-a.at:(a,b)=>hot(b)-hot(a))}
 function brdCard(x,i){
@@ -3436,6 +3452,7 @@ function brdCard(x,i){
   return `<article class="pin-card" data-card="${x.id}" style="--acc:${acc};--r:${[-1.2,.8,-.4,1.1,-.9,.5][i%6]}deg;--d:${Math.min(i,12)*40}ms">
     <span class="pin-dot" aria-hidden="true"></span>
     ${adm?`<button type="button" class="pin-del" data-brddel="${x.id}" title="ลบ (แอดมิน)">ลบ</button>`:""}
+    ${favBtn(x.id)}
     <div class="pin-top"><span class="pin-art${p.ic?" sk":""}">${coverImg(p,art,1)}</span>
       <div class="pin-tt"><span class="pin-tail">${esc(p.t)} · ${esc(v.th)}</span><h4>${esc(p.n)}</h4><span class="pin-meta">Lv ${p.l}${x.tags.filter(g=>g==="PVE"||g==="PVP").map(g=>` <i class="pin-tag">${esc(g)}</i>`).join("")}</span></div></div>
     <div class="pin-foot"><button type="button" class="pin-like${liked?" on":""}" data-brdlike="${x.id}" aria-pressed="${liked}"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.8 4.5c2.2 0 3.6 1.2 5.2 3 1.6-1.8 3-3 5.2-3 3.8 0 5.9 3.9 4.4 7.3C19.5 16.4 12 21 12 21z"/></svg>${x.likes}</button>
@@ -3445,7 +3462,7 @@ function brdCard(x,i){
 function brdView(){
   const tails=Object.keys(D.tails),counts=t=>(BRD.list||[]).filter(x=>t==="all"||x.build.t===t).length;
   const bar=`<div class="brd-bar"><div class="brd-tails"><button type="button" class="${BRD.tail==="all"?"on":""}" data-brdtail="all">ทุกหาง <i>${counts("all")}</i></button>${tails.map(tl=>{const v=D.tails[tl];return `<button type="button" class="${BRD.tail===tl?"on":""}" data-brdtail="${tl}" title="${esc(v.th)}" style="--acc:${ACC[tl]}">${ring(v.ic||v.img,tl,src(v.ic)?"":"cover")}<i>${counts(tl)||""}</i></button>`}).join("")}</div>
-    <div class="brd-row2"><div class="brd-tags">${["all",...BTAGS].map(g=>`<button type="button" class="${BRD.tag===g?"on":""}" data-brdtag="${g}">${g==="all"?"ทุกแท็ก":esc(g)}</button>`).join("")}</div>
+    <div class="brd-row2"><div class="brd-tags">${["all",...BTAGS,"fav"].map(g=>`<button type="button" class="${BRD.tag===g?"on":""}${g==="fav"?" fav":""}" data-brdtag="${g}">${g==="all"?"ทุกแท็ก":g==="fav"?`<svg width="16" height="16" viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.8 6.4.9-4.6 4.5 1.1 6.3L12 17.3l-5.7 3 1.1-6.3-4.6-4.5 6.4-.9z"/></svg> Fav <i>${(BRD.list||[]).filter(x=>brdFav().has(x.id)).length}</i>`:esc(g)}</button>`).join("")}</div>
       <select class="sel" data-brdsort aria-label="เรียงลำดับ"><option value="new"${BRD.sort==="new"?" selected":""}>ใหม่ล่าสุด</option><option value="top"${BRD.sort==="top"?" selected":""}>♥ มากที่สุด</option></select>
       <label class="search brd-q"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input type="search" id="brdq" placeholder="ค้นหาชื่อ Build คนโพสต์ หรืออุปกรณ์…" value="${esc(BRD.q)}" autocomplete="off"></label>
       <button type="button" class="mk-btn pin" data-brdnew>สร้าง Build</button></div></div>`;
@@ -3482,6 +3499,9 @@ function brdPostDialog(h){
 document.addEventListener("click",async e=>{
   const pst=e.target.closest("[data-bdpost]");if(pst){brdPostDialog(pst.dataset.bdpost);return}
   const tl=e.target.closest("[data-brdtail]");if(tl){BRD.tail=tl.dataset.brdtail;BRD.lim=24;brdRedraw();return}
+  const fv=e.target.closest("[data-brdfav]");if(fv){e.stopPropagation();const id=fv.dataset.brdfav,s=brdFav(),on=!s.has(id);on?s.add(id):s.delete(id);try{localStorage.setItem("ttc-fav",JSON.stringify([...s]))}catch(_){}
+    document.querySelectorAll(`[data-brdfav="${id}"]`).forEach(b=>{b.classList.toggle("on",on);b.setAttribute("aria-pressed",on);b.title=on?"เอาออกจาก Fav":"ติดดาว Fav";const sp=b.querySelector("span");if(sp)sp.textContent=on?"Fav แล้ว":"Fav"});
+    toast(on?"ติดดาว Fav แล้ว · ดูได้ที่ตัวกรอง Fav":"เอาออกจาก Fav แล้ว");if(BRD.tag==="fav"||document.querySelector(".brd-tags .fav"))brdRedraw();return}
   const tg=e.target.closest("[data-brdtag]");if(tg){BRD.tag=tg.dataset.brdtag;BRD.lim=24;brdRedraw();return}
   if(e.target.closest("[data-brdnew]")){gwChooser(BRD.tail!=="all"?BRD.tail:null);return}
   const op=e.target.closest("[data-brdopen]");if(op){const x=(BRD.list||[]).find(y=>y.id===op.dataset.brdopen);if(!x)return;if(gwFromPack(JSON.parse(JSON.stringify(x.build)),x)){GW.step=1;gwSave();gwOpen();toast("คัดลอกไกด์มาเป็นร่างของคุณแล้ว · แก้แล้วโพสต์เป็นไกด์ใหม่ได้")}return}
@@ -3529,7 +3549,7 @@ function brdRead(id){const x=(BRD.list||[]).find(y=>y.id===id);if(!x)return;cons
     <div class="rd3-tt"><span class="rd2-k">${esc(h)} · ${esc(v.th)}${cls?` · ${esc(cls)}`:""} · Lv ${p.l}</span><h2>${esc(p.n)}</h2>
      <div class="rd2-meta">${x.tags.map(g=>`<i class="pin-tag">${esc(g)}</i>`).join("")}<span>โดย <b>${esc(x.author)}</b></span><span>${ago(x.at)}</span><span>👁 <b id="rdViews">${x.views||0}</b></span></div></div>
     ${g?`<div class="rd3-gs">${g}</div>`:""}
-    <div class="rd2-acts"><button type="button" class="pin-like${liked?" on":""}" data-brdlike="${x.id}"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.8 4.5c2.2 0 3.6 1.2 5.2 3 1.6-1.8 3-3 5.2-3 3.8 0 5.9 3.9 4.4 7.3C19.5 16.4 12 21 12 21z"/></svg>${x.likes}</button><button type="button" class="mk-btn" data-rdcopy="${x.id}" title="คัดลอกลิงก์"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg> คัดลอกลิงก์</button><button type="button" class="icon-btn" data-rdclose aria-label="ปิด">${gwX}</button></div>
+    <div class="rd2-acts">${favBtn(x.id,1)}<button type="button" class="pin-like${liked?" on":""}" data-brdlike="${x.id}"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.8 4.5c2.2 0 3.6 1.2 5.2 3 1.6-1.8 3-3 5.2-3 3.8 0 5.9 3.9 4.4 7.3C19.5 16.4 12 21 12 21z"/></svg>${x.likes}</button><button type="button" class="mk-btn" data-rdcopy="${x.id}" title="คัดลอกลิงก์"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg> คัดลอกลิงก์</button><button type="button" class="icon-btn" data-rdclose aria-label="ปิด">${gwX}</button></div>
    </header>
    <div class="rd3-main">
     <section class="rd3-col rd3-gear"><h3>เซ็ตอุปกรณ์</h3><div id="rdGear">${rdGear()}</div></section>
