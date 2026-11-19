@@ -2570,7 +2570,7 @@ function mpView(){
   const tabs=MP.list.map((z,k)=>{const n=uniqBy(z.marks.filter(m=>m.k==="npc"),m=>m.n).length;return `<button type="button" class="mp-tab${z.id===MP.cur?" on":""}" data-mpz="${z.id}" style="--d:${k*60}ms"><span class="mp-tt"><img src="${esc(z.img)}" alt="" loading="lazy"></span><span class="mp-tx"><b>${esc(z.th)}</b><small>${esc(z.en)}</small></span>${n?`<span class="mp-tn">${n} NPC</span>`:""}</button>`}).join("");
   return `<div class="mp"><div class="mp-tabs">${tabs}</div><div class="mp-body"><div id="mpStageBox">${mpStage()}</div><aside class="mp-side" id="mpSide">${mpSide()}</aside></div>
     <div class="mp-foot"><div class="mp-legend">${Object.entries(MP_KL).map(([k,l])=>`<span class="mp-pt ${k} static"><i>${MP_IC[k]}</i>${l}</span>`).join("")}<span class="mp-pt other static"><i></i>ชาวเมือง</span></div>
-    <p class="mp-note">วาดจากไฟล์ฉากของเกม 12 Tails Together (เวอร์ชันเก่า) · ตำแหน่ง NPC ในเซิร์ฟ TailsTopia อาจต่างไปบ้าง · "?" คือคาดว่าเป็น NPC ตัวนั้น</p></div></div>`}
+</div></div>`}
 function mpFit(){const s=$("#mpStage"),c=s&&s.querySelector(".mp-canvas");if(!c)return;const w=+c.dataset.w,h=+c.dataset.h,f=Math.min((s.clientWidth-8)/w,(s.clientHeight-8)/h)*MP.zoom;c.style.width=Math.round(w*f)+"px";c.style.height=Math.round(h*f)+"px"}
 window.addEventListener("resize",()=>mpFit());
 function mpRedraw(all){if(all){const r=$("#mpRoot");if(r)r.innerHTML=mpView();mpFit();return}const sc=$("#mpStage"),l=sc?sc.scrollLeft:0,tp=sc?sc.scrollTop:0;const s=$("#mpStageBox");if(s)s.innerHTML=mpStage();const d=$("#mpSide");if(d)d.innerHTML=mpSide();mpFit();const s2=$("#mpStage");if(s2){s2.scrollLeft=l;s2.scrollTop=tp}}
