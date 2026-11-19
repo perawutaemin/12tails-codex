@@ -3347,7 +3347,7 @@ const GW_PRE=[["⚔","สายตีกายภาพ",{Atk:"max",Agi:"follow"
 const GW_SNIP=["จุดเด่น","จุดอ่อน","วิธีเล่น","คอมโบสกิล","เหมาะกับ"];
 // slot from the Thai description when it is clear (names alone mis-sort e.g. "Light Scroll V", "Oveja Robe R")
 const GW_WPN="ม้วนคัมภีร์|คัมภีร์|หนังสือ|พิณ|ดาบ|ขวาน|ธนู|หน้าไม้|ปืน|ไม้เท้า|คทา|ไม้กายสิทธิ์|ถุงมือ|กรงเล็บ|ทวน|หอก|ค้อน|มีด|กระบอง|ลูกแก้ว|สมุด|ประแจ|บูมเมอแรง|พัด|แส้|เรือ";
-const gwDSlot=n=>{const it=I(n),d=String(it.d||"").trim(),m=String(n);
+const gwDSlot=n=>{const it=I(n),d=String(it.d||"").trim(),m=String(n);if(it.t==="trinket")return "acc";
   if(new RegExp("^(ชุด)?("+GW_WPN+")").test(d))return "weapon";
   if(/\b(Lance|Trident|Spear|Sword|Swords|Blade|Bow|Crossbow|Gun|Revolver|Rifle|Staff|Scepter|Wand|Book|Codex|Scroll|Harp|Lantern|Claws?|Gauntlet|Knuckle|Knife|Kinfe|Dagger|Cutter|Shuriken|Shotel|Axe|Hammer|Whip|Fan|Katana|Orb|Coil|Wrench|Boomerang|Diary)\b/i.test(m)&&!/\b(Gear|Robe|Suit|Outfit|Dress|Shirt|Costume)\b/i.test(m))return "weapon";
   if(it.t!=="weapon"&&/\b(Hat|Helmet|Cap|Hood|Beret|Crown|Goggle|Bandana|Headband|Wig)\b/i.test(m))return "hat";
