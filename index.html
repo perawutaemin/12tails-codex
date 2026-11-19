@@ -1985,6 +1985,16 @@ button.gw-opt:hover{border-color:var(--gold);transform:translateY(-2px)}
 .brd-refresh:hover{border-color:var(--gold);color:var(--gold-hi)}
 .brd-refresh.spin svg{animation:brdSpin .8s linear infinite}@keyframes brdSpin{to{transform:rotate(360deg)}}
 @media (max-width:760px){.brd-refresh span{display:none}.brd-refresh{padding:0 12px}}
+/* ---------- weapon replica (rep) ---------- */
+.gw-rep{display:flex;align-items:center;gap:6px;padding:10px 14px 0;border-top:1px solid rgba(255,255,255,.05)}
+.gw-rep>small{font-size:11.5px;color:#c9a0ff;margin-right:2px;flex:none}
+.gw-rep button{display:inline-flex;align-items:center;gap:8px;min-width:0;border:1px dashed rgba(201,160,255,.5);background:none;color:#d9bfff;border-radius:10px;padding:5px 10px;font:inherit;font-size:12.5px;cursor:pointer}
+.gw-rep button:hover{border-style:solid;border-color:#c9a0ff}
+.gw-rep button.has{border-style:solid;background:rgba(201,160,255,.1);flex:1;justify-content:flex-start}
+.gw-rep button.has .ic{width:28px!important;height:28px!important;flex:none}.gw-rep button.has b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gw-rep button.x{border:1px solid var(--line);padding:4px 9px;color:var(--muted)}
+.sock.rp{color:#c9a0ff}
+.rd2-rep{display:flex;align-items:center;gap:6px;margin-top:4px;font-size:12.5px;color:#c9a0ff}.rd2-rep .ic{width:26px!important;height:26px!important;flex:none}.rd2-rep b{font-size:13px;color:#e4d2ff}
 </style>
 
 <section class="landing" id="landing" aria-label="หน้าแรก">
@@ -3319,7 +3329,7 @@ document.addEventListener("click",e=>{const c=e.target.closest("[data-gwchoose]"
 function skIcUrl(h,c){const s=((D.skills||{})[h]||[]).find(x=>x.c===c);return s?src(s.ic):""}
 function coverImg(p,art,lazy){if(p.ic){if(!skillImgLoaded)loadSkillImg();const u=skIcUrl(p.t,p.ic);return u?`<img class="cov-sk" src="${u}" alt="">`:`<i class="cov-wait"></i>`}return art?`<img src="${art}" alt=""${lazy?' loading="lazy"':""}>`:""}
 const NS=[["weapon","อาวุธ",""],["armor","ชุด",""],["hat","หมวก",""],["boot","รองเท้า",""],["acc","เครื่องประดับ",""],["pet","สัตว์เลี้ยง",""]];
-const GW_STEPS=[["เลือกหาง","เลือกสัตว์หางที่จะเขียนไกด์ เปลี่ยนทีหลังได้"],["ข้อมูลไกด์","ตั้งชื่อ บอกว่าเหมาะกับ PVE หรือ PVP แล้วเล่าวิธีเล่นสั้นๆ"],["สเตตัส","เลือกว่าเน้นค่าไหน ตัน = อัปสุด · ตาม = อัปตามต้องใช้ · หรือใส่ตัวเลขเป้าหมาย"],["เซ็ตอุปกรณ์","กดช่องเพื่อเลือกของที่หางนี้ใส่ได้ · อาวุธ ชุด หมวก เลือกได้ว่ายัด Status อะไร"],["สกิล & โน้ต","อัปสกิลตามที่แนะนำ แล้วติดดาวสกิลสำคัญพร้อมเหตุผลว่าทำไมอัป"],["ตรวจ & โพสต์","ดูภาพรวมก่อนโพสต์ขึ้นกระดาน Build"]];
+const GW_STEPS=[["เลือกหาง","เลือกสัตว์หางที่จะเขียนไกด์ เปลี่ยนทีหลังได้"],["ข้อมูลไกด์","ตั้งชื่อ บอกว่าเหมาะกับ PVE หรือ PVP แล้วเล่าวิธีเล่นสั้นๆ"],["สเตตัส","เลือกว่าเน้นค่าไหน ตัน = อัปสุด · ตาม = อัปตามต้องใช้ · หรือใส่ตัวเลขเป้าหมาย"],["เซ็ตอุปกรณ์","กดช่องเพื่อเลือกของที่หางนี้ใส่ได้ · อาวุธ ชุด หมวก เลือกได้ว่ายัด Status อะไร · อาวุธเลือกได้ว่าเรปเป็นอะไร"],["สกิล & โน้ต","อัปสกิลตามที่แนะนำ แล้วติดดาวสกิลสำคัญพร้อมเหตุผลว่าทำไมอัป"],["ตรวจ & โพสต์","ดูภาพรวมก่อนโพสต์ขึ้นกระดาน Build"]];
 const GW_OPT=new Set([2,3,4]);
 const GW_PRE=[["⚔","สายตีกายภาพ",{Atk:"max",Agi:"follow"}],["🔮","สายเวท",{Int:"max",Tal:"follow"}],["🛡","สายถึก",{Vit:"max",Def:"follow"}],["🍀","สายโชค",{Lck:"max",Atk:"follow"}]];
 const GW_SNIP=["จุดเด่น","จุดอ่อน","วิธีเล่น","คอมโบสกิล","เหมาะกับ"];
@@ -3339,7 +3349,7 @@ let _gwFam=null;const gwFam=()=>{if(_gwFam)return _gwFam;_gwFam={};(D.recipes||[
 const gwTails=n=>{const ts=gwTails0(n);if(ts.length)return ts;const F=gwFam(),r=F["r:"+n];if(r)return [r];return []};
 const gwIsAcc=n=>{const it=I(n),d=String(it.d||""),m=String(n);if(!it.t||it.t==="mount"||/Mount|Caller|\bBox\b/.test(m)||/^[A-Z][a-z]+ Accessory$/.test(m))return false;if(it.t==="trinket")return true;if(/^(แหวน|ปลอก|ปีก|สร้อย|เครื่องราง|แว่น|กระดอง|ประดับหลัง|อังค์|ครีบ|หัตถ์|จันทร์เสี้ยว|ภู)/.test(d))return true;return /\b(Ring|Armlet|Wings?|Glasses|Amulet|Charm)\b/.test(m)};
 const gwGear=n=>{const it=I(n);if(/^[A-Z][a-z]+ Weapon$/.test(n)&&!it.lv&&!it.d)return false;if(it.t==="pet")return true;if(["material","recipe","coin","field","quest"].includes(it.t))return false;return itemCat(n)==="equip"||(it.t==="misc"&&!!it.lv&&!!gwDSlot(n)&&gwTails(n).length>0)};
-const gwSet=n=>({n,i:["","","","","",""],sk:["","",""]});
+const gwSet=n=>({n,i:["","","","","",""],sk:["","",""],rp:["","","","","",""]});
 const gwIst=n=>Object.entries(I(n).st||{}).filter(([k])=>STATS.includes(k)).map(([k,v])=>`${k} ${v}`).join(" · ");
 const gwX=`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg>`;
 let GW=null;
@@ -3348,12 +3358,12 @@ let _gwT=0;function gwSave(){clearTimeout(_gwT);_gwT=setTimeout(()=>{if(!GW)retu
 function gwDraft(){try{const d=JSON.parse(localStorage.getItem("ttc-guide")||"null");return d&&(d.t||d.n)?d:null}catch(_){return null}}
 function gwLoadDraft(d){GW={...d,pick:null,q:""};if(GW.t){skillBuild[GW.t]=new Set(d.k||[]);skillLevel[GW.t]=Math.min(100,d.l||100)}}
 function gwFromPack(o,meta){if(!o||!D.tails[o.t])return false;const g=o.g||{};
-  const sets=(o.q&&o.q.length?o.q:[{n:"เซ็ตหลัก",i:o.e||[]}]).slice(0,3).map((s,si)=>{const ns=gwSet(s.n||"เซ็ต");(s.i||[]).filter(n=>D.items[n]).forEach(n=>{const k=NS.findIndex(x=>x[0]===gwSlot(n));if(k>=0&&!ns.i[k])ns.i[k]=n});if(g.sk&&g.sk[si])ns.sk=g.sk[si].slice(0,3).map(x=>STATS.includes(x)?x:"");return ns});
+  const sets=(o.q&&o.q.length?o.q:[{n:"เซ็ตหลัก",i:o.e||[]}]).slice(0,3).map((s,si)=>{const ns=gwSet(s.n||"เซ็ต");(s.i||[]).filter(n=>D.items[n]).forEach(n=>{const k=NS.findIndex(x=>x[0]===gwSlot(n));if(k>=0&&!ns.i[k])ns.i[k]=n});if(g.sk&&g.sk[si])ns.sk=g.sk[si].slice(0,3).map(x=>STATS.includes(x)?x:"");if(g.rp&&g.rp[si])ns.rp=NS.map((_,k)=>D.items[g.rp[si][k]]?g.rp[si][k]:"");return ns});
   let st=g.st&&Object.keys(g.st).length?g.st:{};if(!Object.keys(st).length&&Array.isArray(o.p))o.p.forEach(([k,tg])=>{if(STATS.includes(k))st[k]=/^\d+$/.test(String(tg).trim())?{m:"num",v:String(tg).trim()}:/สูง|max|ตัน/i.test(tg||"")?{m:"max",v:""}:{m:"follow",v:""}});
   GW={step:5,t:o.t,ic:o.ic||null,n:o.n||"",a:meta?.author||brdLS("ttc-author","")||"",tags:(meta?.tags||[]).filter(x=>x==="PVE"||x==="PVP"),d:g.d||meta?.desc||o.w?.play||"",st,sets,cur:0,pick:null,q:"",ks:Array.isArray(o.ks)?o.ks.map(x=>[x[0]|0,String(x[1]||"")]):[]};
   skillBuild[o.t]=new Set((o.k||[]).map(Number));skillLevel[o.t]=Math.max(1,Math.min(100,o.l|0||100));return true}
 function gwPack(){const t=GW.t,s0=GW.sets[0];return {t,ic:GW.ic||undefined,l:skillLevel[t]??100,s:[0,0,0,0,0,0,0,0],b:0,e:s0.i.filter(Boolean),k:[...(skillBuild[t]||[])],n:GW.n.trim()||t+" Build",
-  q:GW.sets.map(s=>({n:s.n,i:s.i})),p:[],ks:GW.ks,w:{play:"",pro:"",con:""},g:{d:GW.d,st:GW.st,sk:GW.sets.map(s=>s.sk)}}}
+  q:GW.sets.map(s=>({n:s.n,i:s.i})),p:[],ks:GW.ks,w:{play:"",pro:"",con:""},g:{d:GW.d,st:GW.st,sk:GW.sets.map(s=>s.sk),rp:GW.sets.map(s=>s.rp||[])}}}
 function gwChecks(){const set=GW.t?skillBuild[GW.t]||new Set():new Set();return [[!!GW.t,"เลือกหาง",0],[!!GW.n.trim(),"ชื่อไกด์",1],[GW.tags.length>0,"PVE/PVP",1],[GW.d.trim().length>=20,"คำอธิบาย",1],[Object.keys(GW.st).length>0,"สเตตัส",2],[GW.sets.some(s=>s.i.some(Boolean)),"เซ็ตอุปกรณ์",3],[set.size>0,"สกิล",4]]}
 // ---- live preview ----
 function gwPrev(){if(!GW||!GW.t)return;const el=$("#gwPrev");if(el)el.innerHTML=brdCard({id:"_prev",at:Date.now(),likes:0,views:0,author:GW.a||"ไม่ระบุชื่อ",desc:GW.d.slice(0,200),tags:GW.tags,build:gwPack()},0);const m=$("#gwMini");if(m)m.innerHTML=gwMini()}
@@ -3376,21 +3386,22 @@ function gwStep2(){const cur=JSON.stringify(Object.fromEntries(Object.entries(GW
   <div class="gw-st">${STATS.map(k=>{const v=GW.st[k],m=v?.m||"";return `<div class="gw-sc${m?" on":""}" style="--c:${STC[k]}"><div class="gw-sch"><b>${k.toUpperCase()}</b><small>${STH[k]}</small></div>
     <div class="gw-seg">${[["","–"],["max","ตัน"],["follow","ตาม"],["num","ใส่ค่า"]].map(([mm,l])=>`<button type="button" class="${m===mm?"on":""}" data-gwst="${k}|${mm}" ${mm?"":`title="ไม่เน้น"`}>${l}</button>`).join("")}</div>
     ${m==="num"?`<input type="text" inputmode="numeric" maxlength="8" value="${esc(v.v||"")}" data-gwsv="${k}" placeholder="เช่น 160" aria-label="${k} เป้าหมาย">`:""}</div>`}).join("")}</div>`}
-function gwStep3(){const S=GW.sets[GW.cur],cnt=S.i.filter(Boolean).length;
+function gwStep3(){const S=GW.sets[GW.cur],cnt=S.i.filter(Boolean).length;if(!S.rp)S.rp=["","","","","",""];
   const tabs=GW.sets.map((s,i)=>`<button type="button" class="${i===GW.cur?"on":""}" data-gwset="${i}">${esc(s.n)} <i>${s.i.filter(Boolean).length}/6</i></button>`).join("")+(GW.sets.length<3?`<button type="button" class="add" data-gwsetadd>+ เพิ่มเซ็ต</button>`:"");
   const tiles=NS.map(([k,l,ic],si)=>{const n=S.i[si];return `<div class="gw-slot${n?" has":""}${GW.pick===si?" pick":""}" style="--rc:${n?tc(I(n).t):"var(--line)"}">
     <button type="button" class="gw-sb" data-gwslot="${si}"><span class="gw-si">${n?icon(n):`<span class="gw-se">+</span>`}</span><span class="gw-st2"><small>${l}</small><b>${n?esc(n):`เลือก${l}`}</b>${n?"":`<i>กดเพื่อเลือก</i>`}</span></button>
     ${n?`<button type="button" class="gw-sx" data-gwclr="${si}" title="เอาออก" aria-label="เอาออก">×</button>`:""}
+    ${si===0?`<div class="gw-rep"><small>เรป</small>${S.rp[0]?`<button type="button" class="has" data-gwrp="0" title="เปลี่ยนอาวุธที่เรป">${icon(S.rp[0])}<b>${esc(S.rp[0])}</b></button><button type="button" class="x" data-gwrpclr="0" aria-label="เอาเรปออก">×</button>`:`<button type="button" data-gwrp="0">+ เลือกอาวุธที่จะเรปเป็น</button>`}</div>`:""}
     ${si<3?`<div class="gw-sock"><small>ยัด</small>${STATS.map(x=>`<button type="button" class="${S.sk[si]===x?"on":""}" style="--c:${STC[x]}" data-gwsock="${si}|${x}">${x.toUpperCase()}</button>`).join("")}</div>`:""}</div>`}).join("");
   return `<div class="gw-sets">${tabs}</div>
     <div class="gw-setbar">${GW.sets.length>1?`<label>ชื่อเซ็ต <input value="${esc(S.n)}" maxlength="24" data-gwsetname></label>${GW.cur?`<button type="button" class="bx-mini" data-gwsetdel>ลบเซ็ตนี้</button>`:""}`:`<span>ทำได้สูงสุด 3 เซ็ต เช่น เซ็ต PVE / เซ็ต PVP / เซ็ตฟาร์ม</span>`}<b>${cnt}/6 ช่อง</b></div>
     <div class="gw-slots">${tiles}</div>`}
-function gwSugList(){const q=GW.q.trim().toLowerCase(),slot=NS[GW.pick][0],t=GW.t,curN=GW.sets[GW.cur].i[GW.pick];
+function gwSugList(){const q=GW.q.trim().toLowerCase(),slot=NS[GW.pick][0],t=GW.t,curN=GW.rp?(GW.sets[GW.cur].rp||[])[GW.pick]:GW.sets[GW.cur].i[GW.pick];
   const pool=Object.keys(D.items).filter(n=>gwGear(n)&&gwSlot(n)===slot),own=pool.filter(n=>gwTails(n).includes(t));
   let L=(slot==="acc"?pool.filter(gwIsAcc):slot==="boot"?pool:slot==="pet"?pool.filter(n=>{const ts=gwTails(n);return !ts.length||ts.includes(t)}):own.length?own:pool.filter(n=>!gwTails(n).length)).filter(n=>!q||n.toLowerCase().includes(q));
   L.sort((a,c)=>(+(I(c).lv||0))-(+(I(a).lv||0))||a.localeCompare(c));const tot=L.length,more=tot>80;L=L.slice(0,80);
   return [L.length?L.map(n=>`<button type="button" class="${n===curN?"on":""}" data-gwput="${esc(n)}" style="--rc:${tc(I(n).t)}">${icon(n)}<span class="gw-sgt"><b>${esc(n)}</b></span>${n===curN?"<em>✓</em>":""}</button>`).join("")+(more?`<div class="mk-none">แสดง 80 ชิ้นแรก · พิมพ์ค้นหาเพื่อดูเพิ่ม</div>`:""):`<div class="mk-none">ไม่พบ${NS[GW.pick][1]}ที่ ${esc(t)} ใส่ได้</div>`,tot]}
-function gwSheet(){const [h,n]=gwSugList(),l=NS[GW.pick][1];return `<div class="gw-shh"><div><small>${esc(GW.sets[GW.cur].n)}</small><b>เลือก${l}</b><span id="gwsn">${["acc","boot"].includes(NS[GW.pick][0])?"ใส่ได้ทุกหาง":"ของ "+esc(GW.t)} ${n} ชิ้น</span></div><button type="button" class="icon-btn" data-gwslot="-1" aria-label="ปิด">${gwX}</button></div>
+function gwSheet(){const [h,n]=gwSugList(),l=NS[GW.pick][1];return `<div class="gw-shh"><div><small>${esc(GW.sets[GW.cur].n)}${GW.rp?` · เรปจาก ${esc(GW.sets[GW.cur].i[GW.pick]||"อาวุธที่ใส่")}`:""}</small><b>${GW.rp?"เลือกอาวุธที่จะเรปเป็น":"เลือก"+l}</b><span id="gwsn">${["acc","boot"].includes(NS[GW.pick][0])?"ใส่ได้ทุกหาง":"ของ "+esc(GW.t)} ${n} ชิ้น</span></div><button type="button" class="icon-btn" data-gwslot="-1" aria-label="ปิด">${gwX}</button></div>
   <div class="mk-add gw-shq"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input type="search" id="gwq" autocomplete="off" placeholder="พิมพ์ชื่อ${l}…" value="${esc(GW.q)}"></div>
   <div class="gw-sug" id="gwsug">${h}</div>`}
 function gwKeys(){const t=GW.t,set=skillBuild[t]||new Set(),learned=[...set].sort((a,c)=>a-c),star=new Set(GW.ks.map(x=>x[0]));
@@ -3398,7 +3409,7 @@ function gwKeys(){const t=GW.t,set=skillBuild[t]||new Set(),learned=[...set].sor
     ${learned.length?`<div class="ks-pool">${learned.map(c=>`<button type="button" class="${star.has(c)?"on":""}" data-gwks="${c}" title="${esc(skName(t,c))}">${skIcon(t,c)}${star.has(c)?"<em>★</em>":""}</button>`).join("")}</div>`:`<span class="bx-none">อัปสกิลในสายด้านบนก่อน แล้วสกิลที่อัปจะมาโผล่ที่นี่ให้ติดดาว</span>`}`}
 function gwStep4(){return `${skillTree(GW.t)}<section class="d-sec bx-card gw-kcard"><div class="bx-ch">สกิลสำคัญ & โน้ต <small>ไม่บังคับ · กดไอคอนสกิลที่อัปแล้วเพื่อติดดาว (สูงสุด 10)</small></div><div id="gwks">${gwKeys()}</div></section>`}
 function gwFocusHTML(st){const L=STATS.filter(k=>st&&st[k]);return L.length?`<div class="gw-focus">${L.map(k=>{const v=st[k];return `<span style="--c:${STC[k]}"><b>${k.toUpperCase()}</b><i>${v.m==="max"?"ตัน":v.m==="follow"?"ตาม":esc(v.v||"?")}</i></span>`}).join("")}</div>`:""}
-function gwSetsHTML(sets){return sets.filter(s=>s.i.some(Boolean)).map(s=>`<div class="rd-set"><small>${esc(s.n)}</small><div>${NS.map(([k,l],i)=>s.i[i]?`<span class="rd-gi">${icon(s.i[i])}<span><small>${l}${s.sk&&s.sk[i]?` · <em class="sock">ยัด ${s.sk[i].toUpperCase()}</em>`:""}</small><b>${esc(s.i[i])}</b></span></span>`:"").join("")}</div></div>`).join("")}
+function gwSetsHTML(sets){return sets.filter(s=>s.i.some(Boolean)).map(s=>`<div class="rd-set"><small>${esc(s.n)}</small><div>${NS.map(([k,l],i)=>s.i[i]?`<span class="rd-gi">${icon(s.i[i])}<span><small>${l}${s.sk&&s.sk[i]?` · <em class="sock">ยัด ${s.sk[i].toUpperCase()}</em>`:""}${s.rp&&s.rp[i]?` · <em class="sock rp">เรป ${esc(s.rp[i])}</em>`:""}</small><b>${esc(s.i[i])}</b></span></span>`:"").join("")}</div></div>`).join("")}
 function gwStep5(){const C=gwChecks(),ok=C.filter(x=>x[0]).length,t=GW.t,v=D.tails[t],acc=ACC[t]||"#d6993f",art=HERO[nf(v.img)]||src(v.img),can=!!(GW.t&&GW.n.trim()&&GW.tags.length),miss=C.filter(x=>!x[0]);
   return `<div class="gw-fgrid"><div class="gw-fl">
     <div class="gw-sum" style="--acc:${acc}"><div class="gw-sh"><span class="rd-art">${art?`<img src="${art}" alt="">`:""}</span><div><span class="pin-tail">${esc(t)} · ${esc(v.th)}</span><h3>${esc(GW.n||"(ยังไม่ได้ตั้งชื่อ)")}</h3><small>โดย ${esc(GW.a||"ไม่ระบุชื่อ")} ${GW.tags.map(g=>`<i class="pin-tag">${g}</i>`).join(" ")}</small></div></div>
@@ -3427,7 +3438,7 @@ function gwClose(){const ov=$("#gwPop");if(ov)ov.classList.remove("show");docume
 function ov_cov(){document.querySelectorAll("[data-gwic]").forEach(b=>b.classList.toggle("on",(+b.dataset.gwic||null)===GW.ic))}
 function gwNeed(){return !GW.n.trim()&&!GW.tags.length?"ตั้งชื่อ + เลือก PVE/PVP":!GW.n.trim()?"ตั้งชื่อไกด์ก่อน":"เลือก PVE หรือ PVP"}
 function gwNextSync(){const n=$("#gwNext");if(!n||GW.step!==1)return;const blk=!GW.n.trim()||!GW.tags.length;n.disabled=blk;n.querySelector("small").textContent=blk?gwNeed():"ถัดไป"}
-function gwGo(s){if(s<0||s>5||(!GW.t&&s>0))return;if(s>1&&GW.step<=1&&(!GW.n.trim()||!GW.tags.length)){GW.step=1;gwRender();toast(gwNeed());return}GW.step=s;GW.pick=null;gwRender();gwSave()}
+function gwGo(s){if(s<0||s>5||(!GW.t&&s>0))return;GW.rp=false;if(s>1&&GW.step<=1&&(!GW.n.trim()||!GW.tags.length)){GW.step=1;gwRender();toast(gwNeed());return}GW.step=s;GW.pick=null;gwRender();gwSave()}
 function gwChooser(tail){const d=gwDraft();if(!d){gwNew(tail||null);gwSave();gwOpen();return}let ov=$("#gwChoose");if(!ov){ov=document.createElement("div");ov.id="gwChoose";ov.className="lvpop";document.body.appendChild(ov);ov.addEventListener("click",e=>{if(e.target===ov||e.target.closest("[data-gwcclose]"))ov.classList.remove("show")})}
   ov.innerHTML=`<div class="lvpop-card gw-ch"><div class="lvpop-h"><span class="lvt-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></span><span class="lvt-h"><b>สร้าง Build</b><small>เขียนไกด์ใหม่ หรือเขียนร่างที่ค้างไว้ต่อ</small></span><button type="button" class="icon-btn" data-gwcclose aria-label="ปิด">${gwX}</button></div>
     <div class="gw-opts"><button type="button" class="gw-opt" data-gwstart="${tail||""}"><span class="gw-oi">+</span><b>สร้างไกด์ใหม่</b><small>${tail?`เริ่มเขียนไกด์ ${esc(tail)} · 5 ขั้น ใช้เวลาไม่กี่นาที`:"เลือกหาง แล้วเขียนทีละขั้น · 5 ขั้น ใช้เวลาไม่กี่นาที"}</small></button>
@@ -3453,8 +3464,10 @@ document.addEventListener("click",async e=>{const g=a=>e.target.closest("["+a+"]
   if(x=g("data-gwst")){const [k,m]=x.dataset.gwst.split("|");if(!m)delete GW.st[k];else GW.st[k]={m,v:GW.st[k]?.v||""};gwRender();gwSave();if(m==="num")setTimeout(()=>$(`[data-gwsv="${k}"]`)?.focus(),0);return}
   if(x=g("data-gwclr")){GW.sets[GW.cur].i[+x.dataset.gwclr]="";gwRender();gwSave();return}
   if(x=g("data-gwsock")){const [i,v]=x.dataset.gwsock.split("|"),S=GW.sets[GW.cur];S.sk[+i]=S.sk[+i]===v?"":v;gwRender();gwSave();return}
-  if(x=g("data-gwslot")){const v=+x.dataset.gwslot;GW.pick=v<0||GW.pick===v?null:v;GW.q="";gwRender();if(GW.pick!=null&&matchMedia("(min-width:761px)").matches)setTimeout(()=>$("#gwq")?.focus(),60);return}
-  if(x=g("data-gwput")){GW.sets[GW.cur].i[GW.pick]=x.dataset.gwput;GW.pick=null;GW.q="";gwRender();gwSave();return}
+  if(x=g("data-gwrp")){GW.pick=+x.dataset.gwrp;GW.rp=true;GW.q="";gwRender();if(matchMedia("(min-width:761px)").matches)setTimeout(()=>$("#gwq")?.focus(),60);return}
+  if(x=g("data-gwrpclr")){const S=GW.sets[GW.cur];S.rp=S.rp||[];S.rp[+x.dataset.gwrpclr]="";gwRender();gwSave();return}
+  if(x=g("data-gwslot")){const v=+x.dataset.gwslot;GW.rp=false;GW.pick=v<0||GW.pick===v?null:v;GW.q="";gwRender();if(GW.pick!=null&&matchMedia("(min-width:761px)").matches)setTimeout(()=>$("#gwq")?.focus(),60);return}
+  if(x=g("data-gwput")){const S=GW.sets[GW.cur];if(GW.rp){S.rp=S.rp||["","","","","",""];S.rp[GW.pick]=x.dataset.gwput}else S.i[GW.pick]=x.dataset.gwput;GW.rp=false;GW.pick=null;GW.q="";gwRender();gwSave();return}
   if(x=g("data-gwset")){GW.cur=+x.dataset.gwset;GW.pick=null;gwRender();return}
   if(x=g("data-gwsetadd")){if(GW.sets.length<3){GW.sets.push(gwSet(GW.sets.length===1?"เซ็ต PVP":"เซ็ตที่ 3"));GW.cur=GW.sets.length-1}gwRender();gwSave();return}
   if(x=g("data-gwsetdel")){if(GW.cur){GW.sets.splice(GW.cur,1);GW.cur=0}gwRender();gwSave();return}
@@ -3475,7 +3488,7 @@ document.addEventListener("input",e=>{if(!GW||!$("#gwPop.show"))return;const el=
   if(d.gwksn!==undefined){GW.ks[+d.gwksn][1]=el.value;gwSave();return}
   if(el.hasAttribute("data-gwsetname")){GW.sets[GW.cur].n=el.value.slice(0,24)||"เซ็ต";const b=document.querySelector(`[data-gwset="${GW.cur}"]`);if(b)b.firstChild.textContent=GW.sets[GW.cur].n+" ";gwSave();return}
   if(el.id==="gwq"){GW.q=el.value;const [h,n]=gwSugList();$("#gwsug").innerHTML=h;$("#gwsn").textContent=`${["acc","boot"].includes(NS[GW.pick][0])?"ใส่ได้ทุกหาง":"ของ "+GW.t} ${n} ชิ้น`}});
-document.addEventListener("keydown",e=>{if(!$("#gwPop.show"))return;if(e.key==="Escape"){e.stopPropagation();if(GW.pick!=null){GW.pick=null;gwRender()}else gwClose();return}
+document.addEventListener("keydown",e=>{if(!$("#gwPop.show"))return;if(e.key==="Escape"){e.stopPropagation();if(GW.pick!=null){GW.pick=null;GW.rp=false;gwRender()}else gwClose();return}
   if(e.key==="Enter"&&e.target.matches('[data-gwf="n"],[data-gwf="a"]')){e.preventDefault();const n=$("#gwNext");if(n&&!n.disabled)n.click()}},true);
 const _skRedraw2=skRedraw;skRedraw=function(h){_skRedraw2(h);const k=document.getElementById("gwks");if(k&&GW&&GW.t===h){k.innerHTML=gwKeys();gwSave()}};
 /* ---------- build board ---------- */
@@ -3565,7 +3578,7 @@ document.addEventListener("change",e=>{const s=e.target.closest("[data-brdsort]"
 document.addEventListener("input",e=>{if(e.target.id!=="brdq")return;BRD.q=e.target.value;BRD.lim=24;clearTimeout(window.__brdT);window.__brdT=setTimeout(()=>brdRedraw(),160)});
 
 let RD=null;
-function rdSets(p){const g=p.g||{};if(p.g&&p.q&&p.q.length)return p.q.slice(0,3).map((s,i)=>({n:s.n||"เซ็ต",i:NS.map((_,k)=>(s.i||[])[k]||""),sk:(g.sk||[])[i]||[]}));
+function rdSets(p){const g=p.g||{};if(p.g&&p.q&&p.q.length)return p.q.slice(0,3).map((s,i)=>({n:s.n||"เซ็ต",i:NS.map((_,k)=>(s.i||[])[k]||""),sk:(g.sk||[])[i]||[],rp:(g.rp||[])[i]||[]}));
   return (p.q&&p.q.length?p.q:[{n:"อุปกรณ์",i:p.e||[]}]).slice(0,3).map(s=>{const o={n:s.n||"เซ็ต",i:["","","","","",""],sk:[]};(s.i||[]).filter(n=>n&&D.items[n]).forEach(n=>{const k=NS.findIndex(z=>z[0]===gwSlot(n));if(k>=0&&!o.i[k])o.i[k]=n});return o})}
 function rdArticle(p,x){let d=(p.g&&p.g.d)||"";const w=p.w||{};if(!p.g){if(w.play)d+="【วิธีเล่น】 "+w.play;if(w.pro)d+="\n【จุดเด่น】 "+w.pro;if(w.con)d+="\n【จุดอ่อน】 "+w.con;if(!d)d=x.desc||""}
   if(!d.trim())return "";const parts=d.split(/【([^】]{1,30})】/),intro=parts[0].trim(),ch=[];for(let i=1;i<parts.length;i+=2){const b=(parts[i+1]||"").trim();if(b)ch.push([parts[i],b])}
@@ -3576,7 +3589,7 @@ function rdGauges(p){const st=p.g&&p.g.st;if(st&&Object.keys(st).length){const n
   return top.map(([k,n])=>`<div class="rd2-g num" style="--c:${STC[k]}"><b>${k.toUpperCase()}</b><span class="rd2-gb"><i style="width:${Math.round(n/mx*100)}%"></i></span><em>${fmt(n)}</em></div>`).join("")}
 function rdGear(){const S=RD.sets,cur=Math.min(RD.set,S.length-1),s=S[cur];if(!S.some(z=>z.i.some(Boolean)))return `<p class="rd2-empty">ไกด์นี้ไม่ได้ระบุอุปกรณ์</p>`;
   return `${S.filter(z=>z.i.some(Boolean)).length>1?`<div class="rd2-tabs">${S.map((z,i)=>!z.i.some(Boolean)?"":`<button type="button" class="${i===cur?"on":""}" data-rdset="${i}">${esc(z.n)} <i>${z.i.filter(Boolean).length}</i></button>`).join("")}</div>`:""}
-  <div class="rd2-gear">${NS.map(([k,l,ic],i)=>{const n=s.i[i],sk=s.sk&&s.sk[i];return n?`<div class="rd2-slot" style="--rc:${tc(I(n).t)}"><span class="rd2-sl">${l}</span><span class="rd2-si">${icon(n)}</span><span class="rd2-st"><b>${esc(n)}</b></span>${sk?`<em class="rd2-sock" style="--c:${STC[sk]}">ยัด ${sk.toUpperCase()}</em>`:""}</div>`:""}).join("")}</div>`}
+  <div class="rd2-gear">${NS.map(([k,l,ic],i)=>{const n=s.i[i],sk=s.sk&&s.sk[i];return n?`<div class="rd2-slot" style="--rc:${tc(I(n).t)}"><span class="rd2-sl">${l}</span><span class="rd2-si">${icon(n)}</span><span class="rd2-st"><b>${esc(n)}</b>${s.rp&&s.rp[i]&&D.items[s.rp[i]]?`<span class="rd2-rep">เรป → ${icon(s.rp[i])}<b>${esc(s.rp[i])}</b></span>`:""}</span>${sk?`<em class="rd2-sock" style="--c:${STC[sk]}">ยัด ${sk.toUpperCase()}</em>`:""}</div>`:""}).join("")}</div>`}
 function rdTree(p){const h=p.t;if(!(D.skills||{})[h])return "";const sb=skillBuild[h],sl=skillLevel[h];skillBuild[h]=new Set((p.k||[]).map(Number));skillLevel[h]=Math.min(100,p.l||100);let s;
   try{s=skInner(h)}finally{if(sb)skillBuild[h]=sb;else delete skillBuild[h];if(sl===undefined)delete skillLevel[h];else skillLevel[h]=sl}
   s=s.replace(/<h4>[\s\S]*?<\/h4>/,"").replace(/<div class="skbar">[\s\S]*?<\/div>/,"");

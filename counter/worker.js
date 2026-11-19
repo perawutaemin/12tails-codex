@@ -60,6 +60,7 @@ export default {
           g: p.g ? {
             d: clean(p.g.d, 1500),
             st: Object.fromEntries(Object.entries(p.g.st || {}).filter(([k, v]) => STATS.includes(k) && v && ["max", "follow", "num"].includes(v.m)).map(([k, v]) => [k, { m: v.m, v: clean(v.v, 8) }])),
+            rp: Array.isArray(p.g.rp) ? p.g.rp.slice(0, 3).map((s) => (Array.isArray(s) ? s : []).slice(0, 6).map((x) => clean(x, 60))) : [],
             sk: Array.isArray(p.g.sk) ? p.g.sk.slice(0, 3).map((s) => (Array.isArray(s) ? s : []).slice(0, 3).map((x) => (STATS.includes(x) ? x : ""))) : [],
           } : undefined,
         },
