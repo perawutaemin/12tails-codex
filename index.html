@@ -3535,8 +3535,10 @@ document.addEventListener("click",async e=>{
   const tg=e.target.closest("[data-brdtag]");if(tg){BRD.tag=tg.dataset.brdtag;BRD.lim=24;brdRedraw();return}
   if(e.target.closest("[data-brdnew]")){gwChooser(BRD.tail!=="all"?BRD.tail:null);return}
   const op=e.target.closest("[data-brdopen]");if(op){const x=(BRD.list||[]).find(y=>y.id===op.dataset.brdopen);if(!x)return;if(gwFromPack(JSON.parse(JSON.stringify(x.build)),x)){GW.step=1;gwSave();gwOpen();toast("คัดลอกไกด์มาเป็นร่างของคุณแล้ว · แก้แล้วโพสต์เป็นไกด์ใหม่ได้")}return}
-  const lk=e.target.closest("[data-brdlike]");if(lk){const id=lk.dataset.brdlike,L=brdLiked();if(L.has(id)){toast("กดหัวใจ Build นี้ไปแล้ว");return}L.add(id);try{localStorage.setItem("ttc-liked",JSON.stringify([...L]))}catch(_){}
-    const x=(BRD.list||[]).find(y=>y.id===id);if(x)x.likes++;brdRedraw();try{const r=await fetch(API+"/builds/"+id+"/like",{method:"POST"});const j=await r.json();if(x&&typeof j.likes==="number"){x.likes=j.likes;brdRedraw()}}catch(_){}return}
+  const lk=e.target.closest("[data-brdlike]");if(lk){const id=lk.dataset.brdlike,L=brdLiked(),on=!L.has(id);on?L.add(id):L.delete(id);try{localStorage.setItem("ttc-liked",JSON.stringify([...L]))}catch(_){}
+    const x=(BRD.list||[]).find(y=>y.id===id),sync=()=>document.querySelectorAll(`[data-brdlike="${id}"]`).forEach(b=>{b.classList.toggle("on",on);b.setAttribute("aria-pressed",on);if(x&&b.lastChild&&b.lastChild.nodeType===3)b.lastChild.textContent=x.likes});
+    if(x)x.likes=Math.max(0,x.likes+(on?1:-1));sync();
+    try{const r=await fetch(API+"/builds/"+id+"/like",{method:on?"POST":"DELETE"});const j=await r.json();if(x&&typeof j.likes==="number"){x.likes=j.likes;sync()}}catch(_){}return}
   const ad=e.target.closest("[data-brdadmin]");if(ad){if(ad.dataset.brdadmin==="off"){try{localStorage.removeItem("ttc-admin")}catch(_){}}else{const k=prompt("รหัสแอดมิน");if(k)try{localStorage.setItem("ttc-admin",k.trim())}catch(_){}}brdRedraw();return}
   const del=e.target.closest("[data-brddel]");if(del){if(del.dataset.armed!=="1"){del.dataset.armed="1";del.textContent="กดอีกครั้งเพื่อลบ";setTimeout(()=>{if(del.isConnected){del.dataset.armed="";del.textContent="ลบ"}},2500);return}
     try{const r=await fetch(API+"/builds/"+del.dataset.brddel,{method:"DELETE",headers:{"X-Admin":brdAdmin()}});if(!r.ok)throw 0;BRD.list=BRD.list.filter(y=>y.id!==del.dataset.brddel);toast("ลบแล้ว");brdRedraw();renderSide()}catch(_){toast("ลบไม่สำเร็จ · รหัสแอดมินไม่ถูกต้อง?")}return}

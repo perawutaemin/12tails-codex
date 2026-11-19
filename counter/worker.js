@@ -80,6 +80,14 @@ export default {
       b.likes++; await kv.put("builds", JSON.stringify(list)); await kv.put(lk, "1", { expirationTtl: 400 * 86400 });
       return J({ likes: b.likes });
     }
+    if (m && req.method === "DELETE") {
+      const lk = "lk:" + m[1] + ":" + ip;
+      const list = await readBuilds(kv), b = list.find((x) => x.id === m[1]);
+      if (!b) return J({ error: "ไม่พบ Build" }, 404);
+      if (!(await kv.get(lk))) return J({ likes: b.likes, already: true });
+      b.likes = Math.max(0, b.likes - 1); await kv.put("builds", JSON.stringify(list)); await kv.delete(lk);
+      return J({ likes: b.likes });
+    }
 
     m = path.match(/^\/builds\/([\w-]{4,12})\/view$/);
     if (m && req.method === "POST") {
