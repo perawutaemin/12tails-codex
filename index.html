@@ -2527,12 +2527,12 @@ function skInner(hero){
   if(!skillImgLoaded)loadSkillImg();
   const v=D.tails[hero],names={1:["Basic",""],2:["A",""],3:["B",""],4:["C",""]};
   (v.sk||[]).forEach(s=>{const m=s.match(/^(Basic|[ABC]) Skill\s*:?\s*(.+)$/i);if(m){const k={basic:1,a:2,b:3,c:4}[m[1].toLowerCase()];names[k][1]=m[2].trim()}});
-  const set=skillBuild[hero]||(skillBuild[hero]=new Set()),lv=skillLevel[hero]??110,p=skPts(lv,set);
+  const set=skillBuild[hero]||(skillBuild[hero]=new Set()),lv=skillLevel[hero]??100,p=skPts(lv,set);
   const node=s=>{const stt=skStatus(s,lv,set).k;return `<button type="button" class="sk st-${stt}" data-sk="${hero}|${s.c}" aria-label="${esc(s.n)} ${ROM[s.lvn]||""}">${src(s.ic)?`<img src="${src(s.ic)}" alt="">`:`<i>${esc(s.n.slice(0,2))}</i><span class="sk-rom">${s.t===4?"C":ROM[s.lvn]||s.lvn}</span>`}</button>`};
   const panel=tr=>{const list=L.filter(s=>s.t===tr);if(!list.length)return "";const rows={};list.forEach(s=>(rows[s.r]=rows[s.r]||[]).push(s));const got=list.filter(s=>set.has(s.c)).length;
     return `<div class="skp${tr===4?" skp-c":""}"><div class="skp-h"><b>${names[tr][0]}</b>${names[tr][1]?`<span>${esc(names[tr][1])}</span>`:""}<i></i><em>${got}/${list.length}</em></div>
       <div class="skp-body">${Object.keys(rows).sort((a,b)=>a-b).map(r=>{const rr=rows[r].sort((a,b)=>a.c-b.c);return `<div class="skp-row">${rr.map((s,i)=>(i&&tr!==4?`<span class="skp-link${set.has(s.c)?" on":""}"></span>`:"")+node(s)).join("")}</div>`}).join("")}</div></div>`};
-  const bar=`<div class="skbar"><label>เลเวล <input type="number" min="1" max="110" value="${lv}" data-sklv="${hero}" inputmode="numeric"> <small>/ 110</small></label>
+  const bar=`<div class="skbar"><label>เลเวล <input type="number" min="1" max="100" value="${lv}" data-sklv="${hero}" inputmode="numeric"> <small>/ 100</small></label>
     <span class="skpt">แต้มสกิล <b class="${p.nl<0?"neg":""}">${p.nl}</b><small>/ ${p.nt}</small></span>
     <span class="skpt c">แต้ม C <b class="${p.cl<0?"neg":""}">${p.cl}</b><small>/ ${p.ct}</small></span>
     <span class="skhint">คลิกเพื่อเรียนสกิล · คลิกอีกครั้งเพื่อลบ</span>
@@ -2543,7 +2543,7 @@ function skInner(hero){
 function skillTree(hero){if(!(D.skills||{})[hero])return "";if(!skillImgLoaded)loadSkillImg();return `<section class="d-sec" id="sksec">${skInner(hero)}</section>`}
 function skTip(hero,c){
   const L=D.skills[hero],s=L.find(x=>x.c===c);if(!s)return "";
-  const set=skillBuild[hero]||new Set(),lv=skillLevel[hero]??110,stt=skStatus(s,lv,set);
+  const set=skillBuild[hero]||new Set(),lv=skillLevel[hero]??100,stt=skStatus(s,lv,set);
   const nm=x=>{const q=L.find(y=>y.c===x);return q?`${q.n} ${q.t===4?"":ROM[q.lvn]||""}`:x};
   const why={learned:"✓ เรียนแล้ว · คลิกเพื่อลบ",open:"คลิกเพื่อเรียน",level:stt.t,branch:stt.t,nopoint:stt.t,skill:`ต้องเรียน ${(stt.need||[]).map(nm).join(" + ")} ก่อน`,chain:`ต้องเรียน ${(stt.need||[]).map(nm).join("")} ก่อน`}[stt.k];
   return `<div class="tip-h">${src(s.ic)?`<img src="${src(s.ic)}" alt="">`:""}<div><b>${esc(s.n)} ${s.t===4?"":ROM[s.lvn]||""}</b><span>${["","Basic","A","B","C"][s.t]} · ${s.p?"Passive":"Active"} · Lv. ${s.lv}${s.bn?` · ต้องมีแต้มในสาย ${s.bn}`:""}</span></div></div>
@@ -3125,7 +3125,7 @@ function bld(h){if(BLD[h])return BLD[h];
   return b}
 const syncE=b=>{b.cur=Math.min(b.cur,b.sets.length-1);b.e=b.sets[b.cur].i.filter(Boolean)};
 let _bdT=0;function bdSaveSoon(h){clearTimeout(_bdT);_bdT=setTimeout(()=>{try{localStorage.setItem("ttc-draft:"+h,JSON.stringify(bdPack(h)))}catch(_){}},400)}
-const bdLv=h=>skillLevel[h]??110,bdPool=h=>Math.max(0,(bdLv(h)-1)*2),bdUsed=b=>STATS.reduce((a,k)=>a+(b.s[k]||0),0);
+const bdLv=h=>skillLevel[h]??100,bdPool=h=>Math.max(0,(bdLv(h)-1)*2),bdUsed=b=>STATS.reduce((a,k)=>a+(b.s[k]||0),0);
 const stNum=v=>{const n=parseFloat(String(v??"").replace(/[^\d.\-]/g,""));return isNaN(n)?0:n};
 function bdEq(b){const o=Object.fromEntries(STATS.map(k=>[k,0]));b.e.forEach(n=>{const st=I(n).st||{};STATS.forEach(k=>{o[k]+=stNum(st[k])})});return o}
 function bdTot(b){const e=bdEq(b);return Object.fromEntries(STATS.map(k=>[k,(b.b[k]||0)+(b.s[k]||0)+e[k]]))}
@@ -3141,7 +3141,7 @@ function bdStats(h){
       <span class="bx-bar"><i style="width:${b.s[k]/mx*100}%"></i></span>
       <span class="bx-ctl"><button type="button" data-bdstep="${h}|${k}|-1" aria-label="ลด ${k}" ${b.s[k]?"":"disabled"}>−</button><input type="number" min="0" inputmode="numeric" value="${b.s[k]}" data-bdn="${h}|${k}" aria-label="แต้ม ${k}"><button type="button" data-bdstep="${h}|${k}|1" aria-label="เพิ่ม ${k}" ${left>0?"":"disabled"}>+</button></span></div>`).join("");
   const derived=[["HP",`+${fmt(tot.Vit*10)}`,"จาก VIT ×10"],["MP",`+${fmt(tot.Int*3)}`,"จาก INT ×3"],["ความเร็ววิ่ง",`+${(tot.Agi*.5).toFixed(1)}%`,"จาก AGI ×0.5%"],["พลังสกิล",`+${fmt(tot.Tal*2)}%`,"จาก TAL ×2%"]];
-  return `<div class="bx-top"><label class="bx-lv">เลเวล <input type="number" min="1" max="110" value="${bdLv(h)}" data-sklv="${h}" inputmode="numeric"><small>/ 110</small></label>
+  return `<div class="bx-top"><label class="bx-lv">เลเวล <input type="number" min="1" max="100" value="${bdLv(h)}" data-sklv="${h}" inputmode="numeric"><small>/ 100</small></label>
       <span class="bx-pill ${left<0?"neg":""}"><small>แต้มโบนัสเหลือ</small><b>${left}</b><i>/ ${pool}</i></span>
       <span class="bx-pill"><small>แต้มสกิลเหลือ</small><b>${sk.nl}</b><i>/ ${sk.nt}</i></span>
       <span class="bx-pill"><small>แต้ม C เหลือ</small><b>${sk.cl}</b><i>/ ${sk.ct}</i></span>
@@ -3220,7 +3220,7 @@ function bdApply(o,shared){const b=BLD[o.t];STATS.forEach((k,i)=>{b.s[k]=Math.ma
   else{b.sets=[newSet("เซ็ตหลัก")];(o.e||[]).filter(n=>D.items[n]).forEach(n=>{const si=SLOTS.findIndex(x=>x[0]===slotOf(n));if(si>=0&&!b.sets[0].i[si])b.sets[0].i[si]=n})}
   b.cur=0;b.pick=null;b.q="";b.prio=Array.isArray(o.p)?o.p.filter(x=>STATS.includes(x[0])).map(x=>[x[0],String(x[1]||"")]):[];
   b.ks=Array.isArray(o.ks)?o.ks.map(x=>[x[0]|0,String(x[1]||"")]):[];b.w={play:String(o.w?.play||""),pro:String(o.w?.pro||""),con:String(o.w?.con||"")};syncE(b);
-  if(shared||!(skillBuild[o.t]&&skillBuild[o.t].size)){skillLevel[o.t]=Math.max(1,Math.min(110,o.l|0||110));skillBuild[o.t]=new Set((o.k||[]).map(Number))}}
+  if(shared||!(skillBuild[o.t]&&skillBuild[o.t].size)){skillLevel[o.t]=Math.max(1,Math.min(100,o.l|0||100));skillBuild[o.t]=new Set((o.k||[]).map(Number))}}
 function bdUnpack(o){if(!o||!D.tails[o.t])return null;bld(o.t);bdApply(o,true);tailTab[o.t]="build";return o.t}
 const bdURL=h=>location.origin+location.pathname+"#build="+b64e(JSON.stringify(bdPack(h)));
 function bdSaved(){try{return JSON.parse(localStorage.getItem("ttc-builds")||"[]")}catch(_){return []}}
@@ -3329,22 +3329,26 @@ const gwDSlot=n=>{const it=I(n),d=String(it.d||"").trim(),m=String(n);
   if(/^(ชุด|เสื้อ|เกราะ)/.test(d))return "armor";if(/^(รองเท้า|บูท)/.test(d))return "boot";if(/^(ปีก|สร้อย|แหวน|ต่างหู|เข็มกลัด)/.test(d))return "acc";
   if(!d||d==="???")return /Diary|Book|Codex|Scroll|Harp|Lantern/i.test(m)?"weapon":"";return ""};
 const gwSlot=n=>{if(I(n).t==="pet")return "pet";const ds=gwDSlot(n);if(ds)return ds;const s=slotOf(n);return s==="trinket"?"acc":s};
-const gwTails=n=>{const ts=tailsOf(n);if(ts.length)return ts;const d=String(I(n).d||"");return Object.keys(D.tails).filter(k=>D.tails[k].th&&new RegExp("ของ\\s*"+D.tails[k].th+"(?!มืด)").test(d))};
+const gwTails0=n=>{const ts=tailsOf(n);if(ts.length)return ts;const d=String(I(n).d||"");return Object.keys(D.tails).filter(k=>D.tails[k].th&&new RegExp("ของ\\s*"+D.tails[k].th+"(?!มืด)").test(d))};
+let _gwFam=null;const gwFam=()=>{if(_gwFam)return _gwFam;_gwFam={};(D.recipes||[]).forEach(r=>{const m=String(r.sc||"").match(/^(\w+) Recipe\b/);if(m&&D.tails[m[1]])_gwFam["r:"+r.r]=m[1]});
+  return _gwFam};
+const gwTails=n=>{const ts=gwTails0(n);if(ts.length)return ts;const F=gwFam(),r=F["r:"+n];if(r)return [r];return []};
+const gwIsAcc=n=>{const it=I(n),d=String(it.d||""),m=String(n);if(!it.t||it.t==="mount"||/Mount|Caller|\bBox\b/.test(m)||/^[A-Z][a-z]+ Accessory$/.test(m))return false;if(it.t==="trinket")return true;if(/^(แหวน|ปลอก|ปีก|สร้อย|เครื่องราง|แว่น|กระดอง|ประดับหลัง|อังค์|ครีบ|หัตถ์|จันทร์เสี้ยว|ภู)/.test(d))return true;return /\b(Ring|Armlet|Wings?|Glasses|Amulet|Charm)\b/.test(m)};
 const gwGear=n=>{const it=I(n);if(/^[A-Z][a-z]+ Weapon$/.test(n)&&!it.lv&&!it.d)return false;if(it.t==="pet")return true;if(["material","recipe","coin","field","quest"].includes(it.t))return false;return itemCat(n)==="equip"||(it.t==="misc"&&!!it.lv&&!!gwDSlot(n)&&gwTails(n).length>0)};
 const gwSet=n=>({n,i:["","","","","",""],sk:["","",""]});
 const gwIst=n=>Object.entries(I(n).st||{}).filter(([k])=>STATS.includes(k)).map(([k,v])=>`${k} ${v}`).join(" · ");
 const gwX=`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg>`;
 let GW=null;
-function gwNew(t){GW={step:t?1:0,t:t||null,ic:null,n:"",a:(brdLS("ttc-author","")||""),tags:[],d:"",st:{},sets:[gwSet("เซ็ตหลัก")],cur:0,pick:null,q:"",ks:[]};if(t){skillBuild[t]=new Set();skillLevel[t]=110}}
-let _gwT=0;function gwSave(){clearTimeout(_gwT);_gwT=setTimeout(()=>{if(!GW)return;try{localStorage.setItem("ttc-guide",JSON.stringify({...GW,pick:null,q:"",k:GW.t?[...(skillBuild[GW.t]||[])]:[],l:GW.t?(skillLevel[GW.t]??110):110}));const s=$("#gwSaved");if(s){s.classList.add("on");clearTimeout(s._t);s._t=setTimeout(()=>s.classList.remove("on"),1800)}}catch(_){}gwPrev()},300)}
+function gwNew(t){GW={step:t?1:0,t:t||null,ic:null,n:"",a:(brdLS("ttc-author","")||""),tags:[],d:"",st:{},sets:[gwSet("เซ็ตหลัก")],cur:0,pick:null,q:"",ks:[]};if(t){skillBuild[t]=new Set();skillLevel[t]=100}}
+let _gwT=0;function gwSave(){clearTimeout(_gwT);_gwT=setTimeout(()=>{if(!GW)return;try{localStorage.setItem("ttc-guide",JSON.stringify({...GW,pick:null,q:"",k:GW.t?[...(skillBuild[GW.t]||[])]:[],l:GW.t?(skillLevel[GW.t]??100):100}));const s=$("#gwSaved");if(s){s.classList.add("on");clearTimeout(s._t);s._t=setTimeout(()=>s.classList.remove("on"),1800)}}catch(_){}gwPrev()},300)}
 function gwDraft(){try{const d=JSON.parse(localStorage.getItem("ttc-guide")||"null");return d&&(d.t||d.n)?d:null}catch(_){return null}}
-function gwLoadDraft(d){GW={...d,pick:null,q:""};if(GW.t){skillBuild[GW.t]=new Set(d.k||[]);skillLevel[GW.t]=d.l||110}}
+function gwLoadDraft(d){GW={...d,pick:null,q:""};if(GW.t){skillBuild[GW.t]=new Set(d.k||[]);skillLevel[GW.t]=Math.min(100,d.l||100)}}
 function gwFromPack(o,meta){if(!o||!D.tails[o.t])return false;const g=o.g||{};
   const sets=(o.q&&o.q.length?o.q:[{n:"เซ็ตหลัก",i:o.e||[]}]).slice(0,3).map((s,si)=>{const ns=gwSet(s.n||"เซ็ต");(s.i||[]).filter(n=>D.items[n]).forEach(n=>{const k=NS.findIndex(x=>x[0]===gwSlot(n));if(k>=0&&!ns.i[k])ns.i[k]=n});if(g.sk&&g.sk[si])ns.sk=g.sk[si].slice(0,3).map(x=>STATS.includes(x)?x:"");return ns});
   let st=g.st&&Object.keys(g.st).length?g.st:{};if(!Object.keys(st).length&&Array.isArray(o.p))o.p.forEach(([k,tg])=>{if(STATS.includes(k))st[k]=/^\d+$/.test(String(tg).trim())?{m:"num",v:String(tg).trim()}:/สูง|max|ตัน/i.test(tg||"")?{m:"max",v:""}:{m:"follow",v:""}});
   GW={step:5,t:o.t,ic:o.ic||null,n:o.n||"",a:meta?.author||brdLS("ttc-author","")||"",tags:(meta?.tags||[]).filter(x=>x==="PVE"||x==="PVP"),d:g.d||meta?.desc||o.w?.play||"",st,sets,cur:0,pick:null,q:"",ks:Array.isArray(o.ks)?o.ks.map(x=>[x[0]|0,String(x[1]||"")]):[]};
-  skillBuild[o.t]=new Set((o.k||[]).map(Number));skillLevel[o.t]=Math.max(1,Math.min(110,o.l|0||110));return true}
-function gwPack(){const t=GW.t,s0=GW.sets[0];return {t,ic:GW.ic||undefined,l:skillLevel[t]??110,s:[0,0,0,0,0,0,0,0],b:0,e:s0.i.filter(Boolean),k:[...(skillBuild[t]||[])],n:GW.n.trim()||t+" Build",
+  skillBuild[o.t]=new Set((o.k||[]).map(Number));skillLevel[o.t]=Math.max(1,Math.min(100,o.l|0||100));return true}
+function gwPack(){const t=GW.t,s0=GW.sets[0];return {t,ic:GW.ic||undefined,l:skillLevel[t]??100,s:[0,0,0,0,0,0,0,0],b:0,e:s0.i.filter(Boolean),k:[...(skillBuild[t]||[])],n:GW.n.trim()||t+" Build",
   q:GW.sets.map(s=>({n:s.n,i:s.i})),p:[],ks:GW.ks,w:{play:"",pro:"",con:""},g:{d:GW.d,st:GW.st,sk:GW.sets.map(s=>s.sk)}}}
 function gwChecks(){const set=GW.t?skillBuild[GW.t]||new Set():new Set();return [[!!GW.t,"เลือกหาง",0],[!!GW.n.trim(),"ชื่อไกด์",1],[GW.tags.length>0,"PVE/PVP",1],[GW.d.trim().length>=20,"คำอธิบาย",1],[Object.keys(GW.st).length>0,"สเตตัส",2],[GW.sets.some(s=>s.i.some(Boolean)),"เซ็ตอุปกรณ์",3],[set.size>0,"สกิล",4]]}
 // ---- live preview ----
@@ -3371,7 +3375,7 @@ function gwStep2(){const cur=JSON.stringify(Object.fromEntries(Object.entries(GW
 function gwStep3(){const S=GW.sets[GW.cur],cnt=S.i.filter(Boolean).length;
   const tabs=GW.sets.map((s,i)=>`<button type="button" class="${i===GW.cur?"on":""}" data-gwset="${i}">${esc(s.n)} <i>${s.i.filter(Boolean).length}/6</i></button>`).join("")+(GW.sets.length<3?`<button type="button" class="add" data-gwsetadd>+ เพิ่มเซ็ต</button>`:"");
   const tiles=NS.map(([k,l,ic],si)=>{const n=S.i[si];return `<div class="gw-slot${n?" has":""}${GW.pick===si?" pick":""}" style="--rc:${n?tc(I(n).t):"var(--line)"}">
-    <button type="button" class="gw-sb" data-gwslot="${si}"><span class="gw-si">${n?icon(n):`<span class="gw-se">+</span>`}</span><span class="gw-st2"><small>${l}</small><b>${n?esc(n):`เลือก${l}`}</b>${n?`<i>${I(n).lv?`Lv ${esc(I(n).lv)}`:""}${gwIst(n)?` · ${gwIst(n)}`:""}</i>`:`<i>กดเพื่อเลือก</i>`}</span></button>
+    <button type="button" class="gw-sb" data-gwslot="${si}"><span class="gw-si">${n?icon(n):`<span class="gw-se">+</span>`}</span><span class="gw-st2"><small>${l}</small><b>${n?esc(n):`เลือก${l}`}</b>${n?`<i>${gwIst(n)||esc(I(n).e||"")}</i>`:`<i>กดเพื่อเลือก</i>`}</span></button>
     ${n?`<button type="button" class="gw-sx" data-gwclr="${si}" title="เอาออก" aria-label="เอาออก">×</button>`:""}
     ${si<3?`<div class="gw-sock"><small>ยัด</small>${STATS.map(x=>`<button type="button" class="${S.sk[si]===x?"on":""}" style="--c:${STC[x]}" data-gwsock="${si}|${x}">${x.toUpperCase()}</button>`).join("")}</div>`:""}</div>`}).join("");
   return `<div class="gw-sets">${tabs}</div>
@@ -3379,10 +3383,10 @@ function gwStep3(){const S=GW.sets[GW.cur],cnt=S.i.filter(Boolean).length;
     <div class="gw-slots">${tiles}</div>`}
 function gwSugList(){const q=GW.q.trim().toLowerCase(),slot=NS[GW.pick][0],t=GW.t,curN=GW.sets[GW.cur].i[GW.pick];
   const pool=Object.keys(D.items).filter(n=>gwGear(n)&&gwSlot(n)===slot),own=pool.filter(n=>gwTails(n).includes(t));
-  let L=(slot==="acc"?pool:slot==="pet"?pool.filter(n=>{const ts=gwTails(n);return !ts.length||ts.includes(t)}):own.length?own:pool.filter(n=>!gwTails(n).length)).filter(n=>!q||n.toLowerCase().includes(q));
+  let L=(slot==="acc"?pool.filter(gwIsAcc):slot==="boot"?pool:slot==="pet"?pool.filter(n=>{const ts=gwTails(n);return !ts.length||ts.includes(t)}):own.length?own:pool.filter(n=>!gwTails(n).length)).filter(n=>!q||n.toLowerCase().includes(q));
   L.sort((a,c)=>(+(I(c).lv||0))-(+(I(a).lv||0))||a.localeCompare(c));const tot=L.length,more=tot>80;L=L.slice(0,80);
-  return [L.length?L.map(n=>`<button type="button" class="${n===curN?"on":""}" data-gwput="${esc(n)}" style="--rc:${tc(I(n).t)}">${icon(n)}<span class="gw-sgt"><b>${esc(n)}</b><small>${I(n).lv?`Lv ${esc(I(n).lv)}`:""}${gwIst(n)?` · ${gwIst(n)}`:TYPE[I(n).t]?` · ${esc(TYPE[I(n).t])}`:""}</small></span>${n===curN?"<em>✓</em>":""}</button>`).join("")+(more?`<div class="mk-none">แสดง 80 ชิ้นแรก · พิมพ์ค้นหาเพื่อดูเพิ่ม</div>`:""):`<div class="mk-none">ไม่พบ${NS[GW.pick][1]}ที่ ${esc(t)} ใส่ได้</div>`,tot]}
-function gwSheet(){const [h,n]=gwSugList(),l=NS[GW.pick][1];return `<div class="gw-shh"><div><small>${esc(GW.sets[GW.cur].n)}</small><b>เลือก${l}</b><span id="gwsn">${NS[GW.pick][0]==="acc"?"ใส่ได้ทุกหาง":"ของ "+esc(GW.t)} ${n} ชิ้น</span></div><button type="button" class="icon-btn" data-gwslot="-1" aria-label="ปิด">${gwX}</button></div>
+  return [L.length?L.map(n=>`<button type="button" class="${n===curN?"on":""}" data-gwput="${esc(n)}" style="--rc:${tc(I(n).t)}">${icon(n)}<span class="gw-sgt"><b>${esc(n)}</b><small>${gwIst(n)||esc(I(n).e||"")||esc(TYPE[I(n).t]||"")}</small></span>${n===curN?"<em>✓</em>":""}</button>`).join("")+(more?`<div class="mk-none">แสดง 80 ชิ้นแรก · พิมพ์ค้นหาเพื่อดูเพิ่ม</div>`:""):`<div class="mk-none">ไม่พบ${NS[GW.pick][1]}ที่ ${esc(t)} ใส่ได้</div>`,tot]}
+function gwSheet(){const [h,n]=gwSugList(),l=NS[GW.pick][1];return `<div class="gw-shh"><div><small>${esc(GW.sets[GW.cur].n)}</small><b>เลือก${l}</b><span id="gwsn">${["acc","boot"].includes(NS[GW.pick][0])?"ใส่ได้ทุกหาง":"ของ "+esc(GW.t)} ${n} ชิ้น</span></div><button type="button" class="icon-btn" data-gwslot="-1" aria-label="ปิด">${gwX}</button></div>
   <div class="mk-add gw-shq"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input type="search" id="gwq" autocomplete="off" placeholder="พิมพ์ชื่อ${l}…" value="${esc(GW.q)}"></div>
   <div class="gw-sug" id="gwsug">${h}</div>`}
 function gwKeys(){const t=GW.t,set=skillBuild[t]||new Set(),learned=[...set].sort((a,c)=>a-c),star=new Set(GW.ks.map(x=>x[0]));
@@ -3437,7 +3441,7 @@ document.addEventListener("click",async e=>{const g=a=>e.target.closest("["+a+"]
   if(!$("#gwPop.show"))return;
   if(x=g("data-gwclose")){gwClose();return}
   if(x=g("data-gwgo")){gwGo(+x.dataset.gwgo);return}
-  if(x=g("data-gwtail")){const tl=x.dataset.gwtail;if(GW.t!==tl){GW.t=tl;GW.ic=null;GW.sets=[gwSet("เซ็ตหลัก")];GW.cur=0;GW.ks=[];skillBuild[tl]=skillBuild[tl]||new Set();skillLevel[tl]=skillLevel[tl]??110}gwGo(1);return}
+  if(x=g("data-gwtail")){const tl=x.dataset.gwtail;if(GW.t!==tl){GW.t=tl;GW.ic=null;GW.sets=[gwSet("เซ็ตหลัก")];GW.cur=0;GW.ks=[];skillBuild[tl]=skillBuild[tl]||new Set();skillLevel[tl]=skillLevel[tl]??100}gwGo(1);return}
   if(x=g("data-gwtag")){const v=x.dataset.gwtag,i=GW.tags.indexOf(v);if(i>=0)GW.tags.splice(i,1);else GW.tags.push(v);x.classList.toggle("on",i<0);x.setAttribute("aria-pressed",i<0);gwNextSync();gwSave();return}
   if(x=g("data-gwsnip")){const ta=$('[data-gwf="d"]');if(!ta)return;const s=ta.selectionStart??ta.value.length,pre=ta.value.slice(0,s),ins=(pre&&!pre.endsWith("\n")?"\n":"")+"【"+x.dataset.gwsnip+"】 ";ta.value=(pre+ins+ta.value.slice(ta.selectionEnd??s)).slice(0,1500);ta.focus();ta.selectionStart=ta.selectionEnd=Math.min(1500,pre.length+ins.length);ta.dispatchEvent(new Event("input",{bubbles:true}));return}
   if(x=g("data-gwic")){GW.ic=+x.dataset.gwic||null;ov_cov();gwSave();return}
@@ -3466,7 +3470,7 @@ document.addEventListener("input",e=>{if(!GW||!$("#gwPop.show"))return;const el=
   if(d.gwsv){el.value=el.value.replace(/[^\d]/g,"");GW.st[d.gwsv].v=el.value;gwSave();return}
   if(d.gwksn!==undefined){GW.ks[+d.gwksn][1]=el.value;gwSave();return}
   if(el.hasAttribute("data-gwsetname")){GW.sets[GW.cur].n=el.value.slice(0,24)||"เซ็ต";const b=document.querySelector(`[data-gwset="${GW.cur}"]`);if(b)b.firstChild.textContent=GW.sets[GW.cur].n+" ";gwSave();return}
-  if(el.id==="gwq"){GW.q=el.value;const [h,n]=gwSugList();$("#gwsug").innerHTML=h;$("#gwsn").textContent=`${NS[GW.pick][0]==="acc"?"ใส่ได้ทุกหาง":"ของ "+GW.t} ${n} ชิ้น`}});
+  if(el.id==="gwq"){GW.q=el.value;const [h,n]=gwSugList();$("#gwsug").innerHTML=h;$("#gwsn").textContent=`${["acc","boot"].includes(NS[GW.pick][0])?"ใส่ได้ทุกหาง":"ของ "+GW.t} ${n} ชิ้น`}});
 document.addEventListener("keydown",e=>{if(!$("#gwPop.show"))return;if(e.key==="Escape"){e.stopPropagation();if(GW.pick!=null){GW.pick=null;gwRender()}else gwClose();return}
   if(e.key==="Enter"&&e.target.matches('[data-gwf="n"],[data-gwf="a"]')){e.preventDefault();const n=$("#gwNext");if(n&&!n.disabled)n.click()}},true);
 const _skRedraw2=skRedraw;skRedraw=function(h){_skRedraw2(h);const k=document.getElementById("gwks");if(k&&GW&&GW.t===h){k.innerHTML=gwKeys();gwSave()}};
@@ -3567,8 +3571,8 @@ function rdGauges(p){const st=p.g&&p.g.st;if(st&&Object.keys(st).length){const n
   return top.map(([k,n])=>`<div class="rd2-g num" style="--c:${STC[k]}"><b>${k.toUpperCase()}</b><span class="rd2-gb"><i style="width:${Math.round(n/mx*100)}%"></i></span><em>${fmt(n)}</em></div>`).join("")}
 function rdGear(){const S=RD.sets,cur=Math.min(RD.set,S.length-1),s=S[cur];if(!S.some(z=>z.i.some(Boolean)))return `<p class="rd2-empty">ไกด์นี้ไม่ได้ระบุอุปกรณ์</p>`;
   return `${S.filter(z=>z.i.some(Boolean)).length>1?`<div class="rd2-tabs">${S.map((z,i)=>!z.i.some(Boolean)?"":`<button type="button" class="${i===cur?"on":""}" data-rdset="${i}">${esc(z.n)} <i>${z.i.filter(Boolean).length}</i></button>`).join("")}</div>`:""}
-  <div class="rd2-gear">${NS.map(([k,l,ic],i)=>{const n=s.i[i],sk=s.sk&&s.sk[i];return n?`<div class="rd2-slot" style="--rc:${tc(I(n).t)}"><span class="rd2-sl">${l}</span><span class="rd2-si">${icon(n)}</span><span class="rd2-st"><b>${esc(n)}</b><small>${I(n).lv?`Lv ${esc(I(n).lv)}`:""}${gwIst(n)?` · ${gwIst(n)}`:""}</small></span>${sk?`<em class="rd2-sock" style="--c:${STC[sk]}">ยัด ${sk.toUpperCase()}</em>`:""}</div>`:""}).join("")}</div>`}
-function rdTree(p){const h=p.t;if(!(D.skills||{})[h])return "";const sb=skillBuild[h],sl=skillLevel[h];skillBuild[h]=new Set((p.k||[]).map(Number));skillLevel[h]=p.l||110;let s;
+  <div class="rd2-gear">${NS.map(([k,l,ic],i)=>{const n=s.i[i],sk=s.sk&&s.sk[i];return n?`<div class="rd2-slot" style="--rc:${tc(I(n).t)}"><span class="rd2-sl">${l}</span><span class="rd2-si">${icon(n)}</span><span class="rd2-st"><b>${esc(n)}</b><small>${gwIst(n)||esc(I(n).e||"")}</small></span>${sk?`<em class="rd2-sock" style="--c:${STC[sk]}">ยัด ${sk.toUpperCase()}</em>`:""}</div>`:""}).join("")}</div>`}
+function rdTree(p){const h=p.t;if(!(D.skills||{})[h])return "";const sb=skillBuild[h],sl=skillLevel[h];skillBuild[h]=new Set((p.k||[]).map(Number));skillLevel[h]=Math.min(100,p.l||100);let s;
   try{s=skInner(h)}finally{if(sb)skillBuild[h]=sb;else delete skillBuild[h];if(sl===undefined)delete skillLevel[h];else skillLevel[h]=sl}
   s=s.replace(/<h4>[\s\S]*?<\/h4>/,"").replace(/<div class="skbar">[\s\S]*?<\/div>/,"");
   (p.ks||[]).forEach(([c],i)=>{s=s.replace(`data-sk="${h}|${c}"`,`data-sk="${h}|${c}" data-ksn="${i+1}"`)});
@@ -3587,7 +3591,7 @@ function brdRead(id){const x=(BRD.list||[]).find(y=>y.id===id);if(!x)return;cons
   ov.innerHTML=`<div class="lvpop-card rd2 rd3" style="--acc:${acc}">
    <header class="rd3-h">${art?`<img class="rd3-hart" src="${art}" alt="">`:""}
     <span class="rd3-cov${p.ic?" sk":""}">${coverImg(p,art)}</span>
-    <div class="rd3-tt"><span class="rd2-k">${esc(h)} · ${esc(v.th)}${cls?` · ${esc(cls)}`:""} · Lv ${p.l}</span><h2>${esc(p.n)}</h2>
+    <div class="rd3-tt"><span class="rd2-k">${esc(h)} · ${esc(v.th)}${cls?` · ${esc(cls)}`:""} · Skill Lv ${Math.min(100,p.l||100)}</span><h2>${esc(p.n)}</h2>
      <div class="rd2-meta">${x.tags.map(g=>`<i class="pin-tag">${esc(g)}</i>`).join("")}<span>โดย <b>${esc(x.author)}</b></span><span>${ago(x.at)}</span><span>👁 <b id="rdViews">${x.views||0}</b></span></div></div>
     ${g?`<div class="rd3-gs">${g}</div>`:""}
     <div class="rd2-acts">${favBtn(x.id,1)}<button type="button" class="pin-like${liked?" on":""}" data-brdlike="${x.id}"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.8 4.5c2.2 0 3.6 1.2 5.2 3 1.6-1.8 3-3 5.2-3 3.8 0 5.9 3.9 4.4 7.3C19.5 16.4 12 21 12 21z"/></svg>${x.likes}</button><button type="button" class="mk-btn" data-rdcopy="${x.id}" title="คัดลอกลิงก์"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg> คัดลอกลิงก์</button><button type="button" class="icon-btn" data-rdclose aria-label="ปิด">${gwX}</button></div>
@@ -3619,7 +3623,7 @@ function goTab(tab,smooth=true){const wasSearch=!!st.q.trim();st.tab=tab;st.q=""
 $("#view").addEventListener("scroll",spy,{passive:true});window.addEventListener("scroll",spy,{passive:true});
 document.addEventListener("click",e=>{
   const t=e.target.closest("[data-open],[data-tab],[data-f],[data-more],[data-dmore],[data-mult],[data-enter],[data-tail],[data-npctail],[data-npccat],[data-npclv],[data-npcbook],[data-pet],[data-quest],[data-qround],[data-openquest],[data-sk],[data-skreset]");if(!t)return;
-  if(t.dataset.sk){const [hh,vv]=t.dataset.sk.split("|"),c=+vv,L=D.skills[hh],set=skillBuild[hh]||(skillBuild[hh]=new Set()),lv=skillLevel[hh]??110;if(set.has(c)){set.delete(c);skillBuild[hh]=skPrune(L,lv,set)}else if(skStatus(L.find(s=>s.c===c),lv,set).k==="open")set.add(c);else{t.classList.remove("deny");void t.offsetWidth;t.classList.add("deny");return}const tip=$("#sktip");skRedraw(hh);const nb=$(`[data-sk="${hh}|${c}"]`);if(nb&&tip&&!tip.hidden)tip.innerHTML=skTip(hh,c);return}
+  if(t.dataset.sk){const [hh,vv]=t.dataset.sk.split("|"),c=+vv,L=D.skills[hh],set=skillBuild[hh]||(skillBuild[hh]=new Set()),lv=skillLevel[hh]??100;if(set.has(c)){set.delete(c);skillBuild[hh]=skPrune(L,lv,set)}else if(skStatus(L.find(s=>s.c===c),lv,set).k==="open")set.add(c);else{t.classList.remove("deny");void t.offsetWidth;t.classList.add("deny");return}const tip=$("#sktip");skRedraw(hh);const nb=$(`[data-sk="${hh}|${c}"]`);if(nb&&tip&&!tip.hidden)tip.innerHTML=skTip(hh,c);return}
   if(t.dataset.skreset){skillBuild[t.dataset.skreset]=new Set();skRedraw(t.dataset.skreset);return}
   if(t.dataset.openquest){questSel.q=+t.dataset.openquest;questSel.r=0;questSel.f="";open("npc:Mimi");setTimeout(()=>{const q=$("#dBody .qbox");q&&q.scrollIntoView({block:"start"});const on=$("#dBody .qli.on");on&&on.scrollIntoView({block:"nearest"})},60);return}
   if(t.dataset.quest||t.dataset.qround){if(t.dataset.quest){questSel.q=+t.dataset.quest;questSel.r=0}else questSel.r=+t.dataset.qround;const qb=$("#dBody .qbox"),ls=qb&&qb.querySelector(".ql").scrollTop,y=$("#dBody").scrollTop;open(st.stack[st.stack.length-1],false);$("#dBody").scrollTop=y;const q2=$("#dBody .ql");if(q2)q2.scrollTop=ls||0;return}
@@ -3637,7 +3641,7 @@ document.addEventListener("click",e=>{
   if(t.dataset.dmore){const k="d"+t.dataset.dmore;st.limit[k]=(st.limit[k]||30)+30;const y=$("#dBody").scrollTop;open(st.stack[st.stack.length-1],false);$("#dBody").scrollTop=y;return}
   if(t.dataset.mult){const k=+t.dataset.mult;mult[k]=Math.max(1,Math.min(99,(mult[k]||1)+ +t.dataset.d));bumpId=k;const y=$("#view").scrollTop;refresh();$("#view").scrollTop=y;bumpId=null}
 });
-document.addEventListener("change",e=>{const sl=e.target.closest("[data-sklv]");if(sl){const h=sl.dataset.sklv,v=Math.max(1,Math.min(110,parseInt(sl.value)||1));skillLevel[h]=v;skillBuild[h]=skPrune(D.skills[h],v,skillBuild[h]||new Set());skRedraw(h);return}const lv=e.target.closest("[data-npclvsel]");if(lv){const n=lv.dataset.npclvsel;npcLv[n]=lv.value;st.limit["d"+n]=30;const y=$("#dBody").scrollTop;open(st.stack[st.stack.length-1],false);$("#dBody").scrollTop=y;$("#dBody").querySelectorAll(".d-sec").forEach((el,i)=>{el.style.setProperty("--i",i);el.classList.add("pop")});return}const s=e.target.closest("[data-fsel]");if(s){st.f[s.dataset.fsel]=s.value;renderView(true)}});
+document.addEventListener("change",e=>{const sl=e.target.closest("[data-sklv]");if(sl){const h=sl.dataset.sklv,v=Math.max(1,Math.min(100,parseInt(sl.value)||1));skillLevel[h]=v;skillBuild[h]=skPrune(D.skills[h],v,skillBuild[h]||new Set());skRedraw(h);return}const lv=e.target.closest("[data-npclvsel]");if(lv){const n=lv.dataset.npclvsel;npcLv[n]=lv.value;st.limit["d"+n]=30;const y=$("#dBody").scrollTop;open(st.stack[st.stack.length-1],false);$("#dBody").scrollTop=y;$("#dBody").querySelectorAll(".d-sec").forEach((el,i)=>{el.style.setProperty("--i",i);el.classList.add("pop")});return}const s=e.target.closest("[data-fsel]");if(s){st.f[s.dataset.fsel]=s.value;renderView(true)}});
 document.addEventListener("input",e=>{if(e.target.id!=="npcq")return;const n=e.target.dataset.npcq;npcQ[n]=e.target.value;st.limit["d"+n]=30;clearTimeout(window.__nqt);window.__nqt=setTimeout(()=>{const y=$("#dBody").scrollTop;open(st.stack[st.stack.length-1],false);$("#dBody").scrollTop=y;const i=$("#npcq");if(i){i.focus();i.setSelectionRange(i.value.length,i.value.length)}},200)});
 document.addEventListener("input",e=>{if(e.target.id!=="qfind")return;questSel.f=e.target.value;clearTimeout(window.__qft);window.__qft=setTimeout(()=>{const y=$("#dBody").scrollTop;open(st.stack[st.stack.length-1],false);$("#dBody").scrollTop=y;const i=$("#qfind");if(i){i.focus();i.setSelectionRange(i.value.length,i.value.length)}},200)});
 let qt;$("#q").addEventListener("input",e=>{clearTimeout(qt);qt=setTimeout(()=>{st.q=e.target.value;renderSide();renderView(true)},180)});
